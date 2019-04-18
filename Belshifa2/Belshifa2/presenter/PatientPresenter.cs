@@ -19,7 +19,7 @@ namespace Belshifa2.presenter
         {
             this.viewInstance = viewInstance;
             if (dbObj == null)
-                dbObj = new SystemDatabase();
+                dbObj = new SystemDatabase(this);
         }
         public void signIn(string username, string password)
         {
@@ -56,7 +56,7 @@ namespace Belshifa2.presenter
             throw new NotImplementedException();
         }
 
-        public void sendRespone(string message)
+        public void modelRespone(string message)
         {
             throw new NotImplementedException();
         }

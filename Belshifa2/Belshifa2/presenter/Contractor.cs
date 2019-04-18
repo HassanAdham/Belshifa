@@ -21,7 +21,7 @@ namespace Belshifa2.presenter
         {
             void signIn(string username, string password);
             void signUp(Patient patient);
-            void sendRespone(string message); //Used when signed in or signed up is valid.
+            void modelRespone(string message); //Used when signed in or signed up is valid.
 
             void getCart(int id);
             void getProfile(int id);
@@ -38,7 +38,7 @@ namespace Belshifa2.presenter
             void sendData(List<Object> returnedValues);
 
             void save();
-            void sendResponse(string response);
+            void modelResponse(string response);
             void sendError(string error);
         }
     }

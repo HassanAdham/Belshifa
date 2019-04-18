@@ -3,19 +3,69 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Oracle.DataAccess.Client;
+using Oracle.DataAccess.Types;
+using Belshifa2.presenter;
 
 namespace Belshifa2.model
 {
     class SystemDatabase
     {
-        public SystemDatabase()
+        private string ordb;
+        private OracleConnection conn;
+        private OracleCommand cmd;
+        private Contractor.PatientPresenterContractor patientPresenterInstance;
+
+        public SystemDatabase(Contractor.PatientPresenterContractor patientPresenterInstance)
         {
-            //Connection w kda.
+            this.patientPresenterInstance = patientPresenterInstance;
+
+            ordb = "Data source = orcl;user id=scott; password = tiger";
+            conn = new OracleConnection(ordb);
+            conn.Open();
         }
 
         public void signIn(string username, string password, bool type)// 0 for patient 1 for pharm
         {
-            throw new NotImplementedException();
+            if(type == false)
+            {
+                cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "CheckPatient";
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.Add("Email", username);
+                cmd.Parameters.Add("Password", OracleDbType.Varchar2 ,System.Data.ParameterDirection.Output);
+                cmd.ExecuteNonQuery();
+              
+                if(password == cmd.Parameters["outputParameter"].Value.ToString())
+                {
+                    patientPresenterInstance.modelRespone("Account is Verified");
+                }
+                else
+                {
+                    patientPresenterInstance.modelRespone("Something is wrong check your username or password");
+                }
+            }
+            else if(type == true)
+            {
+                OracleCommand cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "CheckPharmacist";
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.Add("Email", username);
+                cmd.Parameters.Add("Password", OracleDbType.Varchar2, System.Data.ParameterDirection.Output);
+                cmd.ExecuteNonQuery();
+
+                if (password == cmd.Parameters["outputParameter"].Value.ToString())
+                {
+                    patientPresenterInstance.modelRespone("Account is Verified");
+                }
+                else
+                {
+                    patientPresenterInstance.modelRespone("Something is wrong please Check your username or password");
+                }
+            }
+           
         }
 
         public void signUp(Object person, bool type) // 0 for patient 1 for pharm.
