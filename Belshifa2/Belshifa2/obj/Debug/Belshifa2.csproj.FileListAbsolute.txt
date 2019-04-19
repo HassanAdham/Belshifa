@@ -15,7 +15,6 @@ C:\Users\Rodina\source\repos\Belshifa2\Belshifa2\obj\Debug\Belshifa2.Form4.resou
 C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa2\Belshifa2\bin\Debug\Belshifa2.exe.config
 C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa2\Belshifa2\bin\Debug\Belshifa2.exe
 C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa2\Belshifa2\bin\Debug\Belshifa2.pdb
-C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa2\Belshifa2\obj\Debug\Belshifa2.csprojAssemblyReference.cache
 C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa2\Belshifa2\obj\Debug\Belshifa2.Form2.resources
 C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa2\Belshifa2\obj\Debug\Belshifa2.Form1.resources
 C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa2\Belshifa2\obj\Debug\Belshifa2.LoginForm.resources
@@ -26,3 +25,4 @@ C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa2\Belshifa2\obj\Debug\Belshif
 C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa2\Belshifa2\obj\Debug\Belshifa2.csproj.CoreCompileInputs.cache
 C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa2\Belshifa2\obj\Debug\Belshifa2.exe
 C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa2\Belshifa2\obj\Debug\Belshifa2.pdb
+C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa2\Belshifa2\obj\Debug\Belshifa2.csprojAssemblyReference.cache

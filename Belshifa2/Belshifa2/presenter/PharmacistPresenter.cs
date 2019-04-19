@@ -15,8 +15,8 @@ namespace Belshifa2.presenter
         PharmacistPresenter(Contractor.ViewContractor viewInstance)
         {
             this.viewInstance = viewInstance;
-            if (dbObj == null)
-                dbObj = new SystemDatabase();
+            //if (dbObj == null)
+            //    dbObj = new SystemDatabase(this);
         }
 
         public void getPendingOrders()
@@ -39,7 +39,7 @@ namespace Belshifa2.presenter
             throw new NotImplementedException();
         }
 
-        public void sendResponse(string response)
+        public void modelResponse(string response)
         {
             throw new NotImplementedException();
         }

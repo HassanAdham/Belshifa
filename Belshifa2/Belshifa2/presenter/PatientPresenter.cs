@@ -21,9 +21,9 @@ namespace Belshifa2.presenter
             if (dbObj == null)
                 dbObj = new SystemDatabase(this);
         }
-        public void signIn(string username, string password)
+        public void signIn(string email, string password)
         {
-            throw new NotImplementedException();
+            dbObj.signIn(email, password, false); //Patient
         }
 
         public void signUp(Patient patient)

@@ -31,19 +31,26 @@ namespace Belshifa2.model
             {
                 cmd = new OracleCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "CheckPatient";
+                cmd.CommandText = "CHECKPATIENT";
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.Add("Email", username);
-                cmd.Parameters.Add("Password", OracleDbType.Varchar2 ,System.Data.ParameterDirection.Output);
+                cmd.Parameters.Add("Password", OracleDbType.Varchar2, System.Data.ParameterDirection.Output);
                 cmd.ExecuteNonQuery();
-              
-                if(password == cmd.Parameters["outputParameter"].Value.ToString())
+
+                try
                 {
-                    patientPresenterInstance.modelRespone("Account is Verified");
+                    if (password == cmd.Parameters["outputParameter"].Value.ToString())
+                    {
+                        patientPresenterInstance.modelRespone("Account is Verified");
+                    }
+                    else
+                    {
+                        patientPresenterInstance.modelRespone("Something is wrong check your username or password");
+                    }
                 }
-                else
+                catch
                 {
-                    patientPresenterInstance.modelRespone("Something is wrong check your username or password");
+                    patientPresenterInstance.modelRespone("Error connecting to the database");
                 }
             }
             else if(type == true)
