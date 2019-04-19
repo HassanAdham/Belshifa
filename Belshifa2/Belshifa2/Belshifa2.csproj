@@ -46,51 +46,57 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pharm%27sForm.cs">
+    <Compile Include="dataClasses\Patient.cs" />
+    <Compile Include="dataClasses\Pharmacist.cs" />
+    <Compile Include="model\SystemDatabase.cs" />
+    <Compile Include="view\Pharm%27sForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pharm%27sForm.Designer.cs">
+    <Compile Include="view\Pharm%27sForm.Designer.cs">
       <DependentUpon>Pharm%27sForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="User%27sForm.cs">
+    <Compile Include="presenter\Contractor.cs" />
+    <Compile Include="presenter\PatientPresenter.cs" />
+    <Compile Include="presenter\PharmacistPresenter.cs" />
+    <Compile Include="view\User%27sForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="User%27sForm.Designer.cs">
+    <Compile Include="view\User%27sForm.Designer.cs">
       <DependentUpon>User%27sForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginForm.cs">
+    <Compile Include="view\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginForm.Designer.cs">
+    <Compile Include="view\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="User%27sSignUp.cs">
+    <Compile Include="view\User%27sSignUp.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="User%27sSignUp.Designer.cs">
+    <Compile Include="view\User%27sSignUp.Designer.cs">
       <DependentUpon>User%27sSignUp.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pharm%27sSignUp.cs">
+    <Compile Include="view\Pharm%27sSignUp.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pharm%27sSignUp.Designer.cs">
+    <Compile Include="view\Pharm%27sSignUp.Designer.cs">
       <DependentUpon>Pharm%27sSignUp.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Pharm%27sForm.resx">
+    <EmbeddedResource Include="view\Pharm%27sForm.resx">
       <DependentUpon>Pharm%27sForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="User%27sForm.resx">
+    <EmbeddedResource Include="view\User%27sForm.resx">
       <DependentUpon>User%27sForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginForm.resx">
+    <EmbeddedResource Include="view\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="User%27sSignUp.resx">
+    <EmbeddedResource Include="view\User%27sSignUp.resx">
       <DependentUpon>User%27sSignUp.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pharm%27sSignUp.resx">
+    <EmbeddedResource Include="view\Pharm%27sSignUp.resx">
       <DependentUpon>Pharm%27sSignUp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -149,5 +155,6 @@
   <ItemGroup>
     <None Include="Resources\images.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
