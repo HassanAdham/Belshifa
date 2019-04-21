@@ -3,30 +3,62 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Belshifa2.presenter;
+using Belshifa2.dataClasses;
 using Belshifa2.model;
 namespace Belshifa2.presenter
 {
-    public class PharmacistPresenter : Contractor.PharmacistPresenterContractor
+    class PharmacistPresenter : Contractor.PresenterContractor
     {
+        int id;
         Contractor.ViewContractor viewInstance;
         SystemDatabase dbObj;
 
-
-        PharmacistPresenter(Contractor.ViewContractor viewInstance)
+        public PharmacistPresenter(Contractor.ViewContractor viewInstance)
         {
+            id = 0;
             this.viewInstance = viewInstance;
-            //if (dbObj == null)
-            //    dbObj = new SystemDatabase(this);
+            dbObj = new SystemDatabase(this);
         }
 
-        public void getPendingOrders()
+        public void signIn(string username, string password)
+        {
+            dbObj.signIn(username, password, true);
+        }
+
+        public void signUp(object person)
         {
             throw new NotImplementedException();
         }
 
-        public void save() //After editing pending orders to approved an rejected, save the changes.
+        public bool doesItExist(string email)
         {
             throw new NotImplementedException();
+        }
+
+        public void getProfile(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void getOrderHistory(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void getPendingOrders(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void modelErrorMessage(string message)
+        {
+            viewInstance.displayError(message);
+        }
+
+        public void modelResponse(string message)
+        {
+            viewInstance.displayMessage(message);
         }
 
         public void sendData(List<object> returnedValues)
@@ -34,14 +66,10 @@ namespace Belshifa2.presenter
             throw new NotImplementedException();
         }
 
-        public void sendError(string error)
+        public void save(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void modelResponse(string response)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

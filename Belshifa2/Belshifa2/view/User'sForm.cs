@@ -14,11 +14,19 @@ namespace Belshifa2
     public partial class Form1 : Form, Contractor.ViewContractor
     {
         PatientPresenter patientPresenter;
+        PharmacistPresenter pharmacistPresenter;
         public Form1()
         {
             InitializeComponent();
             patientPresenter = new PatientPresenter(this);
-            patientPresenter.signIn("Rodina", "Password");
+            patientPresenter.signIn("Rodaina", "Password");
+
+            pharmacistPresenter = new PharmacistPresenter(this);
+            pharmacistPresenter.signIn("ali_hussien", "ezabyworker");
+
+            patientPresenter = new PatientPresenter(this);
+            patientPresenter.signIn("Rodaina", "Password1");
+
         }
 
         public void display(List<object> returnedValues)
@@ -28,7 +36,7 @@ namespace Belshifa2
 
         public void displayError(string error)
         {
-            throw new NotImplementedException();
+            MessageBox.Show(error);
         }
 
         public void displayMessage(string message)

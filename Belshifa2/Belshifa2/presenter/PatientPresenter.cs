@@ -7,36 +7,50 @@ using Belshifa2.dataClasses;
 using Belshifa2.model;
 namespace Belshifa2.presenter
 {
-    class PatientPresenter : Contractor.PatientPresenterContractor
+    class PatientPresenter : Contractor.PresenterContractor
     {
 
         Contractor.ViewContractor viewInstance;
         SystemDatabase dbObj;
         Patient currentPatient;
-
+        List<Medecine> cart;
+        int id;
 
         public PatientPresenter(Contractor.ViewContractor viewInstance)
         {
+            id = 0;
+            cart = new List<Medecine>();
             this.viewInstance = viewInstance;
-            if (dbObj == null)
-                dbObj = new SystemDatabase(this);
+            dbObj = new SystemDatabase(this);
         }
+
         public void signIn(string email, string password)
         {
             dbObj.signIn(email, password, false); //Patient
         }
 
-        public void signUp(Patient patient)
+        public void modelResponse(string message)
+        {
+            viewInstance.displayMessage(message);
+        }
+
+        public void signUp(Object Person)
+        {
+
+        }
+
+        public bool doesItExist(string email)
+        {
+            //Call database.
+            return false;
+        }
+
+        public void getCart(int id)
         {
             throw new NotImplementedException();
         }
 
         public void getProfile(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void getCart(int id)
         {
             throw new NotImplementedException();
         }
@@ -51,14 +65,20 @@ namespace Belshifa2.presenter
             throw new NotImplementedException();
         }
 
+        public void order(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void sendData(List<object> returnedValues)
         {
             throw new NotImplementedException();
         }
 
-        public void modelRespone(string message)
+        public void modelErrorMessage(string message)
         {
             throw new NotImplementedException();
         }
+
     }
 }

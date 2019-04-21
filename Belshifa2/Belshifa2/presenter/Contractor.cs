@@ -17,29 +17,20 @@ namespace Belshifa2.presenter
             void displayMessage(string message);
         }
 
-        public interface PatientPresenterContractor
+        public interface PresenterContractor
         {
             void signIn(string username, string password);
-            void signUp(Patient patient);
-            void modelRespone(string message); //Used when signed in or signed up is valid.
+            void signUp(Object person);
 
-            void getCart(int id);
+            bool doesItExist(string email);
+
             void getProfile(int id);
             void getOrderHistory(int id);
             void getPendingOrders(int id);
 
             void sendData(List<Object> returnedValues);
-        }
-
-
-        public interface PharmacistPresenterContractor
-        {
-            void getPendingOrders();
-            void sendData(List<Object> returnedValues);
-
-            void save();
-            void modelResponse(string response);
-            void sendError(string error);
+            void modelResponse(string message);
+            void modelErrorMessage(string message);
         }
     }
 }

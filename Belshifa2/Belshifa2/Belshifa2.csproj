@@ -49,9 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="dataClasses\Medecine.cs" />
     <Compile Include="dataClasses\Patient.cs" />
     <Compile Include="dataClasses\Pharmacist.cs" />
     <Compile Include="model\SystemDatabase.cs" />
+    <Compile Include="presenter\PharmacistPresenter.cs" />
     <Compile Include="view\Pharm%27sForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,7 +62,6 @@
     </Compile>
     <Compile Include="presenter\Contractor.cs" />
     <Compile Include="presenter\PatientPresenter.cs" />
-    <Compile Include="presenter\PharmacistPresenter.cs" />
     <Compile Include="view\User%27sForm.cs">
       <SubType>Form</SubType>
     </Compile>
