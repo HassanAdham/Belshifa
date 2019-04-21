@@ -21,7 +21,7 @@ namespace Belshifa2.model
         {
             this.presenterInstance = patientPresenterInstance;
 
-            ordb = "Data source = orcl;user id=hr; password =hr";
+            ordb = "Data source = oracle;user id=scott; password =tiger";
             conn = new OracleConnection(ordb);
             conn.Open();
         }
@@ -158,8 +158,35 @@ namespace Belshifa2.model
         }
 
         public void getProfile(string key, bool type)
-        { 
-            throw new NotImplementedException();
+        {
+            if (type == false)
+            {
+                cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = " GetPatientProfile"; ;
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.Add("Email", key);
+                cmd.Parameters.Add("results", OracleDbType.Object, System.Data.ParameterDirection.Output);
+                object obj = cmd.Parameters["resultt"].Value;
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+
+
+            }
+            else
+            {
+                cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = " GetPharmacistProfile"; ;
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.Add("Email", key);
+                cmd.Parameters.Add("results", OracleDbType.Object, System.Data.ParameterDirection.Output);
+                object obj = cmd.Parameters["resultt"].Value;
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+
+
         }
 
         public void getOrderHistory(string key) // for patient.
@@ -174,12 +201,41 @@ namespace Belshifa2.model
 
         public void getMedicines(int sec_id)
         {
+            cmd = new OracleCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "GetMedicines"; ;
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add("id", sec_id);
+            cmd.Parameters.Add("results", OracleDbType.RefCursor, System.Data.ParameterDirection.Output);
+            try
+            {
+                OracleDataReader rs = cmd.ExecuteReader();
+                if (rs.Read())
+                {
+                    presenterInstance.modelResponse("Medicine is valid");
+                }
+                else
+                {
+                    presenterInstance.modelResponse("Medicine is invalid please check the section again");
+                }
+                rs.Close();
 
+            }
+
+            catch
+            {
+                presenterInstance.modelErrorMessage("Error connecting to the database");
+            }
+            cmd.Dispose();
         }
 
         public void getSections()
         {
-
+            cmd = new OracleCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "select * from Sections";
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.ExecuteNonQuery();
         }
     }
 }
