@@ -77,7 +77,7 @@ namespace Belshifa2.presenter
 
         public void modelErrorMessage(string message)
         {
-            throw new NotImplementedException();
+            viewInstance.displayError(message);
         }
 
     }
