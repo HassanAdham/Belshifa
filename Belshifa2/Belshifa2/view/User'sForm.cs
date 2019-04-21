@@ -19,13 +19,13 @@ namespace Belshifa2
         {
             InitializeComponent();
             patientPresenter = new PatientPresenter(this);
-            patientPresenter.signIn("Rodaina", "Password");
+            patientPresenter.signIn("roo@gmail.com", "roo");
 
             pharmacistPresenter = new PharmacistPresenter(this);
             pharmacistPresenter.signIn("ali_hussien", "ezabyworker");
 
             patientPresenter = new PatientPresenter(this);
-            patientPresenter.signIn("Rodaina", "Password1");
+            patientPresenter.signIn("dinaroo", "roos");
 
         }
 
@@ -65,5 +65,139 @@ namespace Belshifa2
             flowLayoutPanel2.Controls.Add(newPictureBox);
         }
 
+        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Loginregister_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Search_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Medicines_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Cosemetics_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void healthbodycare_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void babycare_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void flowLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pictureBox9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox14_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox16_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox8_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

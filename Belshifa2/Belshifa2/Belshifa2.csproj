@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Oracle.DataAccess">
-      <HintPath>..\..\..\..\..\..\Downloads\DB'19\Database\Labs\Lab 1\ODP2_Connected_Start\ODP1_Connected_Start\bin\Debug\Oracle.DataAccess.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\app\Rodina\product\11.2.0\dbhome_1\ODP.NET\bin\2.x\Oracle.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -21,7 +21,7 @@ namespace Belshifa2.model
         {
             this.presenterInstance = patientPresenterInstance;
 
-            ordb = "Data source = orcl;user id=hr; password =hr";
+            ordb = "Data source = oracle;user id=scott; password =tiger";
             conn = new OracleConnection(ordb);
             conn.Open();
         }
@@ -31,50 +31,67 @@ namespace Belshifa2.model
             //Patient
             if (type == false)
             {
-                //Step A.4
+                //Step A.2
                 cmd = new OracleCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "CHECKPATIENT";
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.Add("Email", username.ToString());
-                cmd.Parameters.Add("Password", OracleDbType.Varchar2,20,20, System.Data.ParameterDirection.Output);
+                cmd.CommandText = "select EMAIL , P_PASSWORD from PATIENT where EMAIL = :em and P_PASSWORD = :pass";
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.Parameters.Add("Email", username);
+                cmd.Parameters.Add("Password", password);
 
+                
                 try
                 {
-                    cmd.ExecuteNonQuery();
-                    if (password == cmd.Parameters["Password"].Value.ToString())
+                    OracleDataReader rs = cmd.ExecuteReader();
+                    if (rs.Read())
+                    {
                         presenterInstance.modelResponse("Account is Verified");
+                    }
                     else
+                    {
                         presenterInstance.modelResponse("Something is wrong check your username or password");
+                    }
+                    rs.Close();
+                   
                 }
+             
                 catch
                 {
                     presenterInstance.modelErrorMessage("Error connecting to the database");
                 }
+                cmd.Dispose();
             }
+
             //Pharmacist
             else if (type == true)
             {
+
                 cmd = new OracleCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "CheckPharmacist";
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.CommandText = "select PH_USERNAME , PH_PASSWORD from PHARMACIST where PH_USERNAME = :em and PH_PASSWORD = :pass";
+                cmd.CommandType = System.Data.CommandType.Text;
                 cmd.Parameters.Add("Email", username);
-                cmd.Parameters.Add("Password", OracleDbType.Varchar2, 20, 20, System.Data.ParameterDirection.Output);
-
+                cmd.Parameters.Add("Password", password);
                 try
                 {
-                    cmd.ExecuteNonQuery();
-                    if (password == cmd.Parameters["Password"].Value.ToString())
+                    OracleDataReader rs = cmd.ExecuteReader();
+                    if (rs.Read())
+                    {
                         presenterInstance.modelResponse("Account is Verified");
+                    }
                     else
-                        presenterInstance.modelResponse("Something is wrong please Check your username or password");
+                    {
+                        presenterInstance.modelResponse("Something is wrong check your username or password");
+                    }
+                    rs.Close();
+
                 }
+
                 catch
                 {
                     presenterInstance.modelErrorMessage("Error connecting to the database");
                 }
-
+                cmd.Dispose();
             }
            
         }
