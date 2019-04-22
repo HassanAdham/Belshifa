@@ -21,7 +21,7 @@ namespace Belshifa2.model
         {
             this.presenterInstance = patientPresenterInstance;
 
-            ordb = "Data source = oracle;user id=scott; password =tiger";
+            ordb = "Data source = orcl;user id=hr; password =hr";
             conn = new OracleConnection(ordb);
             conn.Open();
         }
@@ -45,6 +45,7 @@ namespace Belshifa2.model
                     OracleDataReader rs = cmd.ExecuteReader();
                     if (rs.Read())
                     {
+                        presenterInstance.set_key(username);
                         presenterInstance.modelResponse("Account is Verified");
                     }
                     else
@@ -61,7 +62,6 @@ namespace Belshifa2.model
                 }
                 cmd.Dispose();
             }
-
             //Pharmacist
             else if (type == true)
             {
@@ -77,6 +77,7 @@ namespace Belshifa2.model
                     OracleDataReader rs = cmd.ExecuteReader();
                     if (rs.Read())
                     {
+                        presenterInstance.set_key(username);
                         presenterInstance.modelResponse("Account is Verified");
                     }
                     else
@@ -93,25 +94,52 @@ namespace Belshifa2.model
                 }
                 cmd.Dispose();
             }
-           
         }
 
-        public void signUp(Object person, bool type) // 0 for patient 1 for pharm.
+        public void signUp(Object person, bool type)
         {
             cmd = new OracleCommand();
-            if (!type) //Patient
+            cmd.Connection = conn;
+            //A.3 Insert
+            //Patient
+            if (!type)
             {
                 Patient patient = (Patient)person;
                 cmd.CommandText = @"Insert into Patient
-                                    values(:email, :p_fname, :p_lname, :address, :phone, :payment, p_password)";
-                cmd.Parameters.Add("email", patient.get_email());
-                cmd.Parameters.Add("p_fname", patient.get_f_name());
-                cmd.Parameters.Add("p_lname", patient.get_l_name());
-                cmd.Parameters.Add("address", patient.get_address());
-                cmd.Parameters.Add("payment", patient.get_payment());
-                cmd.Parameters.Add("p_password", patient.get_password());
-                cmd.Parameters.Add("phone", Int32.Parse(patient.get_phone()));
-                cmd.Parameters.Add("birthdate",OracleDate.Parse(patient.get_birthdate()));
+                                    values(:email, :p_fname, :p_lname, :address, :phone, :payment, :birthdate, :p_password)";
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.Parameters.Add("email", patient.get_email().ToString().ToString());
+                cmd.Parameters.Add("p_fname", patient.get_f_name().ToString());
+                cmd.Parameters.Add("p_lname", patient.get_l_name().ToString());
+                cmd.Parameters.Add("address", patient.get_address().ToString());
+                cmd.Parameters.Add("phone", patient.get_phone().ToString());
+                cmd.Parameters.Add("payment", patient.get_payment().ToString());
+                cmd.Parameters.Add("birthdate", patient.get_birthdate().ToString());
+                cmd.Parameters.Add("p_password", patient.get_password().ToString());
+
+                try
+                {
+                    int numOfRowsAffected = cmd.ExecuteNonQuery();
+                    if (numOfRowsAffected == 1)
+                        presenterInstance.modelResponse("Account is created successfully!");
+                    else
+                        presenterInstance.modelResponse("Please make sure of your input!");
+                }
+                catch
+                {
+                    presenterInstance.modelErrorMessage("Error connecting to the database");
+                }
+            }
+            //A.6 Insert
+            //Pharmacist.
+            else
+            {
+                Pharmacist pharmacist = (Pharmacist)person;
+                cmd.CommandText = "addPharmacist";
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.Add("username", pharmacist.get_username());
+                cmd.Parameters.Add("password", pharmacist.get_password());
+                cmd.Parameters.Add("id", pharmacist.get_pharmacy_id().ToString());
 
                 try
                 {
@@ -127,28 +155,19 @@ namespace Belshifa2.model
                     presenterInstance.modelErrorMessage("Error connecting to the database");
                 }
             }
-            else //Pharmacist.
-            {
-
-            }
         }
 
-        public void getProfile(int id, bool type) // 0 for patient 1 for pharm.
+        public void getProfile(string key, bool type)
+        { 
+            throw new NotImplementedException();
+        }
+
+        public void getOrderHistory(string key) // for patient.
         {
             throw new NotImplementedException();
         }
 
-        public void getOrderHistory(int id) // for patient.
-        {
-            throw new NotImplementedException();
-        }
-
-        public void getPatientPendingOrders(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void getPharmacistPendingOrders(int id)
+        public void getPatientPendingOrders(string key)
         {
             throw new NotImplementedException();
         }

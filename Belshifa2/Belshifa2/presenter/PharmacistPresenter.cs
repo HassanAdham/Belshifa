@@ -10,13 +10,18 @@ namespace Belshifa2.presenter
 {
     class PharmacistPresenter : Contractor.PresenterContractor
     {
-        int id;
+        string username;
         Contractor.ViewContractor viewInstance;
         SystemDatabase dbObj;
 
+
+        public PharmacistPresenter()
+        {
+            username = "";
+        }
         public PharmacistPresenter(Contractor.ViewContractor viewInstance)
         {
-            id = 0;
+            username = "";
             this.viewInstance = viewInstance;
             dbObj = new SystemDatabase(this);
         }
@@ -28,7 +33,7 @@ namespace Belshifa2.presenter
 
         public void signUp(object person)
         {
-            throw new NotImplementedException();
+            dbObj.signUp(person, true);
         }
 
         public bool doesItExist(string email)
@@ -36,9 +41,10 @@ namespace Belshifa2.presenter
             throw new NotImplementedException();
         }
 
-        public void getProfile(int id)
+        public void getProfile()
         {
-            throw new NotImplementedException();
+            if (this.username != "")
+                dbObj.getProfile(username, true);
         }
 
         public void getOrderHistory(int id)
@@ -69,6 +75,19 @@ namespace Belshifa2.presenter
         public void save(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public void set_key(string username)
+        {
+            this.username = username;
+        }
+        public string get_key()
+        {
+            return this.username;
+        }
+        public void clear_key()
+        {
+            this.username = "";
         }
 
     }

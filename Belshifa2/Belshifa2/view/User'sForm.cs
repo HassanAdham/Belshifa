@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Belshifa2.presenter;
+using Belshifa2.dataClasses;
 
 namespace Belshifa2
 {
@@ -19,13 +20,13 @@ namespace Belshifa2
         {
             InitializeComponent();
             patientPresenter = new PatientPresenter(this);
-            patientPresenter.signIn("roo@gmail.com", "roo");
+
+            Patient newPatient = new Patient("Abduallah", "Ahmad", "1234", "Nozha", "0102345", "abdullah@gmail.com", "Cash", "1-April-2019");
+            patientPresenter.signUp(newPatient);
 
             pharmacistPresenter = new PharmacistPresenter(this);
-            pharmacistPresenter.signIn("ali_hussien", "ezabyworker");
-
-            patientPresenter = new PatientPresenter(this);
-            patientPresenter.signIn("dinaroo", "roos");
+            Pharmacist newPharmacist = new Pharmacist("Sayed", "Nadia", 1);
+            pharmacistPresenter.signUp(newPharmacist);
 
         }
 

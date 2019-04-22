@@ -50,8 +50,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="dataClasses\Medecine.cs" />
+    <Compile Include="dataClasses\Order.cs" />
     <Compile Include="dataClasses\Patient.cs" />
     <Compile Include="dataClasses\Pharmacist.cs" />
+    <Compile Include="dataClasses\Section.cs" />
     <Compile Include="model\SystemDatabase.cs" />
     <Compile Include="presenter\PharmacistPresenter.cs" />
     <Compile Include="view\Pharm%27sForm.cs">

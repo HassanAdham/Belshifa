@@ -25,6 +25,7 @@ namespace Belshifa2.dataClasses
             this.f_name = f_name;
             this.l_name = l_name;
             this.address = address;
+            this.payment = payment;
             this.password = password;
             this.birthdate = birthdate;
         }

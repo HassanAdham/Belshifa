@@ -14,11 +14,16 @@ namespace Belshifa2.presenter
         SystemDatabase dbObj;
         Patient currentPatient;
         List<Medecine> cart;
-        int id;
+        string email;
 
+        public PatientPresenter()
+        {
+            email = "";
+            cart = new List<Medecine>();
+        }
         public PatientPresenter(Contractor.ViewContractor viewInstance)
         {
-            id = 0;
+            email = "";
             cart = new List<Medecine>();
             this.viewInstance = viewInstance;
             dbObj = new SystemDatabase(this);
@@ -34,9 +39,9 @@ namespace Belshifa2.presenter
             viewInstance.displayMessage(message);
         }
 
-        public void signUp(Object Person)
+        public void signUp(object person)
         {
-
+            dbObj.signUp(person, false);
         }
 
         public bool doesItExist(string email)
@@ -50,9 +55,10 @@ namespace Belshifa2.presenter
             throw new NotImplementedException();
         }
 
-        public void getProfile(int id)
+        public void getProfile()
         {
-            throw new NotImplementedException();
+            if (this.email != "")
+                dbObj.getProfile(this.email, false);
         }
 
         public void getOrderHistory(int id)
@@ -78,6 +84,19 @@ namespace Belshifa2.presenter
         public void modelErrorMessage(string message)
         {
             viewInstance.displayError(message);
+        }
+
+        public void set_key(string email) //When signing in.
+        {
+            this.email = email;
+        }
+        public string get_key()
+        {
+            return this.email;
+        }
+        public void clear_key() //When signing out.
+        {
+            this.email = "";
         }
 
     }

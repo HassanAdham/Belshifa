@@ -24,10 +24,13 @@ namespace Belshifa2.presenter
 
             bool doesItExist(string email);
 
-            void getProfile(int id);
+            void getProfile(); //email or username.
             void getOrderHistory(int id);
             void getPendingOrders(int id);
 
+            void set_key(string key);
+            string get_key();
+            void clear_key();
             void sendData(List<Object> returnedValues);
             void modelResponse(string message);
             void modelErrorMessage(string message);
