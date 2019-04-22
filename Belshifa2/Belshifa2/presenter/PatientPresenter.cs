@@ -13,18 +13,19 @@ namespace Belshifa2.presenter
         Contractor.ViewContractor viewInstance;
         SystemDatabase dbObj;
         Patient currentPatient;
-        List<Medecine> cart;
+        List<int> cart;
         string email;
 
         public PatientPresenter()
         {
             email = "";
-            cart = new List<Medecine>();
+            cart = new List<int>();
         }
         public PatientPresenter(Contractor.ViewContractor viewInstance)
         {
             email = "";
-            cart = new List<Medecine>();
+            currentPatient = new Patient();
+            cart = new List<int>();
             this.viewInstance = viewInstance;
             dbObj = new SystemDatabase(this);
         }
@@ -33,12 +34,6 @@ namespace Belshifa2.presenter
         {
             dbObj.signIn(email, password, false); //Patient
         }
-
-        public void modelResponse(string message)
-        {
-            viewInstance.displayMessage(message);
-        }
-
         public void signUp(object person)
         {
             dbObj.signUp(person, false);
@@ -50,15 +45,12 @@ namespace Belshifa2.presenter
             return false;
         }
 
-        public void getCart(int id)
+        public List<int> get_Cart()
         {
-            throw new NotImplementedException();
-        }
-
-        public void getProfile()
-        {
-            if (this.email != "")
-                dbObj.getProfile(this.email, false);
+            if (email != "")
+                return this.cart;
+            else
+                return null;
         }
 
         public void getOrderHistory(int id)
@@ -71,32 +63,60 @@ namespace Belshifa2.presenter
             throw new NotImplementedException();
         }
 
-        public void order(int id)
+        public void order()
         {
-            throw new NotImplementedException();
+            if(email!="")
+                dbObj.makeOrder(this.email, cart);
         }
 
-        public void sendData(List<object> returnedValues)
+        public void modelResponse(string message)
         {
-            throw new NotImplementedException();
+            viewInstance.displayMessage(message);
         }
-
+        public void sendData(List<object> returnedValues, string type)
+        {
+            viewInstance.display(returnedValues, type);
+        }
         public void modelErrorMessage(string message)
         {
             viewInstance.displayError(message);
         }
 
-        public void set_key(string email) //When signing in.
+        public void set_profile(string email) //When signing in.
         {
             this.email = email;
+            this.currentPatient = (Patient)dbObj.getProfile(email, false);
+        }
+        public object get_profile()
+        {
+            return this.currentPatient;
         }
         public string get_key()
         {
             return this.email;
         }
-        public void clear_key() //When signing out.
+        public void clear_person() //When signing out.
         {
             this.email = "";
+            this.currentPatient = new Patient();
+            cart.Clear();
+        }
+
+        public void get_sections()
+        {
+            dbObj.getSections();
+        }
+        public void get_medicines(int sec_id)
+        {
+            dbObj.getMedicines(sec_id);
+        }
+
+        public void add_To_Cart(int medicine_id)
+        {
+            if (email != "")
+                cart.Add(medicine_id);
+            else
+                viewInstance.displayMessage("Please sign in first!");
         }
 
     }

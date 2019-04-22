@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Belshifa2.dataClasses
 {
-    class Medecine
+    class Medicine
     {
         private int id; //Primary key.
         private string name;
@@ -20,7 +20,7 @@ namespace Belshifa2.dataClasses
         private int sec_id;
         private string image_src;
 
-        public Medecine(int id, string name, int quantity, float price,
+        public Medicine(int id, string name, int quantity, float price,
                         string side_effects, string usage, string precautions,
                         string drug_drug_interaction, string drug_food_interaction,
                         int sec_id, string image_src)

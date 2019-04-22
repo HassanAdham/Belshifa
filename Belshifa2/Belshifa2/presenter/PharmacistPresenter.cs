@@ -11,6 +11,7 @@ namespace Belshifa2.presenter
     class PharmacistPresenter : Contractor.PresenterContractor
     {
         string username;
+        Pharmacist currentPharmacist;
         Contractor.ViewContractor viewInstance;
         SystemDatabase dbObj;
 
@@ -67,7 +68,7 @@ namespace Belshifa2.presenter
             viewInstance.displayMessage(message);
         }
 
-        public void sendData(List<object> returnedValues)
+        public void sendData(List<object> returnedValues, string type)
         {
             throw new NotImplementedException();
         }
@@ -77,17 +78,26 @@ namespace Belshifa2.presenter
             throw new NotImplementedException();
         }
 
-        public void set_key(string username)
+        public void set_profile(string username)
         {
             this.username = username;
+            this.currentPharmacist = (Pharmacist)dbObj.getProfile(username, true);
         }
+
+        public object get_profile()
+        {
+            return this.currentPharmacist;
+        }
+
         public string get_key()
         {
             return this.username;
         }
-        public void clear_key()
+        public void clear_person()
         {
             this.username = "";
+            this.currentPharmacist = new Pharmacist();
+
         }
 
     }

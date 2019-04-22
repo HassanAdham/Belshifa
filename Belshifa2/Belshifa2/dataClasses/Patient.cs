@@ -17,6 +17,17 @@ namespace Belshifa2.dataClasses
         private string payment;
         private string birthdate;
 
+        public Patient()
+        {
+            f_name = "";
+            l_name = "";
+            password = "";
+            phone = "";
+            address = "";
+            email = "";
+            payment = "";
+            birthdate = "";
+        }
         public Patient(string f_name, string l_name, string password,
             string address, string phone, string email, string payment, string birthdate)
         {

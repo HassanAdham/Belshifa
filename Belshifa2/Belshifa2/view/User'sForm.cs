@@ -21,18 +21,42 @@ namespace Belshifa2
             InitializeComponent();
             patientPresenter = new PatientPresenter(this);
 
-            Patient newPatient = new Patient("Abduallah", "Ahmad", "1234", "Nozha", "0102345", "abdullah@gmail.com", "Cash", "1-April-2019");
-            patientPresenter.signUp(newPatient);
+            patientPresenter.get_sections();
+            patientPresenter.get_medicines(1);
+            patientPresenter.get_medicines(2);
+
+            patientPresenter.signIn("Hassan", "Password");
+            Patient person = (Patient)patientPresenter.get_profile();
+            MessageBox.Show(person.get_address() + " " + person.get_f_name());
 
             pharmacistPresenter = new PharmacistPresenter(this);
-            Pharmacist newPharmacist = new Pharmacist("Sayed", "Nadia", 1);
-            pharmacistPresenter.signUp(newPharmacist);
-
+            pharmacistPresenter.signIn("Hossam", "pharmAndProud");
+            Pharmacist pharmacist = (Pharmacist)pharmacistPresenter.get_profile();
+            MessageBox.Show(pharmacist.get_username() + " " + pharmacist.get_pharmacy_id().ToString());
         }
 
-        public void display(List<object> returnedValues)
+        public void display(List<object> returnedValues, string type)
         {
-            throw new NotImplementedException();
+            foreach(object obj in returnedValues)
+            {
+               
+                if (type == "section")
+                {
+                    Section section = (Section)obj;
+                    MessageBox.Show(section.get_id().ToString() + section.get_name().ToString());
+                }
+                else if(type == "medicine")
+                {
+                    Medicine medecine = (Medicine)obj;
+                    MessageBox.Show(medecine.get_id().ToString() + medecine.get_name().ToString());
+                }
+                else
+                {
+                    Order order = (Order)obj;
+                    MessageBox.Show(order.get_orderId().ToString() + order.get_patient_email().ToString());
+
+                }
+            }
         }
 
         public void displayError(string error)

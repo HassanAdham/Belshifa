@@ -12,6 +12,12 @@ namespace Belshifa2.dataClasses
         private string password;
         private int pharmacy_id;
 
+        public Pharmacist()
+        {
+            username = "";
+            password = "";
+            pharmacy_id = 0;
+        }
         public Pharmacist(string username, string password, int pharmacy_id)
         {
             this.username = username;
