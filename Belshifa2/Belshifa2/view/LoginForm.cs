@@ -21,5 +21,32 @@ namespace Belshifa2
         {
 
         }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        //---------------------------------Moving Form-------------------------------
+
+        bool mouseDown = false;
+        Point startPoint; //Where the mouse has
+        private void pnlTop_MouseDown(object sender, MouseEventArgs e)
+        {
+            mouseDown = true;
+            startPoint = new Point(e.X, e.Y);
+        }
+        private void pnlTop_MouseUp(object sender, MouseEventArgs e)
+        {
+            mouseDown = false;
+        }
+        private void pnlTop_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mouseDown)
+            {
+                Point p = PointToScreen(e.Location);
+                this.Location = new Point(p.X - startPoint.X, p.Y - startPoint.Y);
+            }
+        }
     }
 }

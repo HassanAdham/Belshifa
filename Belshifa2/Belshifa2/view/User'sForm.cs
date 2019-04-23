@@ -7,222 +7,184 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Belshifa2.presenter;
 using Belshifa2.dataClasses;
+using Belshifa2.model;
 
 namespace Belshifa2
 {
-    public partial class Form1 : Form, Contractor.ViewContractor
+    public partial class Form1 : Form
     {
-        PatientPresenter patientPresenter;
-        PharmacistPresenter pharmacistPresenter;
+        SystemDatabase dbObj;
+        
         public Form1()
         {
             InitializeComponent();
-            patientPresenter = new PatientPresenter(this);
-
-            patientPresenter.get_sections();
-            patientPresenter.get_medicines(1);
-            patientPresenter.get_medicines(2);
-
-            patientPresenter.signIn("Hassan", "Password");
-            Patient person = (Patient)patientPresenter.get_profile();
-            MessageBox.Show(person.get_address() + " " + person.get_f_name());
-
-            pharmacistPresenter = new PharmacistPresenter(this);
-            pharmacistPresenter.signIn("Hossam", "pharmAndProud");
-            Pharmacist pharmacist = (Pharmacist)pharmacistPresenter.get_profile();
-            MessageBox.Show(pharmacist.get_username() + " " + pharmacist.get_pharmacy_id().ToString());
-        }
-
-        public void display(List<object> returnedValues, string type)
-        {
-            foreach(object obj in returnedValues)
-            {
-               
-                if (type == "section")
-                {
-                    Section section = (Section)obj;
-                    MessageBox.Show(section.get_id().ToString() + section.get_name().ToString());
-                }
-                else if(type == "medicine")
-                {
-                    Medicine medecine = (Medicine)obj;
-                    MessageBox.Show(medecine.get_id().ToString() + medecine.get_name().ToString());
-                }
-                else
-                {
-                    Order order = (Order)obj;
-                    MessageBox.Show(order.get_orderId().ToString() + order.get_patient_email().ToString());
-
-                }
-            }
-        }
-
-        public void displayError(string error)
-        {
-            MessageBox.Show(error);
-        }
-
-        public void displayMessage(string message)
-        {
-            MessageBox.Show(message);
-        }
-
-        public void goToNextPage()
-        {
-            throw new NotImplementedException();
+            dbObj = new SystemDatabase();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            PictureBox newPictureBox = new PictureBox();
-            newPictureBox.BackgroundImage = global::Belshifa2.Properties.Resources.images__2_;
-            newPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            newPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            newPictureBox.ImageLocation = "";
-            newPictureBox.Location = new System.Drawing.Point(172, 3);
-            newPictureBox.Name = "newPictureBox";
-            newPictureBox.Size = new System.Drawing.Size(163, 133);
-            newPictureBox.TabIndex = 15;
-            newPictureBox.TabStop = false;
+            displayAllSections();
+            displayAllMedicines();
+        }
+        private void displayAllSections()
+        {
+            List<Section> list = dbObj.getSections();
+            foreach(Section s in list)
+            {
+                create_Section(s);
+            }
+        }
+        private void create_Section(Section section)
+        {
+            Label label = new Label();
+            label.AutoSize = true;
+            label.BackColor = Color.Transparent;
+            label.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            label.Location = new Point(3, 0);
+            label.Name = section.get_name();
+            label.Padding = new Padding(4);
+            label.Size = new Size(59, 28);
+            label.TabIndex = section.get_id();
+            label.Text = section.get_name();
+            label.Click += delegate
+            {
+                foreach (Label l in flpSections.Controls)
+                {
+                    l.ForeColor = Color.Black;
+                }
+                label.ForeColor = Color.Brown;
+                get_medicines_of_section(section.get_id());
+            };
 
-            flowLayoutPanel2.Controls.Add(newPictureBox);
+            flpSections.Controls.Add(label);
         }
 
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        private void lblAllSections_Click(object sender, EventArgs e)
         {
+            foreach (Label l in flpSections.Controls)
+            {
+                l.ForeColor = Color.Black;
+            }
+            lblAllSections.ForeColor = Color.Brown;
+            displayAllMedicines();
+        }
+        private void displayAllMedicines()
+        {
+            flpMedicine.Controls.Clear();
+            List<Medicine> list = dbObj.getAllMedicines();
+            foreach(Medicine m in list)
+            {
+                create_medicine(m);
+            }
+        }
+        private void get_medicines_of_section(int id)
+        {
+            flpMedicine.Controls.Clear();
+            List<Medicine> list = dbObj.getMedicines(id);
+            foreach(Medicine m in list)
+            {
+                create_medicine(m);
+            }
+        }
+        private void create_medicine(Medicine medicine)
+        {
+            Panel panel = new Panel();
+            PictureBox pictureBox = new PictureBox();
+            Label label = new Label();
 
+            pictureBox.BackColor = Color.Gainsboro;
+            pictureBox.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox.BorderStyle = BorderStyle.FixedSingle;
+            pictureBox.ImageLocation = "";
+            pictureBox.Location = new Point(18, 3);
+            pictureBox.Name = medicine.get_id().ToString();
+            pictureBox.Size = new Size(163, 133);
+            pictureBox.TabStop = false;
+            /////////////////////////////////////////////////
+            label.AutoSize = true;
+            label.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            label.Location = new Point(18, 143);
+            label.Name = medicine.get_id().ToString();
+            label.Size = new Size(46, 18);
+            label.Text = medicine.get_name();
+            /////////////////////////////////////////////// 
+            panel.Controls.Add(label);
+            panel.Controls.Add(pictureBox);
+            panel.Location = new Point(3, 3);
+            panel.Margin = new Padding(10, 10, 10, 10);
+            panel.Name = medicine.get_id().ToString();
+            panel.Size = new Size(200, 175);
+            //////////////////////////////////////////////
+            flpMedicine.Controls.Add(panel);
+        }
+
+
+        //---------------------------------Moving Form-------------------------------
+
+        bool mouseDown = false;
+        Point startPoint; //Where the mouse has
+        private void pnlTop_MouseDown(object sender, MouseEventArgs e)
+        {
+            mouseDown = true;
+            startPoint = new Point(e.X, e.Y);
+        }
+        private void pnlTop_MouseUp(object sender, MouseEventArgs e)
+        {
+            mouseDown = false;
+        }
+        private void pnlTop_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mouseDown)
+            {
+                Point p = PointToScreen(e.Location);
+                this.Location = new Point(p.X - startPoint.X, p.Y - startPoint.Y);
+            }
+        }
+        //-----------------------------------Form ------------------------------
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            dbObj.disconnect();
+            this.Close();
+        }
+        private void btnMinimize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        //--------------------------------Commercials-------------------------------
+        int i = 3;
+        private void timerCommercial_Tick(object sender, EventArgs e)
+        {
+            if(i%3 == 0)
+            {
+                picBxCommercial1.BackgroundImage = Belshifa2.Properties.Resources.download__2_;
+                picBoxCommercial2.BackgroundImage = Belshifa2.Properties.Resources.images__2_;
+                picBoxCommercial3.BackgroundImage = Belshifa2.Properties.Resources.images__1_;
+                i++;
+            }
+            else if (i%4 == 0)
+            {
+                picBxCommercial1.BackgroundImage = Belshifa2.Properties.Resources.images__1_;
+                picBoxCommercial2.BackgroundImage = Belshifa2.Properties.Resources.images__6_;
+                picBoxCommercial3.BackgroundImage = Belshifa2.Properties.Resources.images__5_;
+
+                i++;
+            }
+            else if (i % 5 == 0)
+            {
+                picBxCommercial1.BackgroundImage = Belshifa2.Properties.Resources.images__5_;
+                picBoxCommercial2.BackgroundImage = Belshifa2.Properties.Resources.download__2_;
+                picBoxCommercial3.BackgroundImage = Belshifa2.Properties.Resources.images__2_;
+
+                i = 3;
+            }
         }
 
         private void Loginregister_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Search_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Medicines_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Cosemetics_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void healthbodycare_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void babycare_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void flowLayoutPanel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void pictureBox9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox10_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox11_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox12_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox13_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox14_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox15_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox16_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox8_Click(object sender, EventArgs e)
-        {
-
+            LoginForm lf = new LoginForm();
+            lf.ShowDialog();
         }
     }
 }

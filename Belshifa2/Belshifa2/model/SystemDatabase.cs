@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 using Oracle.DataAccess.Client;
 using Oracle.DataAccess.Types;
-using Belshifa2.presenter;
 using Belshifa2.dataClasses;
 
 namespace Belshifa2.model
@@ -15,19 +15,27 @@ namespace Belshifa2.model
         private string ordb;
         private OracleConnection conn;
         private OracleCommand cmd;
-        private Contractor.PresenterContractor presenterInstance;
 
-        public SystemDatabase(Contractor.PresenterContractor patientPresenterInstance)
+        Dictionary<string, List<int>> areasAndPharmacies;
+        Dictionary<string, int> areas;
+        List<Pharmacy> pharmacyList;
+
+        public SystemDatabase()
         {
-            this.presenterInstance = patientPresenterInstance;
-
+            areasAndPharmacies = new Dictionary<string, List<int>>();
+            areas = new Dictionary<string, int>();
+            pharmacyList = new List<Pharmacy>();
             ordb = "Data source = orcl;user id=hr; password =hr";
             conn = new OracleConnection(ordb);
             conn.Open();
+
+            fillAreasAndPharmacies();
+            get_Pharmacies();
         }
 
-        public void signIn(string username, string password, bool type)
+        public string signIn(string username, string password, bool type)
         {
+            string message = "";
             //Patient
             if (type == false)
             {
@@ -47,21 +55,21 @@ namespace Belshifa2.model
                     {
                         rs.Close();
                         cmd.Dispose();
-                        presenterInstance.set_profile(username);
-                        presenterInstance.modelResponse("Account is Verified");
+                        message = "Account is Verified";
                     }
                     else
                     {
                         rs.Close();
                         cmd.Dispose();
-                        presenterInstance.modelResponse("Something is wrong check your username or password");
+
+                        message = "Something is wrong check your username or password";
                     }                   
                 }
              
                 catch
                 {
                     cmd.Dispose();
-                    presenterInstance.modelErrorMessage("Error connecting to the database");
+                    message = "Error connecting to the database";
                 }
             }
             //Pharmacist
@@ -81,27 +89,28 @@ namespace Belshifa2.model
                     {
                         rs.Close();
                         cmd.Dispose();
-                        presenterInstance.set_profile(username);
-                        presenterInstance.modelResponse("Account is Verified");
+                        message = "Account is Verified";
                     }
                     else
                     {
                         rs.Close();
                         cmd.Dispose();
-                        presenterInstance.modelResponse("Something is wrong check your username or password");
+                        message = "Something is wrong check your username or password";
                     }
 
                 }
 
                 catch
                 {
-                    presenterInstance.modelErrorMessage("Error connecting to the database");
+                    message = "Error connecting to the database";
                 }
             }
-        }
 
-        public void signUp(Object person, bool type)
+            return message;
+        }
+        public string signUp(Object person, bool type)
         {
+            string message = "";
             cmd = new OracleCommand();
             cmd.Connection = conn;
             //A.3 Insert using CommandType.Text.
@@ -125,13 +134,13 @@ namespace Belshifa2.model
                 {
                     int numOfRowsAffected = cmd.ExecuteNonQuery();
                     if (numOfRowsAffected == 1)
-                        presenterInstance.modelResponse("Account is created successfully!");
+                        message = "Account is created successfully!";
                     else
-                        presenterInstance.modelResponse("Please make sure of your input!");
+                        message = "Please make sure of your input!";
                 }
                 catch
                 {
-                    presenterInstance.modelErrorMessage("Error connecting to the database");
+                    message = "Error connecting to the database";
                 }
             }
             //A.6 Insert using Parameterized Procedure.
@@ -149,16 +158,16 @@ namespace Belshifa2.model
                 {
                     int numOfRowsAffected = cmd.ExecuteNonQuery();
                     if (numOfRowsAffected == 1)
-                        presenterInstance.modelResponse("Account is created successfully!");
+                        message = "Account is created successfully!";
                     else
-                        presenterInstance.modelResponse("Please make sure of your input!");
-
+                        message = "Please make sure of your input!";
                 }
                 catch
                 {
-                    presenterInstance.modelErrorMessage("Error connecting to the database");
+                    message = "Error connecting to the database";
                 }
             }
+            return message;
         }
 
         //A.4 select one row using procedure using out parameters.
@@ -196,7 +205,7 @@ namespace Belshifa2.model
                 }
                 catch
                 {
-                    presenterInstance.modelErrorMessage("Error connecting to the database");
+                    cmd.Dispose();
                     return null;
                 }
 
@@ -221,12 +230,9 @@ namespace Belshifa2.model
                 }
                 catch
                 {
-                    presenterInstance.modelErrorMessage("Error connecting to the database");
                     return null;
                 }
             }
-
-
         }
 
         public void getOrderHistory(string key) // for patient.
@@ -239,13 +245,39 @@ namespace Belshifa2.model
             throw new NotImplementedException();
         }
 
-        public void makeOrder(string email, List<int> cart)
-        {
 
+        public List<Medicine> getSimilars(string usage)
+        {
+            cmd = new OracleCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = @"select * from medicine
+                                where m_usage = :usage";
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.Parameters.Add("usage", usage);
+            try
+            {
+                OracleDataReader rs = cmd.ExecuteReader();
+                List<Medicine> medicineList = new List<Medicine>();
+                Medicine medicine;
+                while (rs.Read())
+                {
+                    medicine = new Medicine(int.Parse(rs[0].ToString()), rs[1].ToString(), int.Parse(rs[2].ToString()),
+                       float.Parse(rs[3].ToString()), rs[4].ToString(), rs[5].ToString(),
+                       rs[6].ToString(), rs[7].ToString(), rs[8].ToString(), int.Parse(rs[9].ToString()),
+                       rs[10].ToString());
+                    medicineList.Add(medicine);
+                }
+                rs.Close();
+                return medicineList;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         //Step A.5 .. Get Multiple Lines using procedure.
-        public void getMedicines(int sec_id)
+        public List<Medicine> getMedicines(int sec_id)
         {
             cmd = new OracleCommand();
             cmd.Connection = conn;
@@ -256,31 +288,30 @@ namespace Belshifa2.model
             try
             {
                 OracleDataReader rs = cmd.ExecuteReader();
-                List<object> medicineList = new List<object>();
+                List<Medicine> medicineList = new List<Medicine>();
                 Medicine medicine;
                 while (rs.Read())
                 {
                     medicine = new Medicine(int.Parse(rs[0].ToString()), rs[1].ToString(), int.Parse(rs[2].ToString()),
                                            float.Parse(rs[3].ToString()), rs[4].ToString(), rs[5].ToString(),
-                                           rs[6].ToString(), rs[7].ToString(), rs[8].ToString(), int.Parse(rs[9].ToString()), 
+                                           rs[6].ToString(), rs[7].ToString(), rs[8].ToString(), int.Parse(rs[9].ToString()),
                                            rs[10].ToString());
                     medicineList.Add(medicine);
                 }
                 rs.Close();
-
-                presenterInstance.sendData(medicineList, "medicine");
+                cmd.Dispose();
+                return medicineList;
             }
-
             catch
             {
-                presenterInstance.modelErrorMessage("Error connecting to the database");
+                cmd.Dispose();
+                return null;
             }
-            cmd.Dispose();
         }
 
 
         //Step A.1 .. Select Statement Without Where Condition.
-        public void getSections()
+        public List<Section> getSections()
         {
             cmd = new OracleCommand();
             cmd.Connection = conn;
@@ -289,7 +320,7 @@ namespace Belshifa2.model
             try
             {
                 OracleDataReader rs = cmd.ExecuteReader();
-                List<object> sectionsList = new List<object>();
+                List<Section> sectionsList = new List<Section>();
                 Section section;
                 while (rs.Read())
                 {
@@ -298,15 +329,320 @@ namespace Belshifa2.model
                 }
 
                 rs.Close();
-                presenterInstance.sendData(sectionsList, "section");
+                return sectionsList;
             }
             catch
             {
-                presenterInstance.modelErrorMessage("Error connecting to the database");
+                return null;
+            }
+        }
+
+        public List<Medicine> getAllMedicines()
+        {
+            cmd = new OracleCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "Select * from medicine";
+            cmd.CommandType = System.Data.CommandType.Text;
+            try
+            {
+                OracleDataReader rs = cmd.ExecuteReader();
+                List<Medicine> medicineList = new List<Medicine>();
+                Medicine medicine;
+                while (rs.Read())
+                {
+                    medicine = new Medicine(int.Parse(rs[0].ToString()), rs[1].ToString(), int.Parse(rs[2].ToString()),
+                                           float.Parse(rs[3].ToString()), rs[4].ToString(), rs[5].ToString(),
+                                           rs[6].ToString(), rs[7].ToString(), rs[8].ToString(), int.Parse(rs[9].ToString()),
+                                           rs[10].ToString());
+                    medicineList.Add(medicine);
+                }
+                rs.Close();
+                cmd.Dispose();
+                return medicineList;
+            }
+            catch
+            {
+                cmd.Dispose();
+                return null;
+            }
+        }
+
+        public void UpdateQuant(List<int> medicines_ids, int pharmacy_id)
+        {
+            int quant = 0;
+            int newquant = 0;
+            for (int i = 0; i < medicines_ids.Count; i++)
+            {
+                cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "UpdateQuantities";
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.Add("mid", medicines_ids[i]);
+                cmd.Parameters.Add("Quantity", OracleDbType.Int32, System.Data.ParameterDirection.Output);
+                cmd.ExecuteNonQuery();
+                quant = Convert.ToInt32(cmd.Parameters["OrderID"].Value.ToString());
+                newquant = quant - 1;
+                cmd.CommandText = " Update medicine set QUANTITY = :quant  where M_ID = :mid";
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.Parameters.Add("quant", newquant);
+                cmd.Parameters.Add("mid", medicines_ids[i]);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+        }
+
+        //_____________________________________________________________________________________________________________________
+        public void makeOrder(string email, List<int> medicines_ids)
+        {
+            //get max order id from table has
+            int sum = 0;
+            int maxorderid = 0;
+            cmd = new OracleCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = " GetOrderID";
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add("OrderID", OracleDbType.Int32, System.Data.ParameterDirection.Output);
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+
+
+            //insert medicines in table has
+            for (int i = 0; i < medicines_ids.Count; i++)
+            {
+                cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = " insert into has (M_ID) values (:mid) where O_ID = :oid ";
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.Parameters.Add("oid", maxorderid);
+                cmd.Parameters.Add("mid", medicines_ids[i]);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+
+
+            //totalPrice
+            int totalprice = 0;
+            for (int i = 0; i < medicines_ids.Count; i++)
+            {
+                cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "GetPrice";
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.Add("mid", medicines_ids[i]);
+                cmd.Parameters.Add("MedicinePice", OracleDbType.Int32, System.Data.ParameterDirection.Output);
+                cmd.ExecuteNonQuery();
+                totalprice += Convert.ToInt32(cmd.Parameters["MedicinePrice"].Value.ToString());
+                cmd.Dispose();
             }
 
 
 
+            ////get pharmacy id
+            //cmd = new OracleCommand();
+            //cmd.Connection = conn;
+            //cmd.CommandText = "GetPharmid";
+            //cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            //cmd.Parameters.Add("pharmid", OracleDbType.Int32, System.Data.ParameterDirection.Output);
+            //cmd.ExecuteNonQuery();
+            //int id = Convert.ToInt32(cmd.Parameters["pharmid"].Value.ToString());
+            //cmd.Dispose();
+
+
+
+
+
+            string orderdate = DateTime.Now.ToString();
+            string Deliverydate = DateTime.Now.AddDays(3).ToString();
+            //insert into order all the data
+            cmd = new OracleCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "InsertOrderData";
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add("orderdate", orderdate);
+            cmd.Parameters.Add("deliverydate", Deliverydate);
+            cmd.Parameters.Add("totalprice", totalprice);
+            cmd.Parameters.Add("email", email);
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+        }
+
+        private List<Pharmacy> get_pharmacies_With_full_order(List<int> medicines_ids)
+        {
+            int medicineMatchCounter;
+            List<Pharmacy> pharmacyWithFullOrder = null;
+            foreach(Pharmacy pharmacy in pharmacyList)
+            {
+                medicineMatchCounter = 0;
+                pharmacyWithFullOrder = new List<Pharmacy>();
+                cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "select m_id from gets where pharmacy_id = :id";
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.Add(pharmacy.get_id());
+
+                try
+                {
+                    OracleDataReader rs = cmd.ExecuteReader();
+                    while (rs.Read())
+                    {
+                        if (medicines_ids.Contains(int.Parse(rs[0].ToString())))
+                            medicineMatchCounter++;
+                        if(medicineMatchCounter == medicines_ids.Count)
+                        {
+                            pharmacyWithFullOrder.Add(pharmacy);
+                            break;
+                        }
+                    }
+                    rs.Close();
+                }
+                catch
+                {
+                    cmd.Dispose();
+                }
+            }
+            return pharmacyWithFullOrder;
+        }
+        private int nearest_pharmacy_id(List<Pharmacy> pharmacies_with_full_order, string patientAddress)
+        {
+            int minDistance = 100;
+            Pharmacy nearest_pharmacy = null;
+            int diff;
+            foreach(Pharmacy pharmacy in pharmacies_with_full_order)
+            {
+                diff = Math.Abs(areas[pharmacy.get_address()] - areas[patientAddress]);
+                if ( minDistance > diff)
+                {
+                    minDistance = diff;
+                    nearest_pharmacy = pharmacy;
+                }
+
+            }
+            return nearest_pharmacy.get_id();
+        }
+
+        private void fillAreasAndPharmacies()
+        {
+            areasAndPharmacies["Sheraton"] = new List<int>();
+            areasAndPharmacies["MisrElGdida"] = new List<int>();
+            areasAndPharmacies["NasrCity"] = new List<int>();
+            areasAndPharmacies["Abassia"] = new List<int>();
+            areasAndPharmacies["Ramsis"] = new List<int>();
+            areasAndPharmacies["Tahri"] = new List<int>();
+            areasAndPharmacies["Dokki"] = new List<int>();
+            areasAndPharmacies["Mohndseen"] = new List<int>();
+            areasAndPharmacies["October"] = new List<int>();
+            areasAndPharmacies["Zayed"] = new List<int>();
+
+            cmd = new OracleCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "select pharmacy_id, address from Pharmacy";
+            cmd.CommandType = CommandType.Text;
+            try
+            {
+                OracleDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    areasAndPharmacies[dr[1].ToString()].Add(int.Parse(dr[0].ToString()));
+                }
+                dr.Close();
+            }
+            catch
+            {
+                cmd.Dispose();
+            }
+
+        }
+        private void fillAreas()
+        {
+            areas["Sheraton"] = 1;
+            areas["MisrElGdida"] = 2;
+            areas["NasrCity"] = 3;
+            areas["Abassia"] = 4;
+            areas["Ramsis"] = 5;
+            areas["Tahri"] = 6;
+            areas["Dokki"] = 7;
+            areas["Mohndseen"] = 8;
+            areas["October"] = 9;
+            areas["Zayed"] = 10;
+        }
+        private void get_Pharmacies()
+        {
+            cmd = new OracleCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "select * from Pharmacy";
+            cmd.CommandType = CommandType.Text;
+            try
+            {
+                OracleDataReader dr = cmd.ExecuteReader();
+                Pharmacy pharmacy;
+                while (dr.Read())
+                {
+                    pharmacy = new Pharmacy(int.Parse(dr[0].ToString()), dr[1].ToString(), dr[2].ToString());
+                    pharmacyList.Add(pharmacy);
+                }
+                dr.Close();
+            }
+            catch
+            {
+                cmd.Dispose();
+            }
+        }
+        // ___________________________________________________________________________________________________________________
+        public DataSet SearchForMedicine(string MedicineName)
+        {
+            ordb = "Data source = oracle;user id=scott; password =tiger";
+            string cmdtext = "select * from MEDICINE where M_NAME = :medicinename";
+            OracleDataAdapter adapt = new OracleDataAdapter(cmdtext, ordb);
+            adapt.SelectCommand.Parameters.Add("medicinename", MedicineName);
+            DataSet ds = new DataSet();
+            adapt.Fill(ds);
+
+            /*
+             * 
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    //your code here
+                }
+             * */
+            return ds;
+        }
+       // _________________________________________________________________________________________________________________________
+        public void MasterDetailsForm()
+        {
+            ordb = "Data source = oracle;user id=scott; password =tiger";
+            DataSet ds = new DataSet();
+            string cmdtext1 = "select * from SECTIONS";
+            string cmdtext2 = "select * from MEDICINES ";
+
+            OracleDataAdapter adapt1 = new OracleDataAdapter(cmdtext1, ordb);
+            adapt1.Fill(ds, "Section");
+            OracleDataAdapter adapt2 = new OracleDataAdapter(cmdtext2, ordb);
+            adapt2.Fill(ds, "Medicines");
+
+            DataRelation r = new DataRelation("FK", ds.Tables[0].Columns["S_ID"], ds.Tables[1].Columns["S_ID"]);
+            ds.Relations.Add(r);
+
+            //BindingSource bs_Master = new BindingSource(ds,"Section");
+            //BindingSource bs_Child = new BindingSource(bs_Master, "FK");
+
+
+
+        }
+       // ________________________________________________________________________________________________________________________
+        public void OrderDetails()
+        {
+            ordb = "Data source = oracle;user id=scott; password =tiger";
+            string cmdtext = "select * from orderr";
+            DataSet ds = new DataSet();
+            OracleDataAdapter adapt = new OracleDataAdapter(cmdtext, ordb);
+            adapt.Fill(ds);
+            OracleCommandBuilder builder = new OracleCommandBuilder(adapt);
+            adapt.Update(ds.Tables[0]); // Q: Leh update??
+        }
+
+        public void disconnect()
+        {
+            conn.Dispose();
         }
     }
 }
