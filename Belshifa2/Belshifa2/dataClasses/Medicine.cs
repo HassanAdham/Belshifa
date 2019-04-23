@@ -10,7 +10,6 @@ namespace Belshifa2.dataClasses
     {
         private int id; //Primary key.
         private string name;
-        private int quantity;
         private float price;
         private string side_effects;
         private string usage;
@@ -20,14 +19,13 @@ namespace Belshifa2.dataClasses
         private int sec_id;
         private string image_src;
 
-        public Medicine(int id, string name, int quantity, float price,
+        public Medicine(int id, string name, float price,
                         string side_effects, string usage, string precautions,
                         string drug_drug_interaction, string drug_food_interaction,
                         int sec_id, string image_src)
         {
             this.id = id;
             this.name = name;
-            this.quantity = quantity;
             this.price = price;
             this.side_effects = side_effects;
             this.usage = usage;
@@ -46,11 +44,6 @@ namespace Belshifa2.dataClasses
         public string get_name()
         {
             return this.name;
-        }
-
-        public int get_quantity()
-        {
-            return this.quantity;
         }
 
         public float get_price()

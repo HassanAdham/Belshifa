@@ -261,10 +261,9 @@ namespace Belshifa2.model
                 Medicine medicine;
                 while (rs.Read())
                 {
-                    medicine = new Medicine(int.Parse(rs[0].ToString()), rs[1].ToString(), int.Parse(rs[2].ToString()),
-                       float.Parse(rs[3].ToString()), rs[4].ToString(), rs[5].ToString(),
-                       rs[6].ToString(), rs[7].ToString(), rs[8].ToString(), int.Parse(rs[9].ToString()),
-                       rs[10].ToString());
+                    medicine = new Medicine(int.Parse(rs[0].ToString()), rs[1].ToString(), float.Parse(rs[2].ToString()),
+                     rs[3].ToString(), rs[4].ToString(), rs[5].ToString(), rs[6].ToString(), rs[7].ToString(), int.Parse(rs[8].ToString()),
+                    rs[9].ToString());
                     medicineList.Add(medicine);
                 }
                 rs.Close();
@@ -292,10 +291,10 @@ namespace Belshifa2.model
                 Medicine medicine;
                 while (rs.Read())
                 {
-                    medicine = new Medicine(int.Parse(rs[0].ToString()), rs[1].ToString(), int.Parse(rs[2].ToString()),
-                                           float.Parse(rs[3].ToString()), rs[4].ToString(), rs[5].ToString(),
-                                           rs[6].ToString(), rs[7].ToString(), rs[8].ToString(), int.Parse(rs[9].ToString()),
-                                           rs[10].ToString());
+                    medicine = new Medicine(int.Parse(rs[0].ToString()), rs[1].ToString(), float.Parse(rs[2].ToString()),
+                     rs[3].ToString(), rs[4].ToString(), rs[5].ToString(), rs[6].ToString(), rs[7].ToString(), int.Parse(rs[8].ToString()),
+                    rs[9].ToString());
+
                     medicineList.Add(medicine);
                 }
                 rs.Close();
@@ -350,10 +349,9 @@ namespace Belshifa2.model
                 Medicine medicine;
                 while (rs.Read())
                 {
-                    medicine = new Medicine(int.Parse(rs[0].ToString()), rs[1].ToString(), int.Parse(rs[2].ToString()),
-                                           float.Parse(rs[3].ToString()), rs[4].ToString(), rs[5].ToString(),
-                                           rs[6].ToString(), rs[7].ToString(), rs[8].ToString(), int.Parse(rs[9].ToString()),
-                                           rs[10].ToString());
+                    medicine = new Medicine(int.Parse(rs[0].ToString()), rs[1].ToString(), float.Parse(rs[2].ToString()),
+                     rs[3].ToString(), rs[4].ToString(), rs[5].ToString(), rs[6].ToString(), rs[7].ToString(), int.Parse(rs[8].ToString()),
+                    rs[9].ToString());
                     medicineList.Add(medicine);
                 }
                 rs.Close();
