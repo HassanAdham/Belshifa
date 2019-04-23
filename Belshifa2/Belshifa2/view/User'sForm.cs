@@ -186,5 +186,15 @@ namespace Belshifa2
             LoginForm lf = new LoginForm();
             lf.ShowDialog();
         }
+
+        private void flpSections_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

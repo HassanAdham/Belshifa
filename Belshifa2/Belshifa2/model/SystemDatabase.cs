@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using System.Windows.Forms;
 using Oracle.DataAccess.Client;
 using Oracle.DataAccess.Types;
 using Belshifa2.dataClasses;
+
+
 
 namespace Belshifa2.model
 {
@@ -25,7 +28,7 @@ namespace Belshifa2.model
             areasAndPharmacies = new Dictionary<string, List<int>>();
             areas = new Dictionary<string, int>();
             pharmacyList = new List<Pharmacy>();
-            ordb = "Data source = orcl;user id=hr; password =hr";
+            ordb = "Data source = oracle;user id=scott; password =tiger";
             conn = new OracleConnection(ordb);
             conn.Open();
 
@@ -389,7 +392,7 @@ namespace Belshifa2.model
             }
         }
 
-        //_____________________________________________________________________________________________________________________
+        
         public void makeOrder(string email, string address, List<int> medicines_ids)
         {
             //get max order id from table has
@@ -458,6 +461,9 @@ namespace Belshifa2.model
             cmd.Dispose();
         }
 
+
+
+
         private List<Pharmacy> get_pharmacies_With_full_order(List<int> medicines_ids)
         {
             int medicineMatchCounter;
@@ -511,7 +517,6 @@ namespace Belshifa2.model
             }
             return nearest_pharmacy.get_id();
         }
-
         private void fillAreasAndPharmacies()
         {
             areasAndPharmacies["Sheraton"] = new List<int>();
@@ -579,7 +584,45 @@ namespace Belshifa2.model
                 cmd.Dispose();
             }
         }
-        // ___________________________________________________________________________________________________________________
+
+
+        
+
+        public List<Order> Get_Pharmacy_Orders(int PharmacyID)
+        {
+            List<Order> Get_Pharmacy_Orders;
+            
+                Get_Pharmacy_Orders= new List<Order>();
+                cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "select * from orderr where PHARMACY_ID = :id and PH_USERNAME is null";
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.Add("pharmid",PharmacyID);
+           
+            try
+                {
+                OracleDataReader rs = cmd.ExecuteReader();
+                Order ord;
+                while (rs.Read())
+                {
+
+                    ord = new Order(int.Parse(rs[0].ToString()), rs[1].ToString(), rs[2].ToString(), float.Parse(rs[3].ToString()), rs[4].ToString(), rs[5].ToString(), int.Parse(rs[6].ToString()));
+                    Get_Pharmacy_Orders.Add(ord);
+                    //Get_Pharmacy_Orders.Add(rs[0].ToString);
+                    break;
+                }
+                rs.Close();
+            }
+                catch
+                {
+                    cmd.Dispose();
+                }
+
+
+            return Get_Pharmacy_Orders;
+        }
+
+
         public DataSet SearchForMedicine(string MedicineName)
         {
             ordb = "Data source = oracle;user id=scott; password =tiger";
@@ -598,7 +641,7 @@ namespace Belshifa2.model
              * */
             return ds;
         }
-       // _________________________________________________________________________________________________________________________
+ 
         public void MasterDetailsForm()
         {
             ordb = "Data source = oracle;user id=scott; password =tiger";
@@ -614,13 +657,12 @@ namespace Belshifa2.model
             DataRelation r = new DataRelation("FK", ds.Tables[0].Columns["S_ID"], ds.Tables[1].Columns["S_ID"]);
             ds.Relations.Add(r);
 
-            //BindingSource bs_Master = new BindingSource(ds,"Section");
-            //BindingSource bs_Child = new BindingSource(bs_Master, "FK");
+            BindingSource bs_Master = new BindingSource(ds, "Section");
+            BindingSource bs_Child = new BindingSource(bs_Master, "FK");
 
 
 
         }
-       // ________________________________________________________________________________________________________________________
         public void OrderDetails()
         {
             ordb = "Data source = oracle;user id=scott; password =tiger";

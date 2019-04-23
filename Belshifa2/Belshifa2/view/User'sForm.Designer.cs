@@ -272,6 +272,7 @@ namespace Belshifa2
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1025, 630);
             this.panel3.TabIndex = 14;
+            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
             // picBoxCommercial3
             // 
@@ -345,6 +346,7 @@ namespace Belshifa2
             this.flpSections.Name = "flpSections";
             this.flpSections.Size = new System.Drawing.Size(814, 33);
             this.flpSections.TabIndex = 18;
+            this.flpSections.Paint += new System.Windows.Forms.PaintEventHandler(this.flpSections_Paint);
             // 
             // lblAllSections
             // 
