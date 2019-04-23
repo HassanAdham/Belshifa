@@ -390,7 +390,7 @@ namespace Belshifa2.model
         }
 
         //_____________________________________________________________________________________________________________________
-        public void makeOrder(string email, List<int> medicines_ids)
+        public void makeOrder(string email, string address, List<int> medicines_ids)
         {
             //get max order id from table has
             int sum = 0;
@@ -433,20 +433,13 @@ namespace Belshifa2.model
                 cmd.Dispose();
             }
 
-
-
-            ////get pharmacy id
-            //cmd = new OracleCommand();
-            //cmd.Connection = conn;
-            //cmd.CommandText = "GetPharmid";
-            //cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            //cmd.Parameters.Add("pharmid", OracleDbType.Int32, System.Data.ParameterDirection.Output);
-            //cmd.ExecuteNonQuery();
-            //int id = Convert.ToInt32(cmd.Parameters["pharmid"].Value.ToString());
-            //cmd.Dispose();
-
-
-
+            //Get pharmacy id.
+            int pharm_id = 0;
+            List<Pharmacy> pharmacies_with_full_order = get_pharmacies_With_full_order(medicines_ids);
+            if(pharmacies_with_full_order != null)
+            {
+                pharm_id = nearest_pharmacy_id(pharmacies_with_full_order, address);
+            }
 
 
             string orderdate = DateTime.Now.ToString();
@@ -460,6 +453,7 @@ namespace Belshifa2.model
             cmd.Parameters.Add("deliverydate", Deliverydate);
             cmd.Parameters.Add("totalprice", totalprice);
             cmd.Parameters.Add("email", email);
+            cmd.Parameters.Add("pharmacy_id", pharm_id);                //added by Dina, not yet added in procedure.
             cmd.ExecuteNonQuery();
             cmd.Dispose();
         }
@@ -553,12 +547,12 @@ namespace Belshifa2.model
         private void fillAreas()
         {
             areas["Sheraton"] = 1;
-            areas["MisrElGdida"] = 2;
+            areas["MisrElGdida"] = 2; //
             areas["NasrCity"] = 3;
             areas["Abassia"] = 4;
-            areas["Ramsis"] = 5;
-            areas["Tahri"] = 6;
-            areas["Dokki"] = 7;
+            areas["Ramsis"] = 5;/////////////
+            areas["Tahri"] = 6; //
+            areas["Dokki"] = 7;//
             areas["Mohndseen"] = 8;
             areas["October"] = 9;
             areas["Zayed"] = 10;
