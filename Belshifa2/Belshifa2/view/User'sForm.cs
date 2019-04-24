@@ -186,5 +186,19 @@ namespace Belshifa2
             LoginForm lf = new LoginForm();
             lf.ShowDialog();
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            Medicine m = dbObj.SearchForMedicine(txtBxSearch.Text);
+            foreach(Label l in flpSections.Controls)
+            {
+                l.ForeColor = Color.Black;
+            }
+            flpMedicine.Controls.Clear();
+            if (m!=null)
+            {
+                create_medicine(m);
+            }
+        }
     }
 }

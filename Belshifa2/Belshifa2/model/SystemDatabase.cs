@@ -580,23 +580,33 @@ namespace Belshifa2.model
             }
         }
         // ___________________________________________________________________________________________________________________
-        public DataSet SearchForMedicine(string MedicineName)
+        public Medicine SearchForMedicine(string MedicineName)
         {
-            ordb = "Data source = oracle;user id=scott; password =tiger";
             string cmdtext = "select * from MEDICINE where M_NAME = :medicinename";
             OracleDataAdapter adapt = new OracleDataAdapter(cmdtext, ordb);
             adapt.SelectCommand.Parameters.Add("medicinename", MedicineName);
             DataSet ds = new DataSet();
             adapt.Fill(ds);
 
-            /*
-             * 
-                foreach (DataRow dr in ds.Tables[0].Rows)
-                {
-                    //your code here
-                }
-             * */
-            return ds;
+            if(ds.Tables[0].Rows.Count == 1)
+            {
+                DataRow dr = ds.Tables[0].Rows[0];
+                int id = int.Parse(dr[0].ToString());
+                string name = dr[1].ToString();
+                float price = float.Parse(dr[2].ToString());
+                string side_effects = dr[3].ToString();
+                string usage = dr[4].ToString();
+                string precautions = dr[5].ToString();
+                string ddInteraction = dr[6].ToString();
+                string dfInteraction = dr[7].ToString();
+                int secId = int.Parse(dr[8].ToString());
+                string src = dr[8].ToString();
+
+                Medicine m = new Medicine(id, name, price, side_effects, usage, precautions, ddInteraction, dfInteraction, secId, src);
+                return m;
+            }
+
+            return null;
         }
        // _________________________________________________________________________________________________________________________
         public void MasterDetailsForm()
