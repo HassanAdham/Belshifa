@@ -24,15 +24,18 @@ namespace Belshifa2
         }
         private void btnLogin_Click(object sender, EventArgs e)
         {
+
+
+           
             SystemDatabase dbObj = new SystemDatabase();
-            string message = dbObj.signIn(txtBoxUsername.Text, txtBoxPassword.Text, radioBtnPharmacist.Checked);
+            string message = dbObj.signIn(txtBoxUsername.Text, txtBoxPassword.Text,false);
             lblMessage.Text = message;
             lblMessage.Visible = true;
             if(message == "Logging in..")
             {
-                object user = dbObj.getProfile(txtBoxUsername.Text, radioBtnPharmacist.Checked);
+                object user = dbObj.getProfile(txtBoxUsername.Text, false);
 
-                if(radioBtnUser.Checked)
+                if(false)
                 {
                     Patient patient = (Patient)user;
                     CurrentPatient currentPatient = new CurrentPatient();

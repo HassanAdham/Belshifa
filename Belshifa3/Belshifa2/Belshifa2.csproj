@@ -56,6 +56,7 @@
     <Compile Include="dataClasses\Pharmacist.cs" />
     <Compile Include="dataClasses\Pharmacy.cs" />
     <Compile Include="dataClasses\Section.cs" />
+    <Compile Include="dataClasses\Has.cs" />
     <Compile Include="model\SystemDatabase.cs" />
     <Compile Include="view\MedicineAttributes.cs">
       <SubType>Form</SubType>

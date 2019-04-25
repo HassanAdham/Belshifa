@@ -13,11 +13,15 @@ namespace Belshifa2.model
     class SystemDatabase
     {
         private string ordb;
+
         private OracleConnection conn;
+
         private OracleCommand cmd;
 
         Dictionary<string, List<int>> areasAndPharmacies;
+
         Dictionary<string, int> areas;
+
         List<Pharmacy> pharmacyList;
 
         public SystemDatabase()
@@ -25,7 +29,7 @@ namespace Belshifa2.model
             areasAndPharmacies = new Dictionary<string, List<int>>();
             areas = new Dictionary<string, int>();
             pharmacyList = new List<Pharmacy>();
-            ordb = "Data source = orcl;user id=hr; password =hr";
+            ordb = "Data source = oracle;user id=scott; password =tiger";
             conn = new OracleConnection(ordb);
             conn.Open();
 
@@ -109,6 +113,7 @@ namespace Belshifa2.model
 
             return message;
         }
+
         public string signUp(Object person, bool type)
         {
             string message = "";
@@ -235,6 +240,7 @@ namespace Belshifa2.model
                 }
             }
         }
+
         public string updateProfile(Patient patient)
         {
             cmd = new OracleCommand();
@@ -268,6 +274,7 @@ namespace Belshifa2.model
                 return "Failed To Update!";
             }
         }
+
         public string deleteAccount(string email)
         {
             cmd = new OracleCommand();
@@ -317,6 +324,7 @@ namespace Belshifa2.model
                 return "Failed To Update!";
             }
         }
+
         public void getOrderHistory(string key) // for patient.
         {
             throw new NotImplementedException();
@@ -326,7 +334,6 @@ namespace Belshifa2.model
         {
             throw new NotImplementedException();
         }
-
 
         public List<Medicine> getSimilars(string usage)
         {
@@ -389,7 +396,6 @@ namespace Belshifa2.model
                 return null;
             }
         }
-
 
         //Step A.1 .. Select Statement Without Where Condition.
         public List<Section> getSections()
@@ -470,7 +476,6 @@ namespace Belshifa2.model
                 cmd.Dispose();
             }
         }
-
         //_____________________________________________________________________________________________________________________
         public void makeOrder(string email, string address, List<int> medicines_ids)
         {
@@ -582,6 +587,7 @@ namespace Belshifa2.model
             }
             return pharmacyWithFullOrder;
         }
+
         private int nearest_pharmacy_id(List<Pharmacy> pharmacies_with_full_order, string patientAddress)
         {
             int minDistance = 100;
@@ -632,6 +638,7 @@ namespace Belshifa2.model
             }
 
         }
+
         private void fillAreas()
         {
             areas["Sheraton"] = 1;
@@ -645,6 +652,7 @@ namespace Belshifa2.model
             areas["October"] = 9;
             areas["Zayed"] = 10;
         }
+
         public List<Pharmacy> get_Pharmacies()
         {
             cmd = new OracleCommand();
@@ -722,6 +730,7 @@ namespace Belshifa2.model
 
         }
        // ________________________________________________________________________________________________________________________
+
         public void OrderDetails()
         {
             ordb = "Data source = oracle;user id=scott; password =tiger";
@@ -731,7 +740,9 @@ namespace Belshifa2.model
             adapt.Fill(ds);
             OracleCommandBuilder builder = new OracleCommandBuilder(adapt);
             adapt.Update(ds.Tables[0]); // Q: Leh update??
+
         }
+
         public List<Order> Get_Pharmacy_Orders(int PharmacyID)
         {
             List<Order> Get_Pharmacy_Orders;
@@ -765,6 +776,65 @@ namespace Belshifa2.model
 
             return Get_Pharmacy_Orders;
         }
+
+        ////////////////////////////////////////////////////////////////
+        public void getpharmacistusername(bool checkbtn)
+        {
+            Pharmacist pharmacist = new Pharmacist();
+            cmd = new OracleCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "select PH_USERNAME from PHARMACIST where PH_USERNAME = :uname";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("phuname", pharmacist.get_username());
+            try
+            {
+                string message = "";
+                OracleDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                    message = "Found";
+                else
+                    message = "Please Try Again";
+            }
+            catch
+            {
+                cmd.Dispose();
+            }
+
+        }
+
+        public List<Has> MedQuant(int oid)
+        {
+            List<Has> MedQuant;
+            MedQuant = new List<Has>();
+            cmd = new OracleCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "select * from HAS where O_ID = :oid ";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("OID", oid);
+            try
+            {
+                OracleDataReader rs = cmd.ExecuteReader();
+                Has has;
+                List<int> MID = new List<int>();
+                while (rs.Read())
+                {
+                    has = new Has();
+
+                    has.Set_OID(int.Parse(rs[0].ToString()));
+                    has.OMID.Add(int.Parse(rs[1].ToString()));
+                    has.Set_Quantity(int.Parse(rs[2].ToString()));
+                    MedQuant.Add(has);
+                }
+                rs.Close();
+            }
+            catch
+            {
+                cmd.Dispose();
+            }
+
+            return MedQuant;
+        }
+
         public void disconnect()
         {
             conn.Dispose();
