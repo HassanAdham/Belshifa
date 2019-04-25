@@ -15,7 +15,7 @@ namespace Belshifa2
     public partial class Form1 : Form
     {
         SystemDatabase dbObj;
-        
+        CurrentPatient currentPatient;
         public Form1()
         {
             InitializeComponent();
@@ -101,6 +101,10 @@ namespace Belshifa2
             pictureBox.Name = medicine.get_id().ToString();
             pictureBox.Size = new Size(163, 133);
             pictureBox.TabStop = false;
+            pictureBox.Click += delegate
+            {
+
+            };
             /////////////////////////////////////////////////
             label.AutoSize = true;
             label.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
@@ -109,19 +113,18 @@ namespace Belshifa2
             label.Size = new Size(46, 18);
             label.Text = medicine.get_name();
             /////////////////////////////////////////////// 
-            panel.Controls.Add(label);
-            panel.Controls.Add(pictureBox);
             panel.Location = new Point(3, 3);
             panel.Margin = new Padding(10, 10, 10, 10);
             panel.Name = medicine.get_id().ToString();
             panel.Size = new Size(200, 175);
+            panel.Controls.Add(label);
+            panel.Controls.Add(pictureBox);
             //////////////////////////////////////////////
             flpMedicine.Controls.Add(panel);
         }
 
 
         //---------------------------------Moving Form-------------------------------
-
         bool mouseDown = false;
         Point startPoint; //Where the mouse has
         private void pnlTop_MouseDown(object sender, MouseEventArgs e)
@@ -185,16 +188,30 @@ namespace Belshifa2
         {
             LoginForm lf = new LoginForm();
             lf.ShowDialog();
+            CurrentPatient currentPatient = new CurrentPatient();
+            if(currentPatient.get_currentUser() != null)
+            {
+                Loginregister.Text = currentPatient.get_currentUser().get_f_name();
+                currentPatient.addToCart(2); //For testing...
+
+                dbObj.makeOrder(currentPatient.get_currentUser().get_email(),
+                                currentPatient.get_currentUser().get_address(),
+                                currentPatient.get_cart()); //For testing...
+            }
         }
 
-        private void flpSections_Paint(object sender, PaintEventArgs e)
+        private void btnSearch_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void panel3_Paint(object sender, PaintEventArgs e)
-        {
-
+            Medicine m = dbObj.SearchForMedicine(txtBxSearch.Text);
+            foreach(Label l in flpSections.Controls)
+            {
+                l.ForeColor = Color.Black;
+            }
+            flpMedicine.Controls.Clear();
+            if (m!=null)
+            {
+                create_medicine(m);
+            }
         }
     }
 }

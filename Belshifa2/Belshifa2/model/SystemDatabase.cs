@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
-using System.Windows.Forms;
 using Oracle.DataAccess.Client;
 using Oracle.DataAccess.Types;
 using Belshifa2.dataClasses;
-
-
 
 namespace Belshifa2.model
 {
@@ -28,11 +25,12 @@ namespace Belshifa2.model
             areasAndPharmacies = new Dictionary<string, List<int>>();
             areas = new Dictionary<string, int>();
             pharmacyList = new List<Pharmacy>();
-            ordb = "Data source = oracle;user id=scott; password =tiger";
+            ordb = "Data source = orcl;user id=hr; password =hr";
             conn = new OracleConnection(ordb);
             conn.Open();
 
             fillAreasAndPharmacies();
+            fillAreas();
             get_Pharmacies();
         }
 
@@ -58,21 +56,21 @@ namespace Belshifa2.model
                     {
                         rs.Close();
                         cmd.Dispose();
-                        message = "Account is Verified";
+                        message = "Logging in..";
                     }
                     else
                     {
                         rs.Close();
                         cmd.Dispose();
 
-                        message = "Something is wrong check your username or password";
+                        message = "Please check username or password!";
                     }                   
                 }
              
                 catch
                 {
                     cmd.Dispose();
-                    message = "Error connecting to the database";
+                    message = "Error connecting to the database!";
                 }
             }
             //Pharmacist
@@ -392,7 +390,7 @@ namespace Belshifa2.model
             }
         }
 
-        
+        //_____________________________________________________________________________________________________________________
         public void makeOrder(string email, string address, List<int> medicines_ids)
         {
             //get max order id from table has
@@ -404,21 +402,12 @@ namespace Belshifa2.model
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add("OrderID", OracleDbType.Int32, System.Data.ParameterDirection.Output);
             cmd.ExecuteNonQuery();
+            if (cmd.Parameters["OrderID"].Value == null)
+                sum = 0;
+            else
+                sum = int.Parse(cmd.Parameters["OrderID"].Value.ToString());
+            maxorderid = sum + 1;
             cmd.Dispose();
-
-
-            //insert medicines in table has
-            for (int i = 0; i < medicines_ids.Count; i++)
-            {
-                cmd = new OracleCommand();
-                cmd.Connection = conn;
-                cmd.CommandText = " insert into has (M_ID) values (:mid) where O_ID = :oid ";
-                cmd.CommandType = System.Data.CommandType.Text;
-                cmd.Parameters.Add("oid", maxorderid);
-                cmd.Parameters.Add("mid", medicines_ids[i]);
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-            }
 
 
             //totalPrice
@@ -430,7 +419,7 @@ namespace Belshifa2.model
                 cmd.CommandText = "GetPrice";
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.Add("mid", medicines_ids[i]);
-                cmd.Parameters.Add("MedicinePice", OracleDbType.Int32, System.Data.ParameterDirection.Output);
+                cmd.Parameters.Add("MedicinePrice", OracleDbType.Int32, System.Data.ParameterDirection.Output);
                 cmd.ExecuteNonQuery();
                 totalprice += Convert.ToInt32(cmd.Parameters["MedicinePrice"].Value.ToString());
                 cmd.Dispose();
@@ -445,13 +434,14 @@ namespace Belshifa2.model
             }
 
 
-            string orderdate = DateTime.Now.ToString();
-            string Deliverydate = DateTime.Now.AddDays(3).ToString();
+            string orderdate = "23-april-2019";
+            string Deliverydate = "27-april-2019";
             //insert into order all the data
             cmd = new OracleCommand();
             cmd.Connection = conn;
             cmd.CommandText = "InsertOrderData";
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add("orderId", maxorderid);
             cmd.Parameters.Add("orderdate", orderdate);
             cmd.Parameters.Add("deliverydate", Deliverydate);
             cmd.Parameters.Add("totalprice", totalprice);
@@ -459,10 +449,21 @@ namespace Belshifa2.model
             cmd.Parameters.Add("pharmacy_id", pharm_id);                //added by Dina, not yet added in procedure.
             cmd.ExecuteNonQuery();
             cmd.Dispose();
+
+
+            //insert medicines in table has
+            for (int i = 0; i < medicines_ids.Count; i++)
+            {
+                cmd = new OracleCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "insert into has values(:oid, :mid)";
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.Parameters.Add("oid", maxorderid);
+                cmd.Parameters.Add("mid", medicines_ids[i]);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
         }
-
-
-
 
         private List<Pharmacy> get_pharmacies_With_full_order(List<int> medicines_ids)
         {
@@ -476,7 +477,7 @@ namespace Belshifa2.model
                 cmd.Connection = conn;
                 cmd.CommandText = "select m_id from gets where pharmacy_id = :id";
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add(pharmacy.get_id());
+                cmd.Parameters.Add("id",pharmacy.get_id());
 
                 try
                 {
@@ -517,6 +518,7 @@ namespace Belshifa2.model
             }
             return nearest_pharmacy.get_id();
         }
+
         private void fillAreasAndPharmacies()
         {
             areasAndPharmacies["Sheraton"] = new List<int>();
@@ -584,64 +586,36 @@ namespace Belshifa2.model
                 cmd.Dispose();
             }
         }
-
-
-        
-
-        public List<Order> Get_Pharmacy_Orders(int PharmacyID)
+        // ___________________________________________________________________________________________________________________
+        public Medicine SearchForMedicine(string MedicineName)
         {
-            List<Order> Get_Pharmacy_Orders;
-            
-                Get_Pharmacy_Orders= new List<Order>();
-                cmd = new OracleCommand();
-                cmd.Connection = conn;
-                cmd.CommandText = "select * from orderr where PHARMACY_ID = :id and PH_USERNAME is null";
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add("pharmid",PharmacyID);
-           
-            try
-                {
-                OracleDataReader rs = cmd.ExecuteReader();
-                Order ord;
-                while (rs.Read())
-                {
-
-                    ord = new Order(int.Parse(rs[0].ToString()), rs[1].ToString(), rs[2].ToString(), float.Parse(rs[3].ToString()), rs[4].ToString(), rs[5].ToString(), int.Parse(rs[6].ToString()));
-                    Get_Pharmacy_Orders.Add(ord);
-                    //Get_Pharmacy_Orders.Add(rs[0].ToString);
-                    break;
-                }
-                rs.Close();
-            }
-                catch
-                {
-                    cmd.Dispose();
-                }
-
-
-            return Get_Pharmacy_Orders;
-        }
-
-
-        public DataSet SearchForMedicine(string MedicineName)
-        {
-            ordb = "Data source = oracle;user id=scott; password =tiger";
             string cmdtext = "select * from MEDICINE where M_NAME = :medicinename";
             OracleDataAdapter adapt = new OracleDataAdapter(cmdtext, ordb);
             adapt.SelectCommand.Parameters.Add("medicinename", MedicineName);
             DataSet ds = new DataSet();
             adapt.Fill(ds);
 
-            /*
-             * 
-                foreach (DataRow dr in ds.Tables[0].Rows)
-                {
-                    //your code here
-                }
-             * */
-            return ds;
+            if(ds.Tables[0].Rows.Count == 1)
+            {
+                DataRow dr = ds.Tables[0].Rows[0];
+                int id = int.Parse(dr[0].ToString());
+                string name = dr[1].ToString();
+                float price = float.Parse(dr[2].ToString());
+                string side_effects = dr[3].ToString();
+                string usage = dr[4].ToString();
+                string precautions = dr[5].ToString();
+                string ddInteraction = dr[6].ToString();
+                string dfInteraction = dr[7].ToString();
+                int secId = int.Parse(dr[8].ToString());
+                string src = dr[8].ToString();
+
+                Medicine m = new Medicine(id, name, price, side_effects, usage, precautions, ddInteraction, dfInteraction, secId, src);
+                return m;
+            }
+
+            return null;
         }
- 
+       // _________________________________________________________________________________________________________________________
         public void MasterDetailsForm()
         {
             ordb = "Data source = oracle;user id=scott; password =tiger";
@@ -657,12 +631,13 @@ namespace Belshifa2.model
             DataRelation r = new DataRelation("FK", ds.Tables[0].Columns["S_ID"], ds.Tables[1].Columns["S_ID"]);
             ds.Relations.Add(r);
 
-            BindingSource bs_Master = new BindingSource(ds, "Section");
-            BindingSource bs_Child = new BindingSource(bs_Master, "FK");
+            //BindingSource bs_Master = new BindingSource(ds,"Section");
+            //BindingSource bs_Child = new BindingSource(bs_Master, "FK");
 
 
 
         }
+       // ________________________________________________________________________________________________________________________
         public void OrderDetails()
         {
             ordb = "Data source = oracle;user id=scott; password =tiger";
@@ -673,7 +648,39 @@ namespace Belshifa2.model
             OracleCommandBuilder builder = new OracleCommandBuilder(adapt);
             adapt.Update(ds.Tables[0]); // Q: Leh update??
         }
+        public List<Order> Get_Pharmacy_Orders(int PharmacyID)
+        {
+            List<Order> Get_Pharmacy_Orders;
 
+            Get_Pharmacy_Orders = new List<Order>();
+            cmd = new OracleCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "select * from orderr where PHARMACY_ID = :id and PH_USERNAME is null";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("pharmid", PharmacyID);
+
+            try
+            {
+                OracleDataReader rs = cmd.ExecuteReader();
+                Order ord;
+                while (rs.Read())
+                {
+
+                    ord = new Order(int.Parse(rs[0].ToString()), rs[1].ToString(), rs[2].ToString(), float.Parse(rs[3].ToString()), rs[4].ToString(), rs[5].ToString(), int.Parse(rs[6].ToString()));
+                    Get_Pharmacy_Orders.Add(ord);
+                    //Get_Pharmacy_Orders.Add(rs[0].ToString);
+                    break;
+                }
+                rs.Close();
+            }
+            catch
+            {
+                cmd.Dispose();
+            }
+
+
+            return Get_Pharmacy_Orders;
+        }
         public void disconnect()
         {
             conn.Dispose();

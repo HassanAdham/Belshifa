@@ -34,8 +34,8 @@ namespace Belshifa2
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.Loginregister = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.Search = new System.Windows.Forms.Button();
+            this.txtBxSearch = new System.Windows.Forms.TextBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.pnlTop = new System.Windows.Forms.Panel();
             this.btnMinimize = new System.Windows.Forms.Button();
@@ -148,27 +148,29 @@ namespace Belshifa2
             this.Loginregister.UseVisualStyleBackColor = false;
             this.Loginregister.Click += new System.EventHandler(this.Loginregister_Click);
             // 
-            // textBox1
+            // txtBxSearch
             // 
-            this.textBox1.Location = new System.Drawing.Point(64, 4);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(300, 27);
-            this.textBox1.TabIndex = 2;
+            this.txtBxSearch.Location = new System.Drawing.Point(64, 4);
+            this.txtBxSearch.Multiline = true;
+            this.txtBxSearch.Name = "txtBxSearch";
+            this.txtBxSearch.Size = new System.Drawing.Size(300, 27);
+            this.txtBxSearch.TabIndex = 2;
             // 
-            // Search
+            // btnSearch
             // 
-            this.Search.BackColor = System.Drawing.Color.Brown;
-            this.Search.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Search.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Search.ForeColor = System.Drawing.Color.Snow;
-            this.Search.Location = new System.Drawing.Point(364, 4);
-            this.Search.Name = "Search";
-            this.Search.Size = new System.Drawing.Size(66, 27);
-            this.Search.TabIndex = 3;
-            this.Search.Text = "Search";
-            this.Search.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.Search.UseVisualStyleBackColor = false;
+            this.btnSearch.BackColor = System.Drawing.Color.Brown;
+            this.btnSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.ForeColor = System.Drawing.Color.Snow;
+            this.btnSearch.Location = new System.Drawing.Point(364, 4);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(66, 27);
+            this.btnSearch.TabIndex = 3;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.btnSearch.UseVisualStyleBackColor = false;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnClose
             // 
@@ -219,8 +221,8 @@ namespace Belshifa2
             this.panel1.BackColor = System.Drawing.Color.Brown;
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.Loginregister);
-            this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Controls.Add(this.Search);
+            this.panel1.Controls.Add(this.txtBxSearch);
+            this.panel1.Controls.Add(this.btnSearch);
             this.panel1.Location = new System.Drawing.Point(0, 27);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1027, 35);
@@ -272,7 +274,6 @@ namespace Belshifa2
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1025, 630);
             this.panel3.TabIndex = 14;
-            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
             // picBoxCommercial3
             // 
@@ -346,7 +347,6 @@ namespace Belshifa2
             this.flpSections.Name = "flpSections";
             this.flpSections.Size = new System.Drawing.Size(814, 33);
             this.flpSections.TabIndex = 18;
-            this.flpSections.Paint += new System.Windows.Forms.PaintEventHandler(this.flpSections_Paint);
             // 
             // lblAllSections
             // 
@@ -956,8 +956,8 @@ namespace Belshifa2
 
         #endregion
         private System.Windows.Forms.Button Loginregister;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button Search;
+        private System.Windows.Forms.TextBox txtBxSearch;
+        private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Panel pnlTop;
         private System.Windows.Forms.Button btnMinimize;

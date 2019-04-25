@@ -12,7 +12,7 @@ namespace Belshifa2.dataClasses
         string name;
         string address;
 
-        public Pharmacy(int id, string name, string address)
+        public Pharmacy(int id, string address, string name)
         {
             this.id = id;
             this.name = name;

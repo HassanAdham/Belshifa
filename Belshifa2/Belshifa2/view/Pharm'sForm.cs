@@ -7,8 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms;
 using Belshifa2.dataClasses;
 using Belshifa2.model;
+
 namespace Belshifa2
 {
     public partial class Form2 : Form
@@ -20,32 +22,12 @@ namespace Belshifa2
             sysdb = new SystemDatabase();
         }
 
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void Form2_Load(object sender, EventArgs e)
         {
             creatnumberoforders(1);
         }
 
-        private void panel5_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void showorder(int orid ,string od, string dd, float tp, string em , int pharid )
+        private void showorder(int orid, string od, string dd, float tp, string em, int pharid)
         {
             // panel4
             // 
@@ -99,7 +81,7 @@ namespace Belshifa2
             medicines.Size = new System.Drawing.Size(35, 13);
             medicines.TabIndex = 9;
             medicines.Text = "label9";
-         
+
             // 
             // label8
             // 
@@ -161,9 +143,9 @@ namespace Belshifa2
         private void creatnumberoforders(int id)
         {
             List<Order> ord = sysdb.Get_Pharmacy_Orders(1);
-            foreach(Order order in ord)
+            foreach (Order order in ord)
             {
-                showorder(order.get_orderId(),order.get_orderDate(), order.get_deliveryDate(), order.get_totalPrice(),order.get_patient_email(),order.get_pharmacy_id());
+                showorder(order.get_orderId(), order.get_orderDate(), order.get_deliveryDate(), order.get_totalPrice(), order.get_patient_email(), order.get_pharmacy_id());
             }
         }
     }
