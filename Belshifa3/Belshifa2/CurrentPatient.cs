@@ -18,6 +18,11 @@ namespace Belshifa2
             this.price = price;
             this.name = name;
         }
+        public void set_quantity(int quantity)
+        {
+            this.quantity = quantity;
+        }
+
         public int  get_quantity()
         {
             return this.quantity;

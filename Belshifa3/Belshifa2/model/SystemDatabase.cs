@@ -29,7 +29,7 @@ namespace Belshifa2.model
             areasAndPharmacies = new Dictionary<string, List<int>>();
             areas = new Dictionary<string, int>();
             pharmacyList = new List<Pharmacy>();
-            ordb = "Data source = oracle;user id=scott; password =tiger";
+            ordb = "Data source = orcl;user id=hr; password =hr";
             conn = new OracleConnection(ordb);
             conn.Open();
 
@@ -327,12 +327,27 @@ namespace Belshifa2.model
 
         public void getOrderHistory(string key) // for patient.
         {
-            throw new NotImplementedException();
+
         }
 
-        public void getPatientPendingOrders(string key)
+        public List<Order> getPatientPendingOrders(string key)
         {
-            throw new NotImplementedException();
+            cmd = new OracleCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = @"select o_id, total_price, order_date from orderr where email = :key";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("key", key);
+
+            OracleDataReader dr = cmd.ExecuteReader();
+            List<Order> pendingList = new List<Order>();
+            Order order;
+            while(dr.Read())
+            {
+                order = new Order(int.Parse(dr[0].ToString()), dr[2].ToString(), null, float.Parse(dr[1].ToString()), null, null, 0);
+                pendingList.Add(order);
+            }
+
+            return pendingList;
         }
 
         public List<Medicine> getSimilars(string usage)

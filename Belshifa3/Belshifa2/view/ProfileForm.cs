@@ -50,6 +50,13 @@ namespace Belshifa2.view
             {
                 create_item_To_Cart(item);
             }
+
+            List<Order> pending = dbObj.getPatientPendingOrders(currentPatient.get_currentUser().get_email());
+            flpUnapproved.Controls.Clear();
+            foreach(Order order in pending)
+            {
+                create_item_To_Pending(order);
+            }
         }
         private void displayUnapproved()
         {
@@ -141,9 +148,66 @@ namespace Belshifa2.view
             numericUpDown1.TabIndex = 67;
             numericUpDown1.ValueChanged += delegate
             {
-
+                lblPrice.Text = ((float)numericUpDown1.Value * itm.Value.get_price()).ToString();
+                itm.Value.set_quantity(int.Parse(numericUpDown1.Value.ToString()));
             };
             flpCart.Controls.Add(item);
+        }
+
+        private void create_item_To_Pending(Order order)
+        {
+            Panel item = new Panel();
+            Label lblId = new Label();
+            Label lblPrice = new Label();
+            Label lblOrderDate = new Label();
+            // 
+            // item
+            // 
+            item.BackColor = Color.Gainsboro;
+            item.Controls.Add(lblPrice);
+            item.Controls.Add(lblId);
+            item.Controls.Add(lblOrderDate);
+            item.Location = new Point(5, 5);
+            item.Margin = new System.Windows.Forms.Padding(5);
+            item.Name = "item";
+            item.Size = new Size(541, 33);
+            item.TabIndex = 0;
+
+            // 
+            // lblPrice
+            // 
+            lblPrice.AutoSize = true;
+            lblPrice.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            lblPrice.ForeColor = Color.Brown;
+            lblPrice.Location = new Point(281, 9);
+            lblPrice.Name = "lblPrice";
+            lblPrice.Size = new Size(42, 18);
+            lblPrice.TabIndex = 30;
+            lblPrice.Text = order.get_totalPrice().ToString();
+            // 
+            // lblName
+            // 
+            lblId.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            lblId.ForeColor = Color.Brown;
+            lblId.Location = new Point(22,9);
+            lblId.Name = "lblId";
+            lblId.Size = new Size(48, 18);
+            lblId.TabIndex = 29;
+            lblId.Text = order.get_orderId().ToString();
+
+            // 
+            // lblOrderDate
+            // 
+            lblOrderDate.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            lblOrderDate.ForeColor = Color.Brown;
+            lblOrderDate.Location = new Point(133, 9);
+            lblOrderDate.Name = "lblOrderDate";
+            lblOrderDate.Size = new Size(48, 18);
+            lblOrderDate.TabIndex = 29;
+            lblOrderDate.Text = order.get_orderDate();
+
+
+            flpUnapproved.Controls.Add(item);
         }
         private void remove_item(int id)
         {
@@ -213,6 +277,11 @@ namespace Belshifa2.view
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void flpCart_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

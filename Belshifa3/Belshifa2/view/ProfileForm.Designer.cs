@@ -62,10 +62,18 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tbPgUnApproved = new System.Windows.Forms.TabPage();
             this.flpUnapproved = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblOrderDate = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.lblID = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.flpHistory = new System.Windows.Forms.FlowLayoutPanel();
             this.label9 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.pnlTop.SuspendLayout();
             this.tbPgHistory.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -75,7 +83,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBx)).BeginInit();
             this.tbPgUnApproved.SuspendLayout();
+            this.flpUnapproved.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
@@ -381,6 +392,7 @@
             this.flpCart.Name = "flpCart";
             this.flpCart.Size = new System.Drawing.Size(551, 252);
             this.flpCart.TabIndex = 55;
+            this.flpCart.Paint += new System.Windows.Forms.PaintEventHandler(this.flpCart_Paint);
             // 
             // item
             // 
@@ -459,6 +471,8 @@
             // 
             // tbPgUnApproved
             // 
+            this.tbPgUnApproved.BackColor = System.Drawing.Color.Snow;
+            this.tbPgUnApproved.Controls.Add(this.panel2);
             this.tbPgUnApproved.Controls.Add(this.flpUnapproved);
             this.tbPgUnApproved.Controls.Add(this.label8);
             this.tbPgUnApproved.Location = new System.Drawing.Point(4, 22);
@@ -467,14 +481,60 @@
             this.tbPgUnApproved.Size = new System.Drawing.Size(718, 411);
             this.tbPgUnApproved.TabIndex = 2;
             this.tbPgUnApproved.Text = "tabPage3";
-            this.tbPgUnApproved.UseVisualStyleBackColor = true;
             // 
             // flpUnapproved
             // 
-            this.flpUnapproved.Location = new System.Drawing.Point(92, 77);
+            this.flpUnapproved.BackColor = System.Drawing.Color.White;
+            this.flpUnapproved.Controls.Add(this.panel1);
+            this.flpUnapproved.Location = new System.Drawing.Point(92, 112);
             this.flpUnapproved.Name = "flpUnapproved";
-            this.flpUnapproved.Size = new System.Drawing.Size(544, 242);
+            this.flpUnapproved.Size = new System.Drawing.Size(551, 217);
             this.flpUnapproved.TabIndex = 57;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel1.Controls.Add(this.lblOrderDate);
+            this.panel1.Controls.Add(this.label10);
+            this.panel1.Controls.Add(this.lblID);
+            this.panel1.Location = new System.Drawing.Point(5, 5);
+            this.panel1.Margin = new System.Windows.Forms.Padding(5);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(541, 33);
+            this.panel1.TabIndex = 1;
+            // 
+            // lblOrderDate
+            // 
+            this.lblOrderDate.AutoSize = true;
+            this.lblOrderDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOrderDate.ForeColor = System.Drawing.Color.Brown;
+            this.lblOrderDate.Location = new System.Drawing.Point(133, 9);
+            this.lblOrderDate.Name = "lblOrderDate";
+            this.lblOrderDate.Size = new System.Drawing.Size(77, 18);
+            this.lblOrderDate.TabIndex = 67;
+            this.lblOrderDate.Text = "OrderDate";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.Brown;
+            this.label10.Location = new System.Drawing.Point(281, 9);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(42, 18);
+            this.label10.TabIndex = 30;
+            this.label10.Text = "Price";
+            // 
+            // lblID
+            // 
+            this.lblID.AutoSize = true;
+            this.lblID.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblID.ForeColor = System.Drawing.Color.Brown;
+            this.lblID.Location = new System.Drawing.Point(13, 9);
+            this.lblID.Name = "lblID";
+            this.lblID.Size = new System.Drawing.Size(22, 18);
+            this.lblID.TabIndex = 29;
+            this.lblID.Text = "ID";
             // 
             // label8
             // 
@@ -503,7 +563,7 @@
             // 
             this.flpHistory.Location = new System.Drawing.Point(92, 77);
             this.flpHistory.Name = "flpHistory";
-            this.flpHistory.Size = new System.Drawing.Size(544, 242);
+            this.flpHistory.Size = new System.Drawing.Size(551, 252);
             this.flpHistory.TabIndex = 59;
             // 
             // label9
@@ -516,6 +576,51 @@
             this.label9.Size = new System.Drawing.Size(74, 24);
             this.label9.TabIndex = 58;
             this.label9.Text = "History";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.White;
+            this.label12.Location = new System.Drawing.Point(137, 9);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(93, 20);
+            this.label12.TabIndex = 67;
+            this.label12.Text = "OrderDate";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(285, 9);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(49, 20);
+            this.label13.TabIndex = 30;
+            this.label13.Text = "Price";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.White;
+            this.label14.Location = new System.Drawing.Point(20, 9);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(28, 20);
+            this.label14.TabIndex = 29;
+            this.label14.Text = "ID";
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Brown;
+            this.panel2.Controls.Add(this.label12);
+            this.panel2.Controls.Add(this.label13);
+            this.panel2.Controls.Add(this.label14);
+            this.panel2.Location = new System.Drawing.Point(92, 76);
+            this.panel2.Margin = new System.Windows.Forms.Padding(5);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(551, 33);
+            this.panel2.TabIndex = 68;
             // 
             // ProfileForm
             // 
@@ -541,8 +646,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.picBx)).EndInit();
             this.tbPgUnApproved.ResumeLayout(false);
             this.tbPgUnApproved.PerformLayout();
+            this.flpUnapproved.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -587,5 +697,13 @@
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.Label lblPrice;
         private System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblID;
+        private System.Windows.Forms.Label lblOrderDate;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
     }
 }
