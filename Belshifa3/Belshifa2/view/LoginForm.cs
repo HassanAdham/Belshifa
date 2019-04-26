@@ -41,7 +41,11 @@ namespace Belshifa2
                 }
                 else
                 {
-                    //Pharmacist code!!
+                    object user = dbObj.getProfile(txtBoxUsername.Text, true);
+                    Pharmacist pharmacist = (Pharmacist)user;
+                    Form2 f2 = new Form2(pharmacist.get_pharmacy_id() ,txtBoxUsername.Text);
+                    f2.Show();
+                    this.Close();
                 }
             }
         }

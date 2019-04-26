@@ -29,7 +29,7 @@ namespace Belshifa2.model
             areasAndPharmacies = new Dictionary<string, List<int>>();
             areas = new Dictionary<string, int>();
             pharmacyList = new List<Pharmacy>();
-            ordb = "Data source = orcl;user id=hr; password =hr";
+            ordb = "Data source = oracle;user id=scott; password =tiger";
             conn = new OracleConnection(ordb);
             conn.Open();
 
@@ -94,7 +94,7 @@ namespace Belshifa2.model
                     {
                         rs.Close();
                         cmd.Dispose();
-                        message = "Account is Verified";
+                        message = "Logging in..";
                     }
                     else
                     {
@@ -591,10 +591,11 @@ namespace Belshifa2.model
         {
             int medicineMatchCounter;
             List<Pharmacy> pharmacyWithFullOrder = null;
-            foreach(Pharmacy pharmacy in pharmacyList)
+            pharmacyWithFullOrder = new List<Pharmacy>();
+            foreach (Pharmacy pharmacy in pharmacyList)
             {
                 medicineMatchCounter = 0;
-                pharmacyWithFullOrder = new List<Pharmacy>();
+               
                 cmd = new OracleCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "select m_id, quantity from gets where pharmacy_id = :id";
