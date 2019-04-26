@@ -44,7 +44,7 @@ namespace Belshifa2
                     object user = dbObj.getProfile(txtBoxUsername.Text, true);
                     Pharmacist pharmacist = (Pharmacist)user;
                     Form2 f2 = new Form2(pharmacist.get_pharmacy_id() ,txtBoxUsername.Text);
-                    f2.Show();
+                    f2.ShowDialog();
                     this.Close();
                 }
             }

@@ -325,7 +325,7 @@ namespace Belshifa2
         //halef 3ale list bta3et elorders mn systemdatabase
         private void creatnumberoforders(int id)
         {
-            List<Order> ord = sysdb.Get_Pharmacy_Orders(1);
+            List<Order> ord = sysdb.Get_Pharmacy_Orders(pharmacyid);
             foreach (Order order in ord)
             {
                 showorder(order.get_orderId(), order.get_orderDate(), order.get_deliveryDate(), order.get_totalPrice(), order.get_patient_email(), order.get_pharmacy_id());
