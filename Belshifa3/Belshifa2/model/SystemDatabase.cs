@@ -847,6 +847,35 @@ namespace Belshifa2.model
 
         }
 
+
+        public List<Medicine> MName(int pharmacyid)
+        {
+            List<Medicine> MEDName = new List<Medicine>();
+            cmd = new OracleCommand();
+            cmd.CommandText = "select M_Name from MEDICINE , HAS , GETS where HAS.M_ID = MEDICINE.M_ID and GETS.M_ID = MEDICINE.M_ID and GETS.PHARMACY_ID=:pharmid;";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("pharmaid", pharmacyid);
+            
+            try
+            {
+                OracleDataReader rs = cmd.ExecuteReader();
+                List<string> mname = new List<string>();
+                Medicine medi;
+                while (rs.Read())
+                {
+                    medi = new Medicine(int.Parse(rs[0].ToString()), rs[1].ToString(), float.Parse(rs[2].ToString()), rs[3].ToString(), rs[4].ToString(), rs[5].ToString(), rs[6].ToString(), rs[7].ToString(), int.Parse(rs[8].ToString()), rs[8].ToString());
+                    MEDName.Add(medi);
+
+                }
+                rs.Close();
+            }
+            catch
+            {
+                cmd.Dispose();
+            }
+            return MEDName;
+        }
+    
         public List<Has> MedQuant(int oid)
         {
             List<Has> MedQuant;
@@ -860,7 +889,6 @@ namespace Belshifa2.model
             {
                 OracleDataReader rs = cmd.ExecuteReader();
                 Has has;
-                List<int> MID = new List<int>();
                 while (rs.Read())
                 {
                     has = new Has();
