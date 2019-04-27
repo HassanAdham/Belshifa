@@ -49,36 +49,36 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.tbPgSimilars = new System.Windows.Forms.TabPage();
-            this.flpSimilars = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lblNameText = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.lblSideEffectsHeader = new System.Windows.Forms.Label();
-            this.lblUsageHeader = new System.Windows.Forms.Label();
-            this.lblPrecautionsHeader = new System.Windows.Forms.Label();
-            this.lblDDInteractionHeader = new System.Windows.Forms.Label();
-            this.lblDFInteractionHeader = new System.Windows.Forms.Label();
-            this.lblPriceHeader = new System.Windows.Forms.Label();
-            this.lblSideEffectText = new System.Windows.Forms.Label();
-            this.lblUsageText = new System.Windows.Forms.Label();
-            this.lblPrecautionsText = new System.Windows.Forms.Label();
-            this.lblDDInteractionText = new System.Windows.Forms.Label();
-            this.lblDFInteractionText = new System.Windows.Forms.Label();
-            this.lblPriceText = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.lblPleaseSignInFirst = new System.Windows.Forms.Label();
+            this.flpSimilars = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.lblPriceText = new System.Windows.Forms.Label();
+            this.lblDFInteractionText = new System.Windows.Forms.Label();
+            this.lblDDInteractionText = new System.Windows.Forms.Label();
+            this.lblPrecautionsText = new System.Windows.Forms.Label();
+            this.lblUsageText = new System.Windows.Forms.Label();
+            this.lblSideEffectText = new System.Windows.Forms.Label();
+            this.lblPriceHeader = new System.Windows.Forms.Label();
+            this.lblDFInteractionHeader = new System.Windows.Forms.Label();
+            this.lblDDInteractionHeader = new System.Windows.Forms.Label();
+            this.lblPrecautionsHeader = new System.Windows.Forms.Label();
+            this.lblUsageHeader = new System.Windows.Forms.Label();
+            this.lblSideEffectsHeader = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.lblNameText = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.btnMedicinePage = new System.Windows.Forms.Button();
             this.btnSimilarsPage = new System.Windows.Forms.Button();
+            this.btnMedicinePage = new System.Windows.Forms.Button();
             this.pnlTop.SuspendLayout();
             this.tbControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.tbPgSimilars.SuspendLayout();
             this.flpSimilars.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -326,6 +326,18 @@
             this.tbPgSimilars.Text = "tabPage2";
             this.tbPgSimilars.UseVisualStyleBackColor = true;
             // 
+            // lblPleaseSignInFirst
+            // 
+            this.lblPleaseSignInFirst.AutoSize = true;
+            this.lblPleaseSignInFirst.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPleaseSignInFirst.ForeColor = System.Drawing.Color.Brown;
+            this.lblPleaseSignInFirst.Location = new System.Drawing.Point(550, 3);
+            this.lblPleaseSignInFirst.Name = "lblPleaseSignInFirst";
+            this.lblPleaseSignInFirst.Size = new System.Drawing.Size(130, 18);
+            this.lblPleaseSignInFirst.TabIndex = 30;
+            this.lblPleaseSignInFirst.Text = "Please sign in first!";
+            this.lblPleaseSignInFirst.Visible = false;
+            // 
             // flpSimilars
             // 
             this.flpSimilars.AutoSize = true;
@@ -336,172 +348,6 @@
             this.flpSimilars.Name = "flpSimilars";
             this.flpSimilars.Size = new System.Drawing.Size(677, 169);
             this.flpSimilars.TabIndex = 0;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.Black;
-            this.panel1.Location = new System.Drawing.Point(3, 31);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(713, 2);
-            this.panel1.TabIndex = 27;
-            // 
-            // lblNameText
-            // 
-            this.lblNameText.AutoSize = true;
-            this.lblNameText.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNameText.ForeColor = System.Drawing.Color.Brown;
-            this.lblNameText.Location = new System.Drawing.Point(15, 10);
-            this.lblNameText.Name = "lblNameText";
-            this.lblNameText.Size = new System.Drawing.Size(52, 18);
-            this.lblNameText.TabIndex = 10;
-            this.lblNameText.Text = "Name";
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.Snow;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.Green;
-            this.button1.Location = new System.Drawing.Point(626, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(42, 37);
-            this.button1.TabIndex = 23;
-            this.button1.Text = "+";
-            this.button1.UseVisualStyleBackColor = false;
-            // 
-            // lblSideEffectsHeader
-            // 
-            this.lblSideEffectsHeader.AutoSize = true;
-            this.lblSideEffectsHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSideEffectsHeader.ForeColor = System.Drawing.Color.Brown;
-            this.lblSideEffectsHeader.Location = new System.Drawing.Point(42, 49);
-            this.lblSideEffectsHeader.Name = "lblSideEffectsHeader";
-            this.lblSideEffectsHeader.Size = new System.Drawing.Size(87, 18);
-            this.lblSideEffectsHeader.TabIndex = 29;
-            this.lblSideEffectsHeader.Text = "Side Effects";
-            // 
-            // lblUsageHeader
-            // 
-            this.lblUsageHeader.AutoSize = true;
-            this.lblUsageHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsageHeader.ForeColor = System.Drawing.Color.Brown;
-            this.lblUsageHeader.Location = new System.Drawing.Point(45, 102);
-            this.lblUsageHeader.Name = "lblUsageHeader";
-            this.lblUsageHeader.Size = new System.Drawing.Size(51, 18);
-            this.lblUsageHeader.TabIndex = 30;
-            this.lblUsageHeader.Text = "Usage";
-            // 
-            // lblPrecautionsHeader
-            // 
-            this.lblPrecautionsHeader.AutoSize = true;
-            this.lblPrecautionsHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrecautionsHeader.ForeColor = System.Drawing.Color.Brown;
-            this.lblPrecautionsHeader.Location = new System.Drawing.Point(497, 49);
-            this.lblPrecautionsHeader.Name = "lblPrecautionsHeader";
-            this.lblPrecautionsHeader.Size = new System.Drawing.Size(87, 18);
-            this.lblPrecautionsHeader.TabIndex = 31;
-            this.lblPrecautionsHeader.Text = "Precuations";
-            // 
-            // lblDDInteractionHeader
-            // 
-            this.lblDDInteractionHeader.AutoSize = true;
-            this.lblDDInteractionHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDDInteractionHeader.ForeColor = System.Drawing.Color.Brown;
-            this.lblDDInteractionHeader.Location = new System.Drawing.Point(249, 49);
-            this.lblDDInteractionHeader.Name = "lblDDInteractionHeader";
-            this.lblDDInteractionHeader.Size = new System.Drawing.Size(150, 18);
-            this.lblDDInteractionHeader.TabIndex = 32;
-            this.lblDDInteractionHeader.Text = "Drug-Drug-Interaction";
-            // 
-            // lblDFInteractionHeader
-            // 
-            this.lblDFInteractionHeader.AutoSize = true;
-            this.lblDFInteractionHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDFInteractionHeader.ForeColor = System.Drawing.Color.Brown;
-            this.lblDFInteractionHeader.Location = new System.Drawing.Point(252, 102);
-            this.lblDFInteractionHeader.Name = "lblDFInteractionHeader";
-            this.lblDFInteractionHeader.Size = new System.Drawing.Size(156, 18);
-            this.lblDFInteractionHeader.TabIndex = 33;
-            this.lblDFInteractionHeader.Text = "Drug-Food_Interaction";
-            // 
-            // lblPriceHeader
-            // 
-            this.lblPriceHeader.AutoSize = true;
-            this.lblPriceHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPriceHeader.ForeColor = System.Drawing.Color.Brown;
-            this.lblPriceHeader.Location = new System.Drawing.Point(497, 102);
-            this.lblPriceHeader.Name = "lblPriceHeader";
-            this.lblPriceHeader.Size = new System.Drawing.Size(42, 18);
-            this.lblPriceHeader.TabIndex = 34;
-            this.lblPriceHeader.Text = "Price";
-            // 
-            // lblSideEffectText
-            // 
-            this.lblSideEffectText.AutoSize = true;
-            this.lblSideEffectText.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSideEffectText.Location = new System.Drawing.Point(54, 74);
-            this.lblSideEffectText.Name = "lblSideEffectText";
-            this.lblSideEffectText.Size = new System.Drawing.Size(36, 18);
-            this.lblSideEffectText.TabIndex = 35;
-            this.lblSideEffectText.Text = "Text";
-            // 
-            // lblUsageText
-            // 
-            this.lblUsageText.AutoSize = true;
-            this.lblUsageText.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsageText.Location = new System.Drawing.Point(57, 127);
-            this.lblUsageText.Name = "lblUsageText";
-            this.lblUsageText.Size = new System.Drawing.Size(36, 18);
-            this.lblUsageText.TabIndex = 36;
-            this.lblUsageText.Text = "Text";
-            // 
-            // lblPrecautionsText
-            // 
-            this.lblPrecautionsText.AutoSize = true;
-            this.lblPrecautionsText.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrecautionsText.Location = new System.Drawing.Point(509, 74);
-            this.lblPrecautionsText.Name = "lblPrecautionsText";
-            this.lblPrecautionsText.Size = new System.Drawing.Size(36, 18);
-            this.lblPrecautionsText.TabIndex = 37;
-            this.lblPrecautionsText.Text = "Text";
-            // 
-            // lblDDInteractionText
-            // 
-            this.lblDDInteractionText.AutoSize = true;
-            this.lblDDInteractionText.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDDInteractionText.Location = new System.Drawing.Point(261, 74);
-            this.lblDDInteractionText.Name = "lblDDInteractionText";
-            this.lblDDInteractionText.Size = new System.Drawing.Size(36, 18);
-            this.lblDDInteractionText.TabIndex = 38;
-            this.lblDDInteractionText.Text = "Text";
-            // 
-            // lblDFInteractionText
-            // 
-            this.lblDFInteractionText.AutoSize = true;
-            this.lblDFInteractionText.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDFInteractionText.Location = new System.Drawing.Point(264, 127);
-            this.lblDFInteractionText.Name = "lblDFInteractionText";
-            this.lblDFInteractionText.Size = new System.Drawing.Size(36, 18);
-            this.lblDFInteractionText.TabIndex = 39;
-            this.lblDFInteractionText.Text = "Text";
-            // 
-            // lblPriceText
-            // 
-            this.lblPriceText.AutoSize = true;
-            this.lblPriceText.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPriceText.Location = new System.Drawing.Point(509, 127);
-            this.lblPriceText.Name = "lblPriceText";
-            this.lblPriceText.Size = new System.Drawing.Size(36, 18);
-            this.lblPriceText.TabIndex = 40;
-            this.lblPriceText.Text = "Text";
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.Location = new System.Drawing.Point(500, 12);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown2.TabIndex = 41;
             // 
             // panel2
             // 
@@ -527,17 +373,171 @@
             this.panel2.Size = new System.Drawing.Size(671, 159);
             this.panel2.TabIndex = 0;
             // 
-            // lblPleaseSignInFirst
+            // numericUpDown2
             // 
-            this.lblPleaseSignInFirst.AutoSize = true;
-            this.lblPleaseSignInFirst.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPleaseSignInFirst.ForeColor = System.Drawing.Color.Brown;
-            this.lblPleaseSignInFirst.Location = new System.Drawing.Point(550, 3);
-            this.lblPleaseSignInFirst.Name = "lblPleaseSignInFirst";
-            this.lblPleaseSignInFirst.Size = new System.Drawing.Size(130, 18);
-            this.lblPleaseSignInFirst.TabIndex = 30;
-            this.lblPleaseSignInFirst.Text = "Please sign in first!";
-            this.lblPleaseSignInFirst.Visible = false;
+            this.numericUpDown2.Location = new System.Drawing.Point(500, 12);
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown2.TabIndex = 41;
+            // 
+            // lblPriceText
+            // 
+            this.lblPriceText.AutoSize = true;
+            this.lblPriceText.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPriceText.Location = new System.Drawing.Point(509, 127);
+            this.lblPriceText.Name = "lblPriceText";
+            this.lblPriceText.Size = new System.Drawing.Size(36, 18);
+            this.lblPriceText.TabIndex = 40;
+            this.lblPriceText.Text = "Text";
+            // 
+            // lblDFInteractionText
+            // 
+            this.lblDFInteractionText.AutoSize = true;
+            this.lblDFInteractionText.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDFInteractionText.Location = new System.Drawing.Point(264, 127);
+            this.lblDFInteractionText.Name = "lblDFInteractionText";
+            this.lblDFInteractionText.Size = new System.Drawing.Size(36, 18);
+            this.lblDFInteractionText.TabIndex = 39;
+            this.lblDFInteractionText.Text = "Text";
+            // 
+            // lblDDInteractionText
+            // 
+            this.lblDDInteractionText.AutoSize = true;
+            this.lblDDInteractionText.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDDInteractionText.Location = new System.Drawing.Point(261, 74);
+            this.lblDDInteractionText.Name = "lblDDInteractionText";
+            this.lblDDInteractionText.Size = new System.Drawing.Size(36, 18);
+            this.lblDDInteractionText.TabIndex = 38;
+            this.lblDDInteractionText.Text = "Text";
+            // 
+            // lblPrecautionsText
+            // 
+            this.lblPrecautionsText.AutoSize = true;
+            this.lblPrecautionsText.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPrecautionsText.Location = new System.Drawing.Point(509, 74);
+            this.lblPrecautionsText.Name = "lblPrecautionsText";
+            this.lblPrecautionsText.Size = new System.Drawing.Size(36, 18);
+            this.lblPrecautionsText.TabIndex = 37;
+            this.lblPrecautionsText.Text = "Text";
+            // 
+            // lblUsageText
+            // 
+            this.lblUsageText.AutoSize = true;
+            this.lblUsageText.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsageText.Location = new System.Drawing.Point(57, 127);
+            this.lblUsageText.Name = "lblUsageText";
+            this.lblUsageText.Size = new System.Drawing.Size(36, 18);
+            this.lblUsageText.TabIndex = 36;
+            this.lblUsageText.Text = "Text";
+            // 
+            // lblSideEffectText
+            // 
+            this.lblSideEffectText.AutoSize = true;
+            this.lblSideEffectText.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSideEffectText.Location = new System.Drawing.Point(54, 74);
+            this.lblSideEffectText.Name = "lblSideEffectText";
+            this.lblSideEffectText.Size = new System.Drawing.Size(36, 18);
+            this.lblSideEffectText.TabIndex = 35;
+            this.lblSideEffectText.Text = "Text";
+            // 
+            // lblPriceHeader
+            // 
+            this.lblPriceHeader.AutoSize = true;
+            this.lblPriceHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPriceHeader.ForeColor = System.Drawing.Color.Brown;
+            this.lblPriceHeader.Location = new System.Drawing.Point(497, 102);
+            this.lblPriceHeader.Name = "lblPriceHeader";
+            this.lblPriceHeader.Size = new System.Drawing.Size(42, 18);
+            this.lblPriceHeader.TabIndex = 34;
+            this.lblPriceHeader.Text = "Price";
+            // 
+            // lblDFInteractionHeader
+            // 
+            this.lblDFInteractionHeader.AutoSize = true;
+            this.lblDFInteractionHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDFInteractionHeader.ForeColor = System.Drawing.Color.Brown;
+            this.lblDFInteractionHeader.Location = new System.Drawing.Point(252, 102);
+            this.lblDFInteractionHeader.Name = "lblDFInteractionHeader";
+            this.lblDFInteractionHeader.Size = new System.Drawing.Size(156, 18);
+            this.lblDFInteractionHeader.TabIndex = 33;
+            this.lblDFInteractionHeader.Text = "Drug-Food_Interaction";
+            // 
+            // lblDDInteractionHeader
+            // 
+            this.lblDDInteractionHeader.AutoSize = true;
+            this.lblDDInteractionHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDDInteractionHeader.ForeColor = System.Drawing.Color.Brown;
+            this.lblDDInteractionHeader.Location = new System.Drawing.Point(249, 49);
+            this.lblDDInteractionHeader.Name = "lblDDInteractionHeader";
+            this.lblDDInteractionHeader.Size = new System.Drawing.Size(150, 18);
+            this.lblDDInteractionHeader.TabIndex = 32;
+            this.lblDDInteractionHeader.Text = "Drug-Drug-Interaction";
+            // 
+            // lblPrecautionsHeader
+            // 
+            this.lblPrecautionsHeader.AutoSize = true;
+            this.lblPrecautionsHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPrecautionsHeader.ForeColor = System.Drawing.Color.Brown;
+            this.lblPrecautionsHeader.Location = new System.Drawing.Point(497, 49);
+            this.lblPrecautionsHeader.Name = "lblPrecautionsHeader";
+            this.lblPrecautionsHeader.Size = new System.Drawing.Size(87, 18);
+            this.lblPrecautionsHeader.TabIndex = 31;
+            this.lblPrecautionsHeader.Text = "Precuations";
+            // 
+            // lblUsageHeader
+            // 
+            this.lblUsageHeader.AutoSize = true;
+            this.lblUsageHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsageHeader.ForeColor = System.Drawing.Color.Brown;
+            this.lblUsageHeader.Location = new System.Drawing.Point(45, 102);
+            this.lblUsageHeader.Name = "lblUsageHeader";
+            this.lblUsageHeader.Size = new System.Drawing.Size(51, 18);
+            this.lblUsageHeader.TabIndex = 30;
+            this.lblUsageHeader.Text = "Usage";
+            // 
+            // lblSideEffectsHeader
+            // 
+            this.lblSideEffectsHeader.AutoSize = true;
+            this.lblSideEffectsHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSideEffectsHeader.ForeColor = System.Drawing.Color.Brown;
+            this.lblSideEffectsHeader.Location = new System.Drawing.Point(42, 49);
+            this.lblSideEffectsHeader.Name = "lblSideEffectsHeader";
+            this.lblSideEffectsHeader.Size = new System.Drawing.Size(87, 18);
+            this.lblSideEffectsHeader.TabIndex = 29;
+            this.lblSideEffectsHeader.Text = "Side Effects";
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Snow;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.Green;
+            this.button1.Location = new System.Drawing.Point(626, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(42, 37);
+            this.button1.TabIndex = 23;
+            this.button1.Text = "+";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // lblNameText
+            // 
+            this.lblNameText.AutoSize = true;
+            this.lblNameText.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNameText.ForeColor = System.Drawing.Color.Brown;
+            this.lblNameText.Location = new System.Drawing.Point(15, 10);
+            this.lblNameText.Name = "lblNameText";
+            this.lblNameText.Size = new System.Drawing.Size(52, 18);
+            this.lblNameText.TabIndex = 10;
+            this.lblNameText.Text = "Name";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Black;
+            this.panel1.Location = new System.Drawing.Point(3, 31);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(713, 2);
+            this.panel1.TabIndex = 27;
             // 
             // panel3
             // 
@@ -549,21 +549,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(706, 49);
             this.panel3.TabIndex = 28;
-            // 
-            // btnMedicinePage
-            // 
-            this.btnMedicinePage.BackColor = System.Drawing.Color.Snow;
-            this.btnMedicinePage.FlatAppearance.BorderSize = 0;
-            this.btnMedicinePage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMedicinePage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMedicinePage.ForeColor = System.Drawing.Color.Brown;
-            this.btnMedicinePage.Location = new System.Drawing.Point(-2, 0);
-            this.btnMedicinePage.Name = "btnMedicinePage";
-            this.btnMedicinePage.Size = new System.Drawing.Size(352, 49);
-            this.btnMedicinePage.TabIndex = 2;
-            this.btnMedicinePage.Text = "Name";
-            this.btnMedicinePage.UseVisualStyleBackColor = false;
-            this.btnMedicinePage.Click += new System.EventHandler(this.btnMedicinePage_Click);
             // 
             // btnSimilarsPage
             // 
@@ -579,6 +564,21 @@
             this.btnSimilarsPage.Text = "Similars";
             this.btnSimilarsPage.UseVisualStyleBackColor = false;
             this.btnSimilarsPage.Click += new System.EventHandler(this.btnSimilarsPage_Click);
+            // 
+            // btnMedicinePage
+            // 
+            this.btnMedicinePage.BackColor = System.Drawing.Color.Snow;
+            this.btnMedicinePage.FlatAppearance.BorderSize = 0;
+            this.btnMedicinePage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMedicinePage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMedicinePage.ForeColor = System.Drawing.Color.Brown;
+            this.btnMedicinePage.Location = new System.Drawing.Point(-2, 0);
+            this.btnMedicinePage.Name = "btnMedicinePage";
+            this.btnMedicinePage.Size = new System.Drawing.Size(352, 49);
+            this.btnMedicinePage.TabIndex = 2;
+            this.btnMedicinePage.Text = "Name";
+            this.btnMedicinePage.UseVisualStyleBackColor = false;
+            this.btnMedicinePage.Click += new System.EventHandler(this.btnMedicinePage_Click);
             // 
             // MedicineAttributes
             // 
@@ -603,9 +603,9 @@
             this.tbPgSimilars.ResumeLayout(false);
             this.tbPgSimilars.PerformLayout();
             this.flpSimilars.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 

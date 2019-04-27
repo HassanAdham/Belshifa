@@ -42,6 +42,7 @@ namespace Belshifa2.view
 
         private void MedicineAttributes_Load(object sender, EventArgs e)
         {
+            numericUpDown1.Minimum = 1;
             flpSimilars.Controls.Clear();
             List<Medicine> similarsList = dbObj.getSimilars(this.usage);
             foreach(Medicine medicine in similarsList)
@@ -207,6 +208,7 @@ namespace Belshifa2.view
             // 
             numericUD.Location = new Point(500, 12);
             numericUD.Size = new Size(120, 20);
+            numericUD.Minimum = 1;
             // 
             // pnlMedicineFloor
             // 

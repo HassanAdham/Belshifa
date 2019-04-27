@@ -59,7 +59,7 @@ namespace Belshifa2
         {
             return cart;
         }
-
+        
         public void addToCart(int id, int quantity, float price, string name)
         {
             QuantPrice qp = new QuantPrice(quantity, price, name);

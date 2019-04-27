@@ -24,7 +24,7 @@ namespace Belshifa2
         private void Form3_Load(object sender, EventArgs e)
         {
             dtPickerBirthdate.Format = DateTimePickerFormat.Custom;
-            dtPickerBirthdate.CustomFormat = "dd-MM-YYYY";
+            dtPickerBirthdate.CustomFormat = "dd-MMM-yyyy";
         }
 
         private void btnSignUp_Click(object sender, EventArgs e)

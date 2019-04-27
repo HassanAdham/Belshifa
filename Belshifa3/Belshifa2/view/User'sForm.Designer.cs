@@ -144,7 +144,7 @@ namespace Belshifa2
             this.Loginregister.Name = "Loginregister";
             this.Loginregister.Size = new System.Drawing.Size(71, 36);
             this.Loginregister.TabIndex = 1;
-            this.Loginregister.Text = "Sgin In";
+            this.Loginregister.Text = "Sign In";
             this.Loginregister.UseVisualStyleBackColor = false;
             this.Loginregister.Click += new System.EventHandler(this.Loginregister_Click);
             // 
@@ -239,7 +239,7 @@ namespace Belshifa2
             this.btnSignUp.Name = "btnSignUp";
             this.btnSignUp.Size = new System.Drawing.Size(71, 36);
             this.btnSignUp.TabIndex = 2;
-            this.btnSignUp.Text = "Sgin Up";
+            this.btnSignUp.Text = "Sign Up";
             this.btnSignUp.UseVisualStyleBackColor = false;
             this.btnSignUp.Click += new System.EventHandler(this.btnSignUp_Click);
             // 
@@ -880,7 +880,6 @@ namespace Belshifa2
             // 
             // timerCommercial
             // 
-            this.timerCommercial.Enabled = true;
             this.timerCommercial.Interval = 3000;
             this.timerCommercial.Tick += new System.EventHandler(this.timerCommercial_Tick);
             // 

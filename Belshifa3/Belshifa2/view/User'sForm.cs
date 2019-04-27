@@ -157,8 +157,18 @@ namespace Belshifa2
         }
         private void btnSignUp_Click(object sender, EventArgs e)
         {
-            Form3 signUpPatient = new Form3();
-            signUpPatient.ShowDialog();
+            if(btnSignUp.Text == "Sign Up")
+            {
+                Form3 signUpPatient = new Form3();
+                signUpPatient.ShowDialog();
+            }
+            else //Sign out!
+            {
+                currentPatient.signOut();
+                Loginregister.Text = "Sign In";
+                btnSignUp.Text = "Sign Up";
+            }
+
         }
         //---------------------------------Moving Form-------------------------------
         bool mouseDown = false;
@@ -222,24 +232,27 @@ namespace Belshifa2
 
         private void Loginregister_Click(object sender, EventArgs e)
         {
-            LoginForm lf = new LoginForm();
-            lf.ShowDialog();
-            CurrentPatient currentPatient = new CurrentPatient();
-            if(currentPatient.get_currentUser() != null)
+            if(Loginregister.Text == "Sign In")
             {
-                Loginregister.Text = currentPatient.get_currentUser().get_f_name();
-                //currentPatient.addToCart(2,3,500); //For testing...
-
-                //dbObj.makeOrder(currentPatient.get_currentUser().get_email(),
-                //                currentPatient.get_currentUser().get_address(),
-                //                currentPatient.get_cart().Keys); //For testing...
+                LoginForm lf = new LoginForm();
+                lf.ShowDialog();
+                currentPatient = new CurrentPatient();
+                if (currentPatient.get_currentUser() != null)
+                {
+                    Loginregister.Text = currentPatient.get_currentUser().get_f_name();
+                    btnSignUp.Text = "Sign Out";
+                }
             }
+            else
+            {
+                ProfileForm pf = new ProfileForm();
+                pf.ShowDialog();
+            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            ProfileForm pf = new ProfileForm();
-            pf.ShowDialog();
         }
     }
 }
