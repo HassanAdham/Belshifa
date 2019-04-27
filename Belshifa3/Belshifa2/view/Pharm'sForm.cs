@@ -61,7 +61,7 @@ namespace Belshifa2
             listofOrders.Name = "flowLayoutPanel1";
             listofOrders.Size = new System.Drawing.Size(750, 363);
             listofOrders.TabIndex = 17;
-            flowLayoutPanel1.Controls.Add(head);
+            flowLayoutPanel1.Controls.Add(pan);
             // 
             // label1
             // 
