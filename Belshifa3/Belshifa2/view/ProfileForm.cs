@@ -40,7 +40,7 @@ namespace Belshifa2.view
         {
             displayCart();
             displayUnapproved();
-           // displayHistory();
+            displayHistory();
         }
         private void displayCart()
         {
@@ -301,9 +301,9 @@ namespace Belshifa2.view
             // 
             lblOrderDate.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
             lblOrderDate.ForeColor = Color.Brown;
+            lblOrderDate.AutoSize = true;
             lblOrderDate.Location = new Point(133, 9);
             lblOrderDate.Name = "lblOrderDate";
-            lblOrderDate.Size = new Size(48, 18);
             lblOrderDate.TabIndex = 29;
             lblOrderDate.Text = order.get_orderDate();
 
@@ -343,7 +343,8 @@ namespace Belshifa2.view
                                                     txtBxPassword.Text, txtBxAddress.Text,
                                                     txtBxPhone.Text, patient.get_email(),
                                                     cmbBxPayment.Text, dtPickerBirthdate.Text);
-                lblReply.Text = dbObj.updateProfile(patient);
+                lblReply.Text = dbObj.updateProfile(editedPatient);
+                lblReply.Visible = true;
             }
         }
 

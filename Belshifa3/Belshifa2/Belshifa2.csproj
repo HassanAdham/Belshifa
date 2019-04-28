@@ -70,6 +70,12 @@
     <Compile Include="view\Pharm%27sForm.Designer.cs">
       <DependentUpon>Pharm%27sForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="view\PharmForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\PharmForm.Designer.cs">
+      <DependentUpon>PharmForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="view\ProfileForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="view\Pharm%27sForm.resx">
       <DependentUpon>Pharm%27sForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\PharmForm.resx">
+      <DependentUpon>PharmForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\ProfileForm.resx">
       <DependentUpon>ProfileForm.cs</DependentUpon>

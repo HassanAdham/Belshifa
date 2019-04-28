@@ -29,7 +29,7 @@ namespace Belshifa2.model
             areasAndPharmacies = new Dictionary<string, List<int>>();
             areas = new Dictionary<string, int>();
             pharmacyList = new List<Pharmacy>();
-            ordb = "Data source = oracle;user id=scott; password =tiger";
+            ordb = "Data source = orcl;user id=hr; password =hr";
             conn = new OracleConnection(ordb);
             conn.Open();
 
@@ -332,7 +332,7 @@ namespace Belshifa2.model
             cmd.CommandText = @"select orderr.*, pharmacy.pharm_name from orderr,Pharmacy 
                                 where orderr.ph_username is not null
                                 and orderr.pharmacy_id = pharmacy.pharmacy_id
-                                and orderr.email = :key;";
+                                and orderr.email = :key";
 
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add("key", key);
@@ -342,7 +342,7 @@ namespace Belshifa2.model
             OracleDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                order = new Order(int.Parse(dr[0].ToString()), dr[1].ToString(), dr[2].ToString(), float.Parse(dr[3].ToString()),
+                order = new Order(int.Parse(dr[0].ToString()), dr[1].ToString().Substring(0,9), dr[2].ToString().Substring(0, 9), float.Parse(dr[3].ToString()),
                     dr[7].ToString(),dr[5].ToString(), int.Parse(dr[6].ToString()));
                 historyList.Add(order);
             }
@@ -364,7 +364,7 @@ namespace Belshifa2.model
             Order order;
             while(dr.Read())
             {
-                order = new Order(int.Parse(dr[0].ToString()), dr[2].ToString(), null, float.Parse(dr[1].ToString()), null, null, 0);
+                order = new Order(int.Parse(dr[0].ToString()), dr[2].ToString().Substring(0, 9), null, float.Parse(dr[1].ToString()), null, null, 0);
                 pendingList.Add(order);
             }
             dr.Close();
@@ -490,26 +490,18 @@ namespace Belshifa2.model
             }
         }
 
-        public void UpdateQuant(List<int> medicines_ids, int pharmacy_id)
+        public void UpdateQuant(Dictionary<int,QuantPrice> cart, int pharmacy_id)
         {
-            int quant = 0;
-            int newquant = 0;
-            for (int i = 0; i < medicines_ids.Count; i++)
+            foreach (int id in cart.Keys)
             {
                 cmd = new OracleCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "UpdateQuantities";
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.Add("mid", medicines_ids[i]);
-                cmd.Parameters.Add("Quantity", OracleDbType.Int32, System.Data.ParameterDirection.Output);
-                cmd.ExecuteNonQuery();
-                quant = Convert.ToInt32(cmd.Parameters["OrderID"].Value.ToString());
-                newquant = quant - 1;
-                cmd.CommandText = " Update medicine set QUANTITY = :quant  where M_ID = :mid";
-                cmd.CommandType = System.Data.CommandType.Text;
-                cmd.Parameters.Add("quant", newquant);
-                cmd.Parameters.Add("mid", medicines_ids[i]);
-                cmd.ExecuteNonQuery();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("mid", id);
+                cmd.Parameters.Add("quantity", cart[id].get_quantity());
+                cmd.Parameters.Add("pharmacy_id", pharmacy_id);
+                int x = cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
         }
@@ -806,10 +798,11 @@ namespace Belshifa2.model
                 while (rs.Read())
                 {
 
-                    ord = new Order(int.Parse(rs[0].ToString()), rs[1].ToString(), rs[2].ToString(), float.Parse(rs[3].ToString()), rs[4].ToString(), rs[5].ToString(), int.Parse(rs[6].ToString()));
+                    ord = new Order(int.Parse(rs[0].ToString()), rs[1].ToString(), rs[2].ToString(), float.Parse(rs[3].ToString()), 
+                                    rs[4].ToString(), rs[5].ToString(), int.Parse(rs[6].ToString()));
                     Get_Pharmacy_Orders.Add(ord);
                     //Get_Pharmacy_Orders.Add(rs[0].ToString);
-                    break;
+                    break; //  ?
                 }
                 rs.Close();
             }
@@ -825,12 +818,12 @@ namespace Belshifa2.model
         ////////////////////////////////////////////////////////////////
         public void getpharmacistusername(bool checkbtn)
         {
-            Pharmacist pharmacist = new Pharmacist();
+            Pharmacist pharmacist = new Pharmacist(); //Null
             cmd = new OracleCommand();
             cmd.Connection = conn;
             cmd.CommandText = "select PH_USERNAME from PHARMACIST where PH_USERNAME = :uname";
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add("phuname", pharmacist.get_username());
+            cmd.Parameters.Add("phuname", pharmacist.get_username()); //Null
             try
             {
                 string message = "";
@@ -844,7 +837,7 @@ namespace Belshifa2.model
             {
                 cmd.Dispose();
             }
-
+            //Mafish 7aga btrg3.
         }
 
 

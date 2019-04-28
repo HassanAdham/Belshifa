@@ -90,11 +90,11 @@
             this.lblHid = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.btnApproved = new System.Windows.Forms.Button();
+            this.btnPending = new System.Windows.Forms.Button();
             this.btnCart = new System.Windows.Forms.Button();
             this.btnProfile = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.btnPending = new System.Windows.Forms.Button();
-            this.btnApproved = new System.Windows.Forms.Button();
             this.pnlTop.SuspendLayout();
             this.tbControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -391,7 +391,7 @@
             this.tbPgCart.Location = new System.Drawing.Point(4, 22);
             this.tbPgCart.Name = "tbPgCart";
             this.tbPgCart.Padding = new System.Windows.Forms.Padding(3);
-            this.tbPgCart.Size = new System.Drawing.Size(705, 394);
+            this.tbPgCart.Size = new System.Drawing.Size(718, 411);
             this.tbPgCart.TabIndex = 1;
             this.tbPgCart.Text = "tabPage2";
             this.tbPgCart.UseVisualStyleBackColor = true;
@@ -516,7 +516,7 @@
             this.tbPgUnApproved.Location = new System.Drawing.Point(4, 22);
             this.tbPgUnApproved.Name = "tbPgUnApproved";
             this.tbPgUnApproved.Padding = new System.Windows.Forms.Padding(3);
-            this.tbPgUnApproved.Size = new System.Drawing.Size(705, 394);
+            this.tbPgUnApproved.Size = new System.Drawing.Size(718, 411);
             this.tbPgUnApproved.TabIndex = 2;
             this.tbPgUnApproved.Text = "tabPage3";
             // 
@@ -639,7 +639,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(705, 394);
+            this.tabPage4.Size = new System.Drawing.Size(718, 411);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "tabPage4";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -839,6 +839,36 @@
             this.panel5.Size = new System.Drawing.Size(725, 35);
             this.panel5.TabIndex = 30;
             // 
+            // btnApproved
+            // 
+            this.btnApproved.BackColor = System.Drawing.Color.Brown;
+            this.btnApproved.FlatAppearance.BorderSize = 0;
+            this.btnApproved.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnApproved.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnApproved.ForeColor = System.Drawing.Color.Snow;
+            this.btnApproved.Location = new System.Drawing.Point(541, -1);
+            this.btnApproved.Name = "btnApproved";
+            this.btnApproved.Size = new System.Drawing.Size(182, 34);
+            this.btnApproved.TabIndex = 5;
+            this.btnApproved.Text = "Approved";
+            this.btnApproved.UseVisualStyleBackColor = false;
+            this.btnApproved.Click += new System.EventHandler(this.btnApproved_Click);
+            // 
+            // btnPending
+            // 
+            this.btnPending.BackColor = System.Drawing.Color.Brown;
+            this.btnPending.FlatAppearance.BorderSize = 0;
+            this.btnPending.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPending.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPending.ForeColor = System.Drawing.Color.Snow;
+            this.btnPending.Location = new System.Drawing.Point(359, -1);
+            this.btnPending.Name = "btnPending";
+            this.btnPending.Size = new System.Drawing.Size(182, 34);
+            this.btnPending.TabIndex = 4;
+            this.btnPending.Text = "Pending";
+            this.btnPending.UseVisualStyleBackColor = false;
+            this.btnPending.Click += new System.EventHandler(this.btnPending_Click);
+            // 
             // btnCart
             // 
             this.btnCart.BackColor = System.Drawing.Color.Brown;
@@ -876,36 +906,6 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(727, 2);
             this.panel6.TabIndex = 29;
-            // 
-            // btnPending
-            // 
-            this.btnPending.BackColor = System.Drawing.Color.Brown;
-            this.btnPending.FlatAppearance.BorderSize = 0;
-            this.btnPending.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPending.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPending.ForeColor = System.Drawing.Color.Snow;
-            this.btnPending.Location = new System.Drawing.Point(359, -1);
-            this.btnPending.Name = "btnPending";
-            this.btnPending.Size = new System.Drawing.Size(182, 34);
-            this.btnPending.TabIndex = 4;
-            this.btnPending.Text = "Pending";
-            this.btnPending.UseVisualStyleBackColor = false;
-            this.btnPending.Click += new System.EventHandler(this.btnPending_Click);
-            // 
-            // btnApproved
-            // 
-            this.btnApproved.BackColor = System.Drawing.Color.Brown;
-            this.btnApproved.FlatAppearance.BorderSize = 0;
-            this.btnApproved.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnApproved.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnApproved.ForeColor = System.Drawing.Color.Snow;
-            this.btnApproved.Location = new System.Drawing.Point(541, -1);
-            this.btnApproved.Name = "btnApproved";
-            this.btnApproved.Size = new System.Drawing.Size(182, 34);
-            this.btnApproved.TabIndex = 5;
-            this.btnApproved.Text = "Approved";
-            this.btnApproved.UseVisualStyleBackColor = false;
-            this.btnApproved.Click += new System.EventHandler(this.btnApproved_Click);
             // 
             // ProfileForm
             // 

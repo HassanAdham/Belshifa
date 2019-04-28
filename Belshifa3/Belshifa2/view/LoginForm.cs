@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Belshifa2.model;
 using Belshifa2.dataClasses;
+using Belshifa2.view;
+
 namespace Belshifa2
 {
     public partial class LoginForm : Form
@@ -43,8 +45,9 @@ namespace Belshifa2
                 {
                     object user = dbObj.getProfile(txtBoxUsername.Text, true);
                     Pharmacist pharmacist = (Pharmacist)user;
-                    Form2 f2 = new Form2(pharmacist.get_pharmacy_id() ,txtBoxUsername.Text);
-                    f2.ShowDialog();
+                    this.Hide();
+                    PharmForm pharmForm = new PharmForm(txtBoxUsername.Text, pharmacist.get_pharmacy_id() ,"");
+                    pharmForm.ShowDialog();
                     this.Close();
                 }
             }

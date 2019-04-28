@@ -7,29 +7,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms;
-using Belshifa2.dataClasses;
 using Belshifa2.model;
+using Belshifa2.dataClasses;
 
-namespace Belshifa2
+namespace Belshifa2.view
 {
-    public partial class Form2 : Form
+    public partial class PharmForm : Form
     {
-        SystemDatabase sysdb;
-        private int pharmacyid;
         private string username;
-        public Form2(int pharmacyid,string username)
+        private int pharmacy_id;
+        private string pharmacy_name;
+        private SystemDatabase sysdb;
+        public PharmForm()
         {
             InitializeComponent();
-            sysdb = new SystemDatabase();
-            this.pharmacyid = pharmacyid;
-            this.username = username;
         }
-        private void Form2_Load(object sender, EventArgs e)
+        public PharmForm(string username, int pharmacy_id, string pharmacy_name)
         {
-            creatnumberoforders(6);
-            createmedicines(2);
-            label1.Text = pharmacyid.ToString();
+            InitializeComponent();
+            this.username = username;
+            this.pharmacy_id = pharmacy_id;
+            this.pharmacy_name = pharmacy_name;
+            sysdb = new SystemDatabase();
+
+        }
+
+        private void PharmForm_Load(object sender, EventArgs e)
+        {
+            lblUsername.Text = username;
+            lblPharmacyName.Text = pharmacy_name;
+
         }
 
         private void showorder(int orid, string od, string dd, float tp, string em, int pharid)
@@ -60,7 +67,7 @@ namespace Belshifa2
             listofOrders.Name = "flowLayoutPanel1";
             listofOrders.Size = new System.Drawing.Size(750, 363);
             listofOrders.TabIndex = 17;
-            flowLayoutPanel1.Controls.Add(pan);
+            flpOrders.Controls.Add(pan);
             // 
             // label1
             // 
@@ -74,7 +81,7 @@ namespace Belshifa2
             // panel5
             // 
             pan.Controls.Add(mediciness);
-          
+
             pan.Controls.Add(pharmid);
             pan.Controls.Add(email);
             pan.Controls.Add(delivdate);
@@ -122,7 +129,7 @@ namespace Belshifa2
             // 
             // label8
             // 
-         
+
             // 
             // panel3
             // 
@@ -163,8 +170,8 @@ namespace Belshifa2
             head.TabIndex = 1;
 
             showmedicines("panadol", 20);
-            flowLayoutPanel1.Controls.Add(panel1);
-;
+            flpOrders.Controls.Add(panel1);
+            ;
         }
         private void showmedicines(string medname, float medprice)
         {
@@ -221,7 +228,7 @@ namespace Belshifa2
         //halef 3ale list bta3et elorders mn systemdatabase
         private void creatnumberoforders(int id)
         {
-            List<Order> ord = sysdb.Get_Pharmacy_Orders(pharmacyid);
+            List<Order> ord = sysdb.Get_Pharmacy_Orders(pharmacy_id);
             foreach (Order order in ord)
             {
                 showorder(order.get_orderId(), order.get_orderDate(), order.get_deliveryDate(),
@@ -230,7 +237,7 @@ namespace Belshifa2
         }
         private void createmedicines(int pharmid)
         {
-            List<Medicine> MED = sysdb.MName(pharmacyid);
+            List<Medicine> MED = sysdb.MName(pharmacy_id);
             foreach (Medicine m in MED)
             {
                 showmedicines(m.get_name(), m.get_price());
@@ -238,26 +245,16 @@ namespace Belshifa2
         }
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-           // sysdb.getpharmacistusername(checkBox1.Checked);
+            // sysdb.getpharmacistusername(checkBox1.Checked);
         }
 
-        private void panel3_Paint(object sender, PaintEventArgs e)
+        //----------------------------------------Form------------------------------
+        private void btnClose_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
-
-        private void panel5_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
         bool mouseDown = false;
-        Point startPoint;
+        Point startPoint; //Where the mouse has
         private void pnlTop_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
@@ -274,11 +271,6 @@ namespace Belshifa2
                 Point p = PointToScreen(e.Location);
                 this.Location = new Point(p.X - startPoint.X, p.Y - startPoint.Y);
             }
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }
