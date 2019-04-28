@@ -745,7 +745,7 @@ namespace Belshifa2.model
             return null;
         }
        // _________________________________________________________________________________________________________________________
-        public void MasterDetailsForm()
+        public DataSet MasterDetailsForm()
         {
             ordb = "Data source = oracle;user id=scott; password =tiger";
             DataSet ds = new DataSet();
@@ -760,13 +760,12 @@ namespace Belshifa2.model
             DataRelation r = new DataRelation("FK", ds.Tables[0].Columns["S_ID"], ds.Tables[1].Columns["S_ID"]);
             ds.Relations.Add(r);
 
+            return ds;
             //BindingSource bs_Master = new BindingSource(ds,"Section");
             //BindingSource bs_Child = new BindingSource(bs_Master, "FK");
-
-
-
         }
-       // ________________________________________________________________________________________________________________________
+
+        // ________________________________________________________________________________________________________________________
 
         public void OrderDetails()
         {
@@ -802,7 +801,6 @@ namespace Belshifa2.model
                                     rs[4].ToString(), rs[5].ToString(), int.Parse(rs[6].ToString()));
                     Get_Pharmacy_Orders.Add(ord);
                     //Get_Pharmacy_Orders.Add(rs[0].ToString);
-                    break; //  ?
                 }
                 rs.Close();
             }

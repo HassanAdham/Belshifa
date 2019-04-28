@@ -18,10 +18,6 @@ namespace Belshifa2.view
         private int pharmacy_id;
         private string pharmacy_name;
         private SystemDatabase sysdb;
-        public PharmForm()
-        {
-            InitializeComponent();
-        }
         public PharmForm(string username, int pharmacy_id, string pharmacy_name)
         {
             InitializeComponent();
@@ -37,141 +33,135 @@ namespace Belshifa2.view
             lblUsername.Text = username;
             lblPharmacyName.Text = pharmacy_name;
 
+            creatnumberoforders(pharmacy_id);
+
         }
 
-        private void showorder(int orid, string od, string dd, float tp, string em, int pharid)
+        private void showorder(int orid, string od, float tp, string em, int pharid)
         {
-            // panel4
+            Label lblEmail = new Label();
+            Label lblTotalPrice = new Label();
+            Label lblOrderDate = new Label();
+            Label lblOrderID = new Label();
+            CheckBox chckBx = new CheckBox();
+            Panel pnlOrderWhite = new Panel();
+            Panel pnlOrderBrown = new Panel();
+            Panel pnlMedicines = new Panel();
+            Label lblMedicines = new Label();
+            FlowLayoutPanel flpMedicines = new FlowLayoutPanel();
             // 
-            FlowLayoutPanel listofOrders = new FlowLayoutPanel();
-            Panel head = new Panel();
-            Panel pan = new Panel();
-            Panel inn = new Panel();
-            Label ordid = new Label();
-            Label orderdate = new Label();
-            Label delivdate = new Label();
-            Label totalprice = new Label();
-            Label email = new Label();
-            Label pharmid = new Label();
-            Label medicines = new Label();
-            Panel mediciness = new Panel();
-            Label MName = new Label();
-            Label MPrice = new Label();
+            // lblEmail
+            // 
+            lblEmail.Anchor = AnchorStyles.None;
+            lblEmail.AutoSize = true;
+            lblEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblEmail.Location = new System.Drawing.Point(5, 74);
+            lblEmail.Size = new System.Drawing.Size(44, 15);
+            lblEmail.TabIndex = 2;
+            lblEmail.Text = em;
+            // 
+            // lblTotalPrice
+            // 
+            lblTotalPrice.Anchor = AnchorStyles.None;
+            lblTotalPrice.AutoSize = true;
+            lblTotalPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblTotalPrice.Location = new System.Drawing.Point(5, 41);
+            lblTotalPrice.Size = new System.Drawing.Size(76, 15);
+            lblTotalPrice.TabIndex = 1;
+            lblTotalPrice.Text = tp.ToString();
+            // 
+            // lblOrderDate
+            // 
+            lblOrderDate.Anchor = AnchorStyles.None;
+            lblOrderDate.AutoSize = true;
+            lblOrderDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblOrderDate.Location = new System.Drawing.Point(5, 10);
+            lblOrderDate.Size = new System.Drawing.Size(77, 15);
+            lblOrderDate.TabIndex = 0;
+            lblOrderDate.Text = od.Substring(0,9);
+            // 
+            // lblOrderID
+            // 
+            lblOrderID.AutoSize = true;
+            lblOrderID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblOrderID.ForeColor = System.Drawing.Color.White;
+            lblOrderID.Location = new System.Drawing.Point(3, 7);
+            lblOrderID.Size = new System.Drawing.Size(66, 16);
+            lblOrderID.TabIndex = 0;
+            lblOrderID.Text = orid.ToString();
 
             // 
-            // flowLayoutPanel1
+            // chckBx
             // 
-            listofOrders.AutoScroll = true;
-            listofOrders.Controls.Add(head);
-            listofOrders.Location = new System.Drawing.Point(12, 151);
-            listofOrders.Name = "flowLayoutPanel1";
-            listofOrders.Size = new System.Drawing.Size(750, 363);
-            listofOrders.TabIndex = 17;
-            flpOrders.Controls.Add(pan);
+            chckBx.AutoSize = true;
+            chckBx.BackColor = System.Drawing.Color.Brown;
+            chckBx.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            chckBx.ForeColor = System.Drawing.Color.Snow;
+            chckBx.Location = new System.Drawing.Point(130, 5);
+            chckBx.Size = new System.Drawing.Size(86, 20);
+            chckBx.TabIndex = 2;
+            chckBx.Text = "Approve";
+            chckBx.UseVisualStyleBackColor = false;
             // 
-            // label1
+            // pnlOrderWhite
             // 
-            ordid.AutoSize = true;
-            ordid.Location = new System.Drawing.Point(3, 0);
-            ordid.Name = "label1";
-            ordid.Size = new System.Drawing.Size(35, 13);
-            ordid.TabIndex = 0;
-            ordid.Text = "label1";
+            pnlOrderWhite.BackColor = System.Drawing.Color.White;
+            pnlOrderWhite.Location = new System.Drawing.Point(-1, 29);
+            pnlOrderWhite.Size = new System.Drawing.Size(223, 331);
+            pnlOrderWhite.Controls.Add(pnlMedicines);
+            pnlOrderWhite.Controls.Add(lblEmail);
+            pnlOrderWhite.Controls.Add(lblTotalPrice);
+            pnlOrderWhite.Controls.Add(lblOrderDate);
+            pnlOrderWhite.TabIndex = 1;
             // 
-            // panel5
+            // pnlMedicines
             // 
-            pan.Controls.Add(mediciness);
-
-            pan.Controls.Add(pharmid);
-            pan.Controls.Add(email);
-            pan.Controls.Add(delivdate);
-            pan.Controls.Add(orderdate);
-            pan.Location = new System.Drawing.Point(0, 16);
-            pan.Name = "panel5";
-            pan.Size = new System.Drawing.Size(239, 344);
-            pan.TabIndex = 1;
-
-            // label4
-            // 
-            orderdate.AutoSize = true;
-            orderdate.Location = new System.Drawing.Point(19, 27);
-            orderdate.Name = "label4";
-            orderdate.Size = new System.Drawing.Size(35, 13);
-            orderdate.TabIndex = 0;
-            orderdate.Text = "label4";
-            // 
-            // label5
-            // 
-            delivdate.AutoSize = true;
-            delivdate.Location = new System.Drawing.Point(19, 58);
-            delivdate.Name = "label5";
-            delivdate.Size = new System.Drawing.Size(35, 13);
-            delivdate.TabIndex = 1;
-            delivdate.Text = "label5";
-            // 
-            // label6
-            // 
-            email.AutoSize = true;
-            email.Location = new System.Drawing.Point(19, 91);
-            email.Name = "label6";
-            email.Size = new System.Drawing.Size(35, 13);
-            email.TabIndex = 2;
-            email.Text = "label6";
-            // 
-            // label7
-            // 
-            pharmid.AutoSize = true;
-            pharmid.Location = new System.Drawing.Point(19, 122);
-            pharmid.Name = "label7";
-            pharmid.Size = new System.Drawing.Size(35, 13);
-            pharmid.TabIndex = 3;
-            pharmid.Text = "label7";
-            // 
-            // label8
-            // 
+            pnlMedicines.Anchor = AnchorStyles.None;
+            pnlMedicines.AutoScroll = true;
+            pnlMedicines.BorderStyle = BorderStyle.FixedSingle;
+            pnlMedicines.Controls.Add(lblMedicines);
+            pnlMedicines.Controls.Add(flpMedicines);
+            pnlMedicines.Location = new System.Drawing.Point(0, 113);
+            pnlMedicines.Size = new System.Drawing.Size(223, 224);
+            pnlMedicines.TabIndex = 10;
 
             // 
-            // panel3
+            // pnlOrderBrown
             // 
-            mediciness.AutoScroll = true;
-            mediciness.Controls.Add(MPrice);
-            mediciness.Controls.Add(MName);
-            mediciness.Location = new System.Drawing.Point(39, 195);
-            mediciness.Name = "panel3";
-            mediciness.Size = new System.Drawing.Size(200, 149);
-            mediciness.TabIndex = 10;
+            pnlOrderBrown.BackColor = System.Drawing.Color.Brown;
+            pnlOrderBrown.BorderStyle = BorderStyle.FixedSingle;
+            pnlOrderBrown.Controls.Add(chckBx);
+            pnlOrderBrown.Controls.Add(pnlOrderWhite);
+            pnlOrderBrown.Controls.Add(lblOrderID);
+            pnlOrderBrown.Location = new System.Drawing.Point(8, 8);
+            pnlOrderBrown.Margin = new Padding(8);
+            pnlOrderBrown.Size = new System.Drawing.Size(222, 363);
+            pnlOrderBrown.TabIndex = 1;
             // 
-            // label2
+            // lblMedicines
             // 
-            MName.AutoSize = true;
-            MName.Location = new System.Drawing.Point(18, 21);
-            MName.Name = "label2";
-            MName.Size = new System.Drawing.Size(35, 13);
-            MName.TabIndex = 10;
-            MName.Text = "label2";
-            // 
-            // label3
-            // 
-            MPrice.AutoSize = true;
-            MPrice.Location = new System.Drawing.Point(132, 21);
-            MPrice.Name = "label3";
-            MPrice.Size = new System.Drawing.Size(35, 13);
-            MPrice.TabIndex = 11;
-            MPrice.Text = "label3";
-            // 
-            // panel4
-            // 
-            head.Controls.Add(pan);
-            //head.Controls.Add(this.checkBox1);
-            head.Controls.Add(ordid);
-            head.Location = new System.Drawing.Point(3, 3);
-            head.Name = "panel4";
-            head.Size = new System.Drawing.Size(239, 366);
-            head.TabIndex = 1;
+            lblMedicines.AutoSize = true;
+            lblMedicines.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblMedicines.Location = new System.Drawing.Point(67, 5);
+            lblMedicines.Size = new System.Drawing.Size(73, 15);
+            lblMedicines.TabIndex = 12;
+            lblMedicines.Text = "Medicines";
 
-            showmedicines("panadol", 20);
-            flpOrders.Controls.Add(panel1);
-            ;
+            // 
+            // flpMedicines
+            // 
+            flpMedicines.AutoSize = true;
+            flpMedicines.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            flpMedicines.BackColor = System.Drawing.Color.WhiteSmoke;
+            //flpMedicines.Controls.Add(lblMedicine);
+            flpMedicines.Location = new System.Drawing.Point(13, 28);
+            flpMedicines.MaximumSize = new System.Drawing.Size(185, 0);
+            flpMedicines.MinimumSize = new System.Drawing.Size(185, 142);
+            flpMedicines.Size = new System.Drawing.Size(185, 142);
+            flpMedicines.TabIndex = 0;
+            //------------------------------------------------------------
+            // showmedicines("panadol", 20);
+            flpOrders.Controls.Add(pnlOrderBrown);
         }
         private void showmedicines(string medname, float medprice)
         {
@@ -231,8 +221,8 @@ namespace Belshifa2.view
             List<Order> ord = sysdb.Get_Pharmacy_Orders(pharmacy_id);
             foreach (Order order in ord)
             {
-                showorder(order.get_orderId(), order.get_orderDate(), order.get_deliveryDate(),
-                          order.get_totalPrice(), order.get_patient_email(), order.get_pharmacy_id());
+                showorder(order.get_orderId(), order.get_orderDate(), order.get_totalPrice(),
+                            order.get_patient_email(), order.get_pharmacy_id());
             }
         }
         private void createmedicines(int pharmid)
