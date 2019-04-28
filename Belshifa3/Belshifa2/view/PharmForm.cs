@@ -32,9 +32,9 @@ namespace Belshifa2.view
         {
             lblUsername.Text = username;
             lblPharmacyName.Text = pharmacy_name;
-
             creatnumberoforders(pharmacy_id);
-
+          
+            
         }
 
         private void showorder(int orid, string od, float tp, string em, int pharid)
@@ -49,6 +49,7 @@ namespace Belshifa2.view
             Panel pnlMedicines = new Panel();
             Label lblMedicines = new Label();
             FlowLayoutPanel flpMedicines = new FlowLayoutPanel();
+            
             // 
             // lblEmail
             // 
@@ -102,6 +103,13 @@ namespace Belshifa2.view
             chckBx.TabIndex = 2;
             chckBx.Text = "Approve";
             chckBx.UseVisualStyleBackColor = false;
+            chckBx.CheckedChanged += delegate
+            {
+                InsertPHUnameinOrder(username,orid,pharid);
+                flpOrders.Controls.Remove(pnlOrderBrown);
+            };
+
+
             // 
             // pnlOrderWhite
             // 
@@ -203,10 +211,22 @@ namespace Belshifa2.view
             }
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            // sysdb.getpharmacistusername(checkBox1.Checked);
+       //public string getpharmacistname(string name)
+       // {
+       //     string phname = "";
+       //     if(chckBx.Checked)
+       //     {
+       //          phname = sysdb.getpharmacistusernamefrompharmacist(name);
+       //     }
+       //     return phname;
+       //     sysdb.InsertPHunameinOrderTable(phname, oid, pharmacy_id);
+       // }
+
+        private void InsertPHUnameinOrder(string uname, int oid , int phid)
+        {        
+                sysdb.InsertPHunameinOrderTable(uname, oid, phid);         
         }
+
 
         //----------------------------------------Form------------------------------
         private void btnClose_Click(object sender, EventArgs e)

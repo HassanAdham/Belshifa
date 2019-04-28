@@ -443,28 +443,28 @@ namespace Belshifa2.view
 
             tbControl.SelectTab(2);
 
-            PharmForm ph = new PharmForm(phname ,phid,pharmname);
-            string PHName = ph.getpharmacistname(phname);
-             if(PHName != null)
-             { 
-                MessageBox.Show(PHName + "Has Approved Your Order Please Confirm The Approval To Continue The Process of Ordering");
-                // 
-                // button1
-                // 
-                Button Confirm = new Button();
-                Confirm.Location = new System.Drawing.Point(281, 17);
-                Confirm.Name = "button1";
-                Confirm.Size = new System.Drawing.Size(75, 23);
-                Confirm.TabIndex = 67;
-                Confirm.Text = "Confirm";
-                Confirm.UseVisualStyleBackColor = true;           
-                Confirm.Click += new EventHandler(button1_Click);
-                if (btnisclicked)
-                {
-                    MessageBox.Show("You've Confirmed The Order, Thank You, You will Recieve Your Order in 3 Days");                  
-                }
-                displayHistory();
-             }
+
+             //string PHName = dbObj.getpharmacistunamefromOrder();
+             //if(PHName != null)
+             //{ 
+             //   MessageBox.Show(PHName + "Has Approved Your Order Please Confirm The Approval To Continue The Process of Ordering");
+             //   // 
+             //   // button1
+             //   // 
+             //   Button Confirm = new Button();
+             //   Confirm.Location = new System.Drawing.Point(281, 17);
+             //   Confirm.Name = "button1";
+             //   Confirm.Size = new System.Drawing.Size(75, 23);
+             //   Confirm.TabIndex = 67;
+             //   Confirm.Text = "Confirm";
+             //   Confirm.UseVisualStyleBackColor = true;           
+             //   Confirm.Click += new EventHandler(button1_Click);
+             //   if (btnisclicked)
+             //   {
+             //       MessageBox.Show("You've Confirmed The Order, Thank You, You will Recieve Your Order in 3 Days");                  
+             //   }
+             //   displayHistory();
+             //}
          
         }
 

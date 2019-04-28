@@ -814,30 +814,70 @@ namespace Belshifa2.model
         }
 
         //////////////////////////////////////////////////////////////////
-        //public string getpharmacistusername(int phuname)
+        //public string getpharmacistusernamefrompharmacist(string phuname )
         //{
-        //    Pharmacist pharmacist = new Pharmacist(); //Null
+        //    Pharmacist pharmacist = new Pharmacist(); 
         //    cmd = new OracleCommand();
         //    cmd.Connection = conn;
-        //    cmd.CommandText = "select PH_USERNAME from PHARMACIST where PH_USERNAME = :uname";
+        //    cmd.CommandText = "select PH_USERNAME from PHARMACIST ";
         //    cmd.CommandType = CommandType.Text;
-        //    cmd.Parameters.Add("phuname", phuname); //Null3
-        //    string message = "";
+        //    cmd.Parameters.Add("phuname", phuname);
+        //    string Name ="";
         //    try
-        //    { 
+        //    {
         //        OracleDataReader dr = cmd.ExecuteReader();
-        //        if (dr.Read())
-        //            message = "Found";
-        //        else
-        //            message = "Please Try Again";
+        //        while(dr.Read())
+        //        {
+        //            Name = dr[0].ToString();
+        //            break;
+        //        }
         //    }
         //    catch
         //    {
         //        cmd.Dispose();
         //    }
-        //    return message;
-        //    //Mafish 7aga btrg3.
+        //    return Name;  
         //}
+
+        public void InsertPHunameinOrderTable(string PHuname , int oid , int phid)
+        {
+            cmd = new OracleCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "update orderr set ph_username = :phname where O_ID = :oidd and pharmacy_id = :phid";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("phuname", PHuname);
+            cmd.Parameters.Add("oid", oid);
+            cmd.Parameters.Add("phid", phid);
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+        }
+
+        public string getpharmacistunamefromOrder(string phuname , int oid , int phid)
+        {
+            Pharmacist pharmacist = new Pharmacist();
+            cmd = new OracleCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "select PH_USERNAME from orderr where  O_ID = :oid and PHARMACY_ID = :phid";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("phuname", phuname);
+            cmd.Parameters.Add("oid", oid);
+            cmd.Parameters.Add("phid", phid);
+            string Name = "";
+            try
+            {
+                OracleDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    Name = dr[0].ToString();
+                    break;
+                }
+            }
+            catch
+            {
+                cmd.Dispose();
+            }
+            return Name;
+        }
 
 
         public List<Medicine> MName(int oid)
