@@ -237,5 +237,10 @@ namespace Belshifa2.view
         {
 
         }
+
+        //private void chckBx_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    sysdb.getpharmacistusername(chckBx.Checked);
+        //}
     }
 }

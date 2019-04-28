@@ -813,30 +813,31 @@ namespace Belshifa2.model
             return Get_Pharmacy_Orders;
         }
 
-        ////////////////////////////////////////////////////////////////
-        public void getpharmacistusername(bool checkbtn)
-        {
-            Pharmacist pharmacist = new Pharmacist(); //Null
-            cmd = new OracleCommand();
-            cmd.Connection = conn;
-            cmd.CommandText = "select PH_USERNAME from PHARMACIST where PH_USERNAME = :uname";
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add("phuname", pharmacist.get_username()); //Null
-            try
-            {
-                string message = "";
-                OracleDataReader dr = cmd.ExecuteReader();
-                if (dr.Read())
-                    message = "Found";
-                else
-                    message = "Please Try Again";
-            }
-            catch
-            {
-                cmd.Dispose();
-            }
-            //Mafish 7aga btrg3.
-        }
+        //////////////////////////////////////////////////////////////////
+        //public string getpharmacistusername(int phuname)
+        //{
+        //    Pharmacist pharmacist = new Pharmacist(); //Null
+        //    cmd = new OracleCommand();
+        //    cmd.Connection = conn;
+        //    cmd.CommandText = "select PH_USERNAME from PHARMACIST where PH_USERNAME = :uname";
+        //    cmd.CommandType = CommandType.Text;
+        //    cmd.Parameters.Add("phuname", phuname); //Null3
+        //    string message = "";
+        //    try
+        //    { 
+        //        OracleDataReader dr = cmd.ExecuteReader();
+        //        if (dr.Read())
+        //            message = "Found";
+        //        else
+        //            message = "Please Try Again";
+        //    }
+        //    catch
+        //    {
+        //        cmd.Dispose();
+        //    }
+        //    return message;
+        //    //Mafish 7aga btrg3.
+        //}
 
 
         public List<Medicine> MName(int oid)
@@ -867,37 +868,37 @@ namespace Belshifa2.model
             return MEDName;
         }
 
-        public List<Has> MedQuant(int oid)
-        {
-            List<Has> MedQuant;
-            MedQuant = new List<Has>();
-            cmd = new OracleCommand();
-            cmd.Connection = conn;
-            cmd.CommandText = "select * from HAS where O_ID = :oid ";
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add("OID", oid);
-            try
-            {
-                OracleDataReader rs = cmd.ExecuteReader();
-                Has has;
-                while (rs.Read())
-                {
-                    has = new Has();
+        //public List<Has> MedQuant(int oid)
+        //{
+        //    List<Has> MedQuant;
+        //    MedQuant = new List<Has>();
+        //    cmd = new OracleCommand();
+        //    cmd.Connection = conn;
+        //    cmd.CommandText = "select * from HAS where O_ID = :oid ";
+        //    cmd.CommandType = CommandType.Text;
+        //    cmd.Parameters.Add("OID", oid);
+        //    try
+        //    {
+        //        OracleDataReader rs = cmd.ExecuteReader();
+        //        Has has;
+        //        while (rs.Read())
+        //        {
+        //            has = new Has();
 
-                    has.Set_OID(int.Parse(rs[0].ToString()));
-                    has.OMID.Add(int.Parse(rs[1].ToString()));
-                    has.Set_Quantity(int.Parse(rs[2].ToString()));
-                    MedQuant.Add(has);
-                }
-                rs.Close();
-            }
-            catch
-            {
-                cmd.Dispose();
-            }
+        //            has.Set_OID(int.Parse(rs[0].ToString()));
+        //            has.OMID.Add(int.Parse(rs[1].ToString()));
+        //            has.Set_Quantity(int.Parse(rs[2].ToString()));
+        //            MedQuant.Add(has);
+        //        }
+        //        rs.Close();
+        //    }
+        //    catch
+        //    {
+        //        cmd.Dispose();
+        //    }
 
-            return MedQuant;
-        }
+        //    return MedQuant;
+        //}
 
         public void disconnect()
         {

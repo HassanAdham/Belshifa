@@ -422,6 +422,12 @@ namespace Belshifa2.view
             tbControl.SelectTab(0);
         }
 
+        private bool btnisclicked = false;
+        private void button1_Click(object sender, EventArgs e)
+        {
+            btnisclicked = true;
+        }
+
         private void btnPending_Click(object sender, EventArgs e)
         {
             btnProfile.BackColor = Color.Brown;
@@ -436,6 +442,30 @@ namespace Belshifa2.view
             btnPending.ForeColor = Color.Brown;
 
             tbControl.SelectTab(2);
+
+            PharmForm ph = new PharmForm(phname ,phid,pharmname);
+            string PHName = ph.getpharmacistname(phname);
+             if(PHName != null)
+             { 
+                MessageBox.Show(PHName + "Has Approved Your Order Please Confirm The Approval To Continue The Process of Ordering");
+                // 
+                // button1
+                // 
+                Button Confirm = new Button();
+                Confirm.Location = new System.Drawing.Point(281, 17);
+                Confirm.Name = "button1";
+                Confirm.Size = new System.Drawing.Size(75, 23);
+                Confirm.TabIndex = 67;
+                Confirm.Text = "Confirm";
+                Confirm.UseVisualStyleBackColor = true;           
+                Confirm.Click += new EventHandler(button1_Click);
+                if (btnisclicked)
+                {
+                    MessageBox.Show("You've Confirmed The Order, Thank You, You will Recieve Your Order in 3 Days");                  
+                }
+                displayHistory();
+             }
+         
         }
 
         private void btnCart_Click(object sender, EventArgs e)
@@ -467,5 +497,7 @@ namespace Belshifa2.view
             btnPending.ForeColor = Color.Snow;
             tbControl.SelectTab(3);
         }
+
+     
     }
 }

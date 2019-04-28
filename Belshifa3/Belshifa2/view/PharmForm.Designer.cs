@@ -144,6 +144,7 @@
             this.chckBx.TabIndex = 2;
             this.chckBx.Text = "Approve";
             this.chckBx.UseVisualStyleBackColor = false;
+           
             // 
             // pnlOrderWhite
             // 
