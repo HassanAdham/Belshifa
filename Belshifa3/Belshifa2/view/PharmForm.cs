@@ -159,59 +159,27 @@ namespace Belshifa2.view
             flpMedicines.MinimumSize = new System.Drawing.Size(185, 142);
             flpMedicines.Size = new System.Drawing.Size(185, 142);
             flpMedicines.TabIndex = 0;
+            createmedicines(pharmacy_id,orid,flpMedicines);
             //------------------------------------------------------------
             // showmedicines("panadol", 20);
             flpOrders.Controls.Add(pnlOrderBrown);
         }
-        private void showmedicines(string medname, float medprice)
+
+        private void showmedicines(string medname, FlowLayoutPanel flpmeed)
         {
-            Label MedicineName = new Label();
-            Label MedicinePrice = new Label();
-            Panel Medicines = new Panel();
+            Label lblMedicine = new Label();
 
             // 
-            // panel5
+            // lblMedicine
             // 
-            //pan.Controls.Add(Medicines);
-            //pan.Controls.Add(this.label9);
-            //pan.Controls.Add(this.label8);
-            //pan.Controls.Add(pharmid);
-            //pan.Controls.Add(email);
-            //pan.Controls.Add(delivdate);
-            //pan.Controls.Add(orderdate);
-            //pan.Location = new System.Drawing.Point(0, 16);
-            //pan.Name = "panel5";
-            //pan.Size = new System.Drawing.Size(239, 344);
-            //pan.TabIndex = 1;
-            //pan.Paint += new System.Windows.Forms.PaintEventHandler(pan_Paint);
-            // 
-            // panel3
-            // 
-            Medicines.AutoScroll = true;
-            Medicines.Controls.Add(MedicinePrice);
-            Medicines.Controls.Add(MedicineName);
-            Medicines.Location = new System.Drawing.Point(39, 195);
-            Medicines.Name = "panel3";
-            Medicines.Size = new System.Drawing.Size(200, 149);
-            Medicines.TabIndex = 10;
-            // 
-            // label2
-            // 
-            MedicineName.AutoSize = true;
-            MedicineName.Location = new System.Drawing.Point(18, 21);
-            MedicineName.Name = "label2";
-            MedicineName.Size = new System.Drawing.Size(35, 13);
-            MedicineName.TabIndex = 10;
-            MedicineName.Text = "label2";
-            // 
-            // label3
-            // 
-            MedicinePrice.AutoSize = true;
-            MedicinePrice.Location = new System.Drawing.Point(132, 21);
-            MedicinePrice.Name = "label3";
-            MedicinePrice.Size = new System.Drawing.Size(35, 13);
-            MedicinePrice.TabIndex = 11;
-            MedicinePrice.Text = "label3";
+            lblMedicine.AutoSize = true;
+            lblMedicine.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblMedicine.Location = new System.Drawing.Point(5, 5);
+            lblMedicine.Margin = new System.Windows.Forms.Padding(5);
+            lblMedicine.Size = new System.Drawing.Size(47, 15);
+            lblMedicine.Text = medname;
+
+            flpmeed.Controls.Add(lblMedicine);
         }
 
 
@@ -225,14 +193,16 @@ namespace Belshifa2.view
                             order.get_patient_email(), order.get_pharmacy_id());
             }
         }
-        private void createmedicines(int pharmid)
+
+        private void createmedicines(int pharmidr , int oid , FlowLayoutPanel flpmed)
         {
-            List<Medicine> MED = sysdb.MName(pharmacy_id);
+            List<Medicine> MED = sysdb.MName(oid);
             foreach (Medicine m in MED)
             {
-                showmedicines(m.get_name(), m.get_price());
+                showmedicines(m.get_name(),flpmed);
             }
         }
+
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             // sysdb.getpharmacistusername(checkBox1.Checked);
@@ -261,6 +231,11 @@ namespace Belshifa2.view
                 Point p = PointToScreen(e.Location);
                 this.Location = new Point(p.X - startPoint.X, p.Y - startPoint.Y);
             }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

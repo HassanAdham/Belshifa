@@ -38,6 +38,11 @@
             this.pnlOrderWhite = new System.Windows.Forms.Panel();
             this.pnlMedicines = new System.Windows.Forms.Panel();
             this.lblMedicines = new System.Windows.Forms.Label();
+            this.flpMedicines = new System.Windows.Forms.FlowLayoutPanel();
+            this.lblMedicine = new System.Windows.Forms.Label();
+            this.lblEmail = new System.Windows.Forms.Label();
+            this.lblTotalPrice = new System.Windows.Forms.Label();
+            this.lblOrderDate = new System.Windows.Forms.Label();
             this.lblOrderID = new System.Windows.Forms.Label();
             this.panel12 = new System.Windows.Forms.Panel();
             this.btnSignOut = new System.Windows.Forms.Button();
@@ -45,21 +50,16 @@
             this.lblPharmacyName = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lblMedicine = new System.Windows.Forms.Label();
-            this.flpMedicines = new System.Windows.Forms.FlowLayoutPanel();
-            this.lblEmail = new System.Windows.Forms.Label();
-            this.lblTotalPrice = new System.Windows.Forms.Label();
-            this.lblOrderDate = new System.Windows.Forms.Label();
             this.pnlTop.SuspendLayout();
             this.panel1.SuspendLayout();
             this.flpOrders.SuspendLayout();
             this.pnlOrderBrown.SuspendLayout();
             this.pnlOrderWhite.SuspendLayout();
             this.pnlMedicines.SuspendLayout();
+            this.flpMedicines.SuspendLayout();
             this.panel12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.flpMedicines.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
@@ -105,6 +105,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(774, 446);
             this.panel1.TabIndex = 30;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // flpOrders
             // 
@@ -115,7 +116,7 @@
             this.flpOrders.MaximumSize = new System.Drawing.Size(734, 0);
             this.flpOrders.MinimumSize = new System.Drawing.Size(720, 380);
             this.flpOrders.Name = "flpOrders";
-            this.flpOrders.Size = new System.Drawing.Size(720, 758);
+            this.flpOrders.Size = new System.Drawing.Size(720, 380);
             this.flpOrders.TabIndex = 19;
             // 
             // pnlOrderBrown
@@ -177,6 +178,63 @@
             this.lblMedicines.Size = new System.Drawing.Size(73, 15);
             this.lblMedicines.TabIndex = 12;
             this.lblMedicines.Text = "Medicines";
+            // 
+            // flpMedicines
+            // 
+            this.flpMedicines.AutoSize = true;
+            this.flpMedicines.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flpMedicines.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.flpMedicines.Controls.Add(this.lblMedicine);
+            this.flpMedicines.Location = new System.Drawing.Point(13, 28);
+            this.flpMedicines.MaximumSize = new System.Drawing.Size(185, 0);
+            this.flpMedicines.MinimumSize = new System.Drawing.Size(185, 142);
+            this.flpMedicines.Name = "flpMedicines";
+            this.flpMedicines.Size = new System.Drawing.Size(185, 142);
+            this.flpMedicines.TabIndex = 0;
+            // 
+            // lblMedicine
+            // 
+            this.lblMedicine.AutoSize = true;
+            this.lblMedicine.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMedicine.Location = new System.Drawing.Point(5, 5);
+            this.lblMedicine.Margin = new System.Windows.Forms.Padding(5);
+            this.lblMedicine.Name = "lblMedicine";
+            this.lblMedicine.Size = new System.Drawing.Size(47, 15);
+            this.lblMedicine.TabIndex = 13;
+            this.lblMedicine.Text = "label9";
+            // 
+            // lblEmail
+            // 
+            this.lblEmail.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblEmail.AutoSize = true;
+            this.lblEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmail.Location = new System.Drawing.Point(5, 74);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(44, 15);
+            this.lblEmail.TabIndex = 2;
+            this.lblEmail.Text = "Email";
+            // 
+            // lblTotalPrice
+            // 
+            this.lblTotalPrice.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblTotalPrice.AutoSize = true;
+            this.lblTotalPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalPrice.Location = new System.Drawing.Point(5, 41);
+            this.lblTotalPrice.Name = "lblTotalPrice";
+            this.lblTotalPrice.Size = new System.Drawing.Size(76, 15);
+            this.lblTotalPrice.TabIndex = 1;
+            this.lblTotalPrice.Text = "Total Price";
+            // 
+            // lblOrderDate
+            // 
+            this.lblOrderDate.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblOrderDate.AutoSize = true;
+            this.lblOrderDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOrderDate.Location = new System.Drawing.Point(5, 10);
+            this.lblOrderDate.Name = "lblOrderDate";
+            this.lblOrderDate.Size = new System.Drawing.Size(77, 15);
+            this.lblOrderDate.TabIndex = 0;
+            this.lblOrderDate.Text = "Order Date";
             // 
             // lblOrderID
             // 
@@ -259,63 +317,6 @@
             this.pictureBox1.TabIndex = 13;
             this.pictureBox1.TabStop = false;
             // 
-            // lblMedicine
-            // 
-            this.lblMedicine.AutoSize = true;
-            this.lblMedicine.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMedicine.Location = new System.Drawing.Point(5, 5);
-            this.lblMedicine.Margin = new System.Windows.Forms.Padding(5);
-            this.lblMedicine.Name = "lblMedicine";
-            this.lblMedicine.Size = new System.Drawing.Size(47, 15);
-            this.lblMedicine.TabIndex = 13;
-            this.lblMedicine.Text = "label9";
-            // 
-            // flpMedicines
-            // 
-            this.flpMedicines.AutoSize = true;
-            this.flpMedicines.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flpMedicines.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.flpMedicines.Controls.Add(this.lblMedicine);
-            this.flpMedicines.Location = new System.Drawing.Point(13, 28);
-            this.flpMedicines.MaximumSize = new System.Drawing.Size(185, 0);
-            this.flpMedicines.MinimumSize = new System.Drawing.Size(185, 142);
-            this.flpMedicines.Name = "flpMedicines";
-            this.flpMedicines.Size = new System.Drawing.Size(185, 142);
-            this.flpMedicines.TabIndex = 0;
-            // 
-            // lblEmail
-            // 
-            this.lblEmail.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblEmail.AutoSize = true;
-            this.lblEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmail.Location = new System.Drawing.Point(5, 74);
-            this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(44, 15);
-            this.lblEmail.TabIndex = 2;
-            this.lblEmail.Text = "Email";
-            // 
-            // lblTotalPrice
-            // 
-            this.lblTotalPrice.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblTotalPrice.AutoSize = true;
-            this.lblTotalPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalPrice.Location = new System.Drawing.Point(5, 41);
-            this.lblTotalPrice.Name = "lblTotalPrice";
-            this.lblTotalPrice.Size = new System.Drawing.Size(76, 15);
-            this.lblTotalPrice.TabIndex = 1;
-            this.lblTotalPrice.Text = "Total Price";
-            // 
-            // lblOrderDate
-            // 
-            this.lblOrderDate.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblOrderDate.AutoSize = true;
-            this.lblOrderDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOrderDate.Location = new System.Drawing.Point(5, 10);
-            this.lblOrderDate.Name = "lblOrderDate";
-            this.lblOrderDate.Size = new System.Drawing.Size(77, 15);
-            this.lblOrderDate.TabIndex = 0;
-            this.lblOrderDate.Text = "Order Date";
-            // 
             // PharmForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -341,12 +342,12 @@
             this.pnlOrderWhite.PerformLayout();
             this.pnlMedicines.ResumeLayout(false);
             this.pnlMedicines.PerformLayout();
+            this.flpMedicines.ResumeLayout(false);
+            this.flpMedicines.PerformLayout();
             this.panel12.ResumeLayout(false);
             this.panel12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.flpMedicines.ResumeLayout(false);
-            this.flpMedicines.PerformLayout();
             this.ResumeLayout(false);
 
         }

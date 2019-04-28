@@ -93,3 +93,4 @@ C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa3\Belshifa2\obj\Debug\Belshif
 C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa3\Belshifa2\obj\Debug\Belshifa2.pdb
 C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa3\Belshifa2\obj\Debug\Belshifa2.csprojAssemblyReference.cache
 C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa3\Belshifa2\obj\Debug\Belshifa2.view.PharmForm.resources
+C:\Users\Rodina\Documents\GitHub\Belshifa\Belshifa3\Belshifa2\obj\Debug\Belshifa2.view.PharmForm.resources
