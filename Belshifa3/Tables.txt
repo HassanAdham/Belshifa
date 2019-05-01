@@ -1,0 +1,66 @@
+CREATE TABLE Pharmacy(
+    Pharmacy_ID number(20) NOT NULL PRIMARY KEY,
+    Address  varchar(100),
+    Pharm_Name varchar(30)
+);
+
+CREATE TABLE Pharmacist(
+    Ph_Username varchar2(20) NOT NULL PRIMARY KEY,
+    Ph_Password varchar2(20),
+    Pharmacy_ID number(20) REFERENCES Pharmacy(Pharmacy_ID)
+);
+
+CREATE TABLE Patient(
+    Email varchar2(20) NOT NULL PRIMARY KEY,
+    P_FName varchar2(20),
+    P_LName varchar2(20),
+    Address varchar2(100),
+    Phone number(20),
+    Payment varchar2(20),
+    Birthdate date,
+    p_password varchar2(20)
+);
+    
+CREATE TABLE Orderr(
+    O_ID number(20)  NOT NULL PRIMARY KEY,
+    Order_Date date,
+    Delivery_Date date,
+    Total_Price number(20),
+    Email varchar2(20) REFERENCES Patient(Email),
+    Ph_Username varchar2(20) REFERENCES Pharmacist(Ph_Username),
+    pharmacy_ID Number(20) REFERENCES Pharmacy(Pharmacy_id),
+    seen varchar2(14)
+);
+
+
+CREATE TABLE Section(
+    S_ID number(20) NOT NULL PRIMARY KEY,
+    S_Name varchar2(50)
+);
+
+CREATE TABLE Medicine(
+    M_ID number(20) NOT NULL PRIMARY KEY,
+    M_Name varchar2(50),
+    M_Price number(20),
+    Side_Effects varchar2(1000),
+    M_Usage varchar2(1000),
+    Precautions varchar2(1000),
+    Drug_Drug_interaction varchar2(1000),
+    Drug_Food_interaction varchar2(1000),
+    S_ID number(20) REFERENCES Section (S_ID),
+    M_Image_src varchar2(100)
+);
+
+CREATE TABLE Has(
+    M_ID number(20) References Medicine(M_ID),
+    O_ID number(20) References Orderr(O_ID),
+    CONSTRAINT pk_has PRIMARY KEY (M_ID , O_ID),
+    Quantity number(20)
+);
+
+CREATE TABLE Gets(
+    Pharmacy_ID number(20) REFERENCES Pharmacy(Pharmacy_ID),
+    M_ID number(20) REFERENCES Medicine(M_ID),
+    CONSTRAInT pk_gets PRIMARY KEY (Pharmacy_ID, M_ID),
+    Quantity number(20)
+);

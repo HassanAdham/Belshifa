@@ -22,12 +22,12 @@ namespace Belshifa2
             InitializeComponent();
             dbObj = new SystemDatabase();
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             displayAllSections();
             displayAllMedicines();
         }
+        /*Looping through lists*/
         private void displayAllSections()
         {
             List<Section> list = dbObj.getSections();
@@ -36,6 +36,35 @@ namespace Belshifa2
                 create_Section(s);
             }
         }
+        private void displayAllMedicines()
+        {
+            flpMedicine.Controls.Clear();
+            List<Medicine> list = dbObj.getAllMedicines();
+            foreach (Medicine m in list)
+            {
+                create_medicine(m);
+            }
+        }
+        private void get_medicines_of_section(int id)
+        {
+            flpMedicine.Controls.Clear();
+            List<Medicine> list = dbObj.getMedicines(id);
+            foreach (Medicine m in list)
+            {
+                create_medicine(m);
+            }
+        }
+        private void lblAllSections_Click(object sender, EventArgs e)
+        {
+            foreach (Label l in flpSections.Controls)
+            {
+                l.ForeColor = Color.Black;
+            }
+            lblAllSections.ForeColor = Color.Brown;
+            displayAllMedicines();
+        }
+
+        /*Creating Controls*/
         private void create_Section(Section section)
         {
             Label label = new Label();
@@ -59,34 +88,6 @@ namespace Belshifa2
             };
 
             flpSections.Controls.Add(label);
-        }
-
-        private void lblAllSections_Click(object sender, EventArgs e)
-        {
-            foreach (Label l in flpSections.Controls)
-            {
-                l.ForeColor = Color.Black;
-            }
-            lblAllSections.ForeColor = Color.Brown;
-            displayAllMedicines();
-        }
-        private void displayAllMedicines()
-        {
-            flpMedicine.Controls.Clear();
-            List<Medicine> list = dbObj.getAllMedicines();
-            foreach(Medicine m in list)
-            {
-                create_medicine(m);
-            }
-        }
-        private void get_medicines_of_section(int id)
-        {
-            flpMedicine.Controls.Clear();
-            List<Medicine> list = dbObj.getMedicines(id);
-            foreach(Medicine m in list)
-            {
-                create_medicine(m);
-            }
         }
         private void create_medicine(Medicine medicine)
         {
@@ -132,6 +133,7 @@ namespace Belshifa2
             flpMedicine.Controls.Add(panel);
         }
 
+        /*Full Medicine Attributes*/
         private void getAllAttributesOfMedicine(Medicine medicine)
         {
             MedicineAttributes medicineAttributesForm = new MedicineAttributes(medicine.get_id(),
@@ -140,8 +142,8 @@ namespace Belshifa2
                 medicine.get_price());
 
             medicineAttributesForm.ShowDialog();
-
         }
+
         private void btnSearch_Click(object sender, EventArgs e)
         {
             Medicine m = dbObj.SearchForMedicine(txtBxSearch.Text);
@@ -167,8 +169,20 @@ namespace Belshifa2
                 currentPatient.signOut();
                 Loginregister.Text = "Sign In";
                 btnSignUp.Text = "Sign Up";
+                btnNotify.Visible = false;
             }
+        }
 
+
+        //-----------------------------------Form ------------------------------
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            dbObj.disconnect();
+            this.Close();
+        }
+        private void btnMinimize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
         //---------------------------------Moving Form-------------------------------
         bool mouseDown = false;
@@ -190,17 +204,6 @@ namespace Belshifa2
                 this.Location = new Point(p.X - startPoint.X, p.Y - startPoint.Y);
             }
         }
-        //-----------------------------------Form ------------------------------
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            dbObj.disconnect();
-            this.Close();
-        }
-        private void btnMinimize_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-        }
-
         //--------------------------------Commercials-------------------------------
         int i = 3;
         private void timerCommercial_Tick(object sender, EventArgs e)
@@ -229,7 +232,6 @@ namespace Belshifa2
                 i = 3;
             }
         }
-
         private void Loginregister_Click(object sender, EventArgs e)
         {
             if(Loginregister.Text == "Sign In")
@@ -240,6 +242,10 @@ namespace Belshifa2
                 if (currentPatient.get_currentUser() != null)
                 {
                     Loginregister.Text = currentPatient.get_currentUser().get_f_name();
+                    List<string> notifications = dbObj.getNotifications(currentPatient.get_currentUser().get_email());
+                    currentPatient.set_notifications(notifications);
+                    btnNotify.Text = notifications.Count.ToString();
+                    btnNotify.Visible = true;
                     btnSignUp.Text = "Sign Out";
                 }
             }
@@ -250,9 +256,15 @@ namespace Belshifa2
             }
 
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
+        }
+        private void btnNotify_Click(object sender, EventArgs e)
+        {
+            Notify notifyForm = new Notify();
+            notifyForm.ShowDialog();
+
+            btnNotify.Text = currentPatient.get_notifications().Count.ToString();
         }
     }
 }

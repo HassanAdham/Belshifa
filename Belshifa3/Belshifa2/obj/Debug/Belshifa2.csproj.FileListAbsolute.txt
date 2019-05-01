@@ -80,7 +80,6 @@ C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa3\Belshifa2\bin\Debug\Belshif
 C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa3\Belshifa2\bin\Debug\Belshifa2.exe.config
 C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa3\Belshifa2\bin\Debug\Belshifa2.pdb
 C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa3\Belshifa2\obj\Debug\Belshifa2.view.MedicineAttributes.resources
-C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa3\Belshifa2\obj\Debug\Belshifa2.Form2.resources
 C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa3\Belshifa2\obj\Debug\Belshifa2.view.ProfileForm.resources
 C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa3\Belshifa2\obj\Debug\Belshifa2.Form1.resources
 C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa3\Belshifa2\obj\Debug\Belshifa2.LoginForm.resources
@@ -94,3 +93,4 @@ C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa3\Belshifa2\obj\Debug\Belshif
 C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa3\Belshifa2\obj\Debug\Belshifa2.csprojAssemblyReference.cache
 C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa3\Belshifa2\obj\Debug\Belshifa2.view.PharmForm.resources
 C:\Users\Rodina\Documents\GitHub\Belshifa\Belshifa3\Belshifa2\obj\Debug\Belshifa2.view.PharmForm.resources
+C:\Users\Samsung\Documents\GitHub\Belshifa\Belshifa3\Belshifa2\obj\Debug\Belshifa2.view.Notify.resources

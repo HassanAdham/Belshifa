@@ -18,6 +18,7 @@ namespace Belshifa2.view
         private int pharmacy_id;
         private string pharmacy_name;
         private SystemDatabase sysdb;
+
         public PharmForm(string username, int pharmacy_id, string pharmacy_name)
         {
             InitializeComponent();
@@ -25,18 +26,38 @@ namespace Belshifa2.view
             this.pharmacy_id = pharmacy_id;
             this.pharmacy_name = pharmacy_name;
             sysdb = new SystemDatabase();
-
         }
 
         private void PharmForm_Load(object sender, EventArgs e)
         {
             lblUsername.Text = username;
             lblPharmacyName.Text = pharmacy_name;
+
+            flpOrders.Controls.Clear();
             creatnumberoforders(pharmacy_id);
-          
-            
+            createMedicinesTabPage();
         }
 
+        /*Looping on lists*/
+        private void creatnumberoforders(int id)
+        {
+            List<Order> ord = sysdb.Get_Pharmacy_Orders(pharmacy_id);
+            foreach (Order order in ord)
+            {
+                showorder(order.get_orderId(), order.get_orderDate(), order.get_totalPrice(),
+                            order.get_patient_email(), order.get_pharmacy_id());
+            }
+        }
+        private void createmedicines(int pharmidr , int oid , FlowLayoutPanel flpmed)
+        {
+            List<Medicine> MED = sysdb.MName(oid);
+            foreach (Medicine m in MED)
+            {
+                showmedicines(m.get_name(),flpmed);
+            }
+        }
+
+        /*Creating Dynamic Controls*/
         private void showorder(int orid, string od, float tp, string em, int pharid)
         {
             Label lblEmail = new Label();
@@ -49,7 +70,7 @@ namespace Belshifa2.view
             Panel pnlMedicines = new Panel();
             Label lblMedicines = new Label();
             FlowLayoutPanel flpMedicines = new FlowLayoutPanel();
-            
+
             // 
             // lblEmail
             // 
@@ -79,7 +100,7 @@ namespace Belshifa2.view
             lblOrderDate.Location = new System.Drawing.Point(5, 10);
             lblOrderDate.Size = new System.Drawing.Size(77, 15);
             lblOrderDate.TabIndex = 0;
-            lblOrderDate.Text = od.Substring(0,9);
+            lblOrderDate.Text = od.Substring(0, 9);
             // 
             // lblOrderID
             // 
@@ -105,7 +126,7 @@ namespace Belshifa2.view
             chckBx.UseVisualStyleBackColor = false;
             chckBx.CheckedChanged += delegate
             {
-                InsertPHUnameinOrder(username,orid,pharid);
+                InsertPHUnameinOrder(username, orid, pharid);
                 flpOrders.Controls.Remove(pnlOrderBrown);
             };
 
@@ -167,12 +188,11 @@ namespace Belshifa2.view
             flpMedicines.MinimumSize = new System.Drawing.Size(185, 142);
             flpMedicines.Size = new System.Drawing.Size(185, 142);
             flpMedicines.TabIndex = 0;
-            createmedicines(pharmacy_id,orid,flpMedicines);
+            createmedicines(pharmacy_id, orid, flpMedicines);
             //------------------------------------------------------------
             // showmedicines("panadol", 20);
             flpOrders.Controls.Add(pnlOrderBrown);
         }
-
         private void showmedicines(string medname, FlowLayoutPanel flpmeed)
         {
             Label lblMedicine = new Label();
@@ -190,45 +210,38 @@ namespace Belshifa2.view
             flpmeed.Controls.Add(lblMedicine);
         }
 
-
-        //halef 3ale list bta3et elorders mn systemdatabase
-        private void creatnumberoforders(int id)
-        {
-            List<Order> ord = sysdb.Get_Pharmacy_Orders(pharmacy_id);
-            foreach (Order order in ord)
-            {
-                showorder(order.get_orderId(), order.get_orderDate(), order.get_totalPrice(),
-                            order.get_patient_email(), order.get_pharmacy_id());
-            }
-        }
-
-        private void createmedicines(int pharmidr , int oid , FlowLayoutPanel flpmed)
-        {
-            List<Medicine> MED = sysdb.MName(oid);
-            foreach (Medicine m in MED)
-            {
-                showmedicines(m.get_name(),flpmed);
-            }
-        }
-
-       //public string getpharmacistname(string name)
-       // {
-       //     string phname = "";
-       //     if(chckBx.Checked)
-       //     {
-       //          phname = sysdb.getpharmacistusernamefrompharmacist(name);
-       //     }
-       //     return phname;
-       //     sysdb.InsertPHunameinOrderTable(phname, oid, pharmacy_id);
-       // }
-
+        /*Pharmacist is approving the order*/
         private void InsertPHUnameinOrder(string uname, int oid , int phid)
         {        
-                sysdb.InsertPHunameinOrderTable(uname, oid, phid);         
+            sysdb.InsertPHunameinOrderTable(uname, oid, phid);         
         }
 
+        /*Disconnected Mode*/
+        private void createMedicinesTabPage()
+        {
+            DataSet ds = sysdb.MasterDetails(pharmacy_id);
+            BindingSource bs_Master = new BindingSource(ds, "Sections");
+            BindingSource bs_Child = new BindingSource(bs_Master, "oneToMany");
 
-        //----------------------------------------Form------------------------------
+            dgvSections.DataSource = bs_Master;
+            dgvMedicines.DataSource = bs_Child;
+        }
+        /*Save - Builder */
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            sysdb.disconnectedSave();
+        }
+
+        //---------------------------------Form------------------------------
+        private void btnOrders_Click(object sender, EventArgs e)
+        {
+            tbCtrlPharm.SelectTab(0);
+        }
+        private void btnMedicines_Click(object sender, EventArgs e)
+        {
+            tbCtrlPharm.SelectTab(1);
+        }
+        //-----------------------------Moving Form------------------------------
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -253,14 +266,22 @@ namespace Belshifa2.view
             }
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         //private void chckBx_CheckedChanged(object sender, EventArgs e)
         //{
         //    sysdb.getpharmacistusername(chckBx.Checked);
         //}
+
+
+        //public string getpharmacistname(string name)
+        // {
+        //     string phname = "";
+        //     if(chckBx.Checked)
+        //     {
+        //          phname = sysdb.getpharmacistusernamefrompharmacist(name);
+        //     }
+        //     return phname;
+        //     sysdb.InsertPHunameinOrderTable(phname, oid, pharmacy_id);
+        // }
     }
 }

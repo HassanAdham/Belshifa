@@ -16,28 +16,33 @@ namespace Belshifa2.view
     {
         SystemDatabase dbObj;
         CurrentPatient currentPatient;
+
         private int m_id;
         private float price;
         private string usage;
         private int quantity;
         private string name;
+
         public MedicineAttributes(int m_id, string name, string precautions, string ddInteraction,
                                   string dfInteraction, string usage, string side_effects, float price)
         {
             InitializeComponent();
+
             dbObj = new SystemDatabase();
             currentPatient = new CurrentPatient();
+
             this.m_id = m_id;
+            this.name = name;
             this.usage = usage;
             this.price = price;
-            this.name = name;
-            btnMedicinePage.Text = name;
-            lblDFInteraction.Text = dfInteraction;
             lblName.Text = name;
+            lblUsage.Text = usage;
+            btnMedicinePage.Text = name;
+            lblPrice.Text = price.ToString();
             lblPrecautions.Text = precautions;
             lblSideEffects.Text = side_effects;
-            lblPrice.Text = price.ToString();
             lblDDInteraction.Text = ddInteraction;
+            lblDFInteraction.Text = dfInteraction;
         }
 
         private void MedicineAttributes_Load(object sender, EventArgs e)

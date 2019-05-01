@@ -20,28 +20,24 @@ namespace Belshifa2
             InitializeComponent();
         }
 
-        private void LoginForm_Load(object sender, EventArgs e)
-        {
-
-        }
         private void btnLogin_Click(object sender, EventArgs e)
         {  
             SystemDatabase dbObj = new SystemDatabase();
-            string message = dbObj.signIn(txtBoxUsername.Text, txtBoxPassword.Text,radioBtnPharmacist.Checked);
+            string message = dbObj.signIn(txtBoxUsername.Text, txtBoxPassword.Text,radioBtnPharmacist.Checked); //Sign in.
             lblMessage.Text = message;
             lblMessage.Visible = true;
             if(message == "Logging in..")
             {
-                if(radioBtnUser.Checked)
+                if(radioBtnUser.Checked) //Patient.
                 {
-                    object user = dbObj.getProfile(txtBoxUsername.Text, false);
+                    object user = dbObj.getProfile(txtBoxUsername.Text, false); //If signed, get profile.
                     Patient patient = (Patient)user;
                     CurrentPatient currentPatient = new CurrentPatient();
                     currentPatient.set_currentUser(patient);
                     currentPatient.initialize_List();
                     this.Close();
                 }
-                else
+                else //Pharmacist.
                 {
                     object user = dbObj.getProfile(txtBoxUsername.Text, true);
                     Pharmacist pharmacist = (Pharmacist)user;
@@ -53,9 +49,16 @@ namespace Belshifa2
             }
         }
 
-        //---------------------------------Form Handling-----------------------------
+        //---------------------------------Form-----------------------------
         private void btnClose_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
+        private void btnSignUp_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form3 signUpForm = new Form3(); //User Sign up
+            signUpForm.ShowDialog();
             this.Close();
         }
 
@@ -78,14 +81,6 @@ namespace Belshifa2
                 Point p = PointToScreen(e.Location);
                 this.Location = new Point(p.X - startPoint.X, p.Y - startPoint.Y);
             }
-        }
-
-        private void btnSignUp_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            Form3 signUpForm = new Form3(); //User Sign up
-            signUpForm.ShowDialog();
-            this.Close();
         }
     }
 }

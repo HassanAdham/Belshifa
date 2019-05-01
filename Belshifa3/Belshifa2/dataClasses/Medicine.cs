@@ -40,47 +40,38 @@ namespace Belshifa2.dataClasses
         {
             return this.id;
         }
-
         public string get_name()
         {
             return this.name;
         }
-
         public float get_price()
         {
             return this.price;
         }
-
         public string get_side_effects()
         {
             return this.side_effects;
         }
-
         public string get_usage()
         {
             return this.usage;
         }
-
         public string get_precautions()
         {
             return this.precautions;
         }
-
         public string get_drug_drug_interaction()
         {
             return this.drug_drug_interaction;
         }
-
         public string get_drug_food_interaction()
         {
             return this.drug_food_interaction;
         }
-
         public int get_sec_id()
         {
             return this.sec_id;
         }
-
         public string get_image_src()
         {
             return this.image_src;

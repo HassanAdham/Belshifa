@@ -28,8 +28,8 @@ namespace Belshifa2.dataClasses
             payment = "";
             birthdate = "";
         }
-        public Patient(string f_name, string l_name, string password,
-            string address, string phone, string email, string payment, string birthdate)
+        public Patient(string f_name, string l_name, string password, string address,
+               string phone, string email, string payment, string birthdate)
         {
             this.phone = phone;
             this.email = email;
@@ -106,6 +106,5 @@ namespace Belshifa2.dataClasses
         {
             return this.payment;
         }
-
     }
 }

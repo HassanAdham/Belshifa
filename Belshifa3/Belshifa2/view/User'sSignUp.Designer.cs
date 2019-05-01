@@ -44,7 +44,6 @@
             this.txtBxPhone = new System.Windows.Forms.TextBox();
             this.btnSignUp = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
-            this.txtBxAddress = new System.Windows.Forms.TextBox();
             this.btnClose = new System.Windows.Forms.Button();
             this.pnlTop = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
@@ -52,6 +51,8 @@
             this.cmbBxPayment = new System.Windows.Forms.ComboBox();
             this.dtPickerBirthdate = new System.Windows.Forms.DateTimePicker();
             this.lblGoToSignUpPharmacist = new System.Windows.Forms.Label();
+            this.cmBxAddress = new System.Windows.Forms.ComboBox();
+            this.lblMessage = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.SuspendLayout();
@@ -198,7 +199,7 @@
             this.txtBxPhone.Multiline = true;
             this.txtBxPhone.Name = "txtBxPhone";
             this.txtBxPhone.Size = new System.Drawing.Size(197, 30);
-            this.txtBxPhone.TabIndex = 17;
+            this.txtBxPhone.TabIndex = 15;
             // 
             // btnSignUp
             // 
@@ -208,7 +209,7 @@
             this.btnSignUp.Location = new System.Drawing.Point(259, 373);
             this.btnSignUp.Name = "btnSignUp";
             this.btnSignUp.Size = new System.Drawing.Size(431, 36);
-            this.btnSignUp.TabIndex = 21;
+            this.btnSignUp.TabIndex = 18;
             this.btnSignUp.Text = "Sign Up";
             this.btnSignUp.UseVisualStyleBackColor = false;
             this.btnSignUp.Click += new System.EventHandler(this.btnSignUp_Click);
@@ -224,15 +225,6 @@
             this.label11.TabIndex = 22;
             this.label11.Text = "Address";
             // 
-            // txtBxAddress
-            // 
-            this.txtBxAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.txtBxAddress.Location = new System.Drawing.Point(259, 247);
-            this.txtBxAddress.Multiline = true;
-            this.txtBxAddress.Name = "txtBxAddress";
-            this.txtBxAddress.Size = new System.Drawing.Size(197, 30);
-            this.txtBxAddress.TabIndex = 23;
-            // 
             // btnClose
             // 
             this.btnClose.BackColor = System.Drawing.Color.White;
@@ -243,7 +235,7 @@
             this.btnClose.Location = new System.Drawing.Point(487, 0);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(31, 29);
-            this.btnClose.TabIndex = 12;
+            this.btnClose.TabIndex = 20;
             this.btnClose.Text = "X";
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -291,7 +283,7 @@
             this.cmbBxPayment.Location = new System.Drawing.Point(259, 319);
             this.cmbBxPayment.Name = "cmbBxPayment";
             this.cmbBxPayment.Size = new System.Drawing.Size(197, 32);
-            this.cmbBxPayment.TabIndex = 29;
+            this.cmbBxPayment.TabIndex = 16;
             this.cmbBxPayment.Text = "Cash";
             // 
             // dtPickerBirthdate
@@ -301,7 +293,7 @@
             this.dtPickerBirthdate.MaxDate = new System.DateTime(2019, 4, 24, 0, 0, 0, 0);
             this.dtPickerBirthdate.Name = "dtPickerBirthdate";
             this.dtPickerBirthdate.Size = new System.Drawing.Size(197, 29);
-            this.dtPickerBirthdate.TabIndex = 30;
+            this.dtPickerBirthdate.TabIndex = 17;
             this.dtPickerBirthdate.Value = new System.DateTime(2007, 4, 24, 0, 0, 0, 0);
             // 
             // lblGoToSignUpPharmacist
@@ -312,9 +304,42 @@
             this.lblGoToSignUpPharmacist.Location = new System.Drawing.Point(547, 425);
             this.lblGoToSignUpPharmacist.Name = "lblGoToSignUpPharmacist";
             this.lblGoToSignUpPharmacist.Size = new System.Drawing.Size(132, 15);
-            this.lblGoToSignUpPharmacist.TabIndex = 31;
+            this.lblGoToSignUpPharmacist.TabIndex = 19;
             this.lblGoToSignUpPharmacist.Text = "Sign Up As Pharmacist";
             this.lblGoToSignUpPharmacist.Click += new System.EventHandler(this.lblGoToSignUpPharmacist_Click);
+            // 
+            // cmBxAddress
+            // 
+            this.cmBxAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.cmBxAddress.FormattingEnabled = true;
+            this.cmBxAddress.Items.AddRange(new object[] {
+            "Sheraton",
+            "MisrElGdida",
+            "NasrCity",
+            "Abassia",
+            "Ramsis",
+            "Tahrir",
+            "Dokki",
+            "Mohndseen",
+            "October",
+            "Zayed"});
+            this.cmBxAddress.Location = new System.Drawing.Point(259, 245);
+            this.cmBxAddress.Name = "cmBxAddress";
+            this.cmBxAddress.Size = new System.Drawing.Size(197, 32);
+            this.cmBxAddress.TabIndex = 27;
+            this.cmBxAddress.Text = "MisrElGdida";
+            // 
+            // lblMessage
+            // 
+            this.lblMessage.AutoSize = true;
+            this.lblMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMessage.ForeColor = System.Drawing.Color.Brown;
+            this.lblMessage.Location = new System.Drawing.Point(256, 425);
+            this.lblMessage.Name = "lblMessage";
+            this.lblMessage.Size = new System.Drawing.Size(58, 15);
+            this.lblMessage.TabIndex = 28;
+            this.lblMessage.Text = "Message";
+            this.lblMessage.Visible = false;
             // 
             // Form3
             // 
@@ -322,13 +347,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Snow;
             this.ClientSize = new System.Drawing.Size(727, 473);
+            this.Controls.Add(this.lblMessage);
+            this.Controls.Add(this.cmBxAddress);
             this.Controls.Add(this.lblGoToSignUpPharmacist);
             this.Controls.Add(this.dtPickerBirthdate);
             this.Controls.Add(this.cmbBxPayment);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.pnlTop);
-            this.Controls.Add(this.txtBxAddress);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.btnSignUp);
             this.Controls.Add(this.txtBxPhone);
@@ -370,7 +396,6 @@
         private System.Windows.Forms.TextBox txtBxPhone;
         private System.Windows.Forms.Button btnSignUp;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox txtBxAddress;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Panel pnlTop;
         private System.Windows.Forms.Label label8;
@@ -381,5 +406,7 @@
         private System.Windows.Forms.ComboBox cmbBxPayment;
         private System.Windows.Forms.DateTimePicker dtPickerBirthdate;
         private System.Windows.Forms.Label lblGoToSignUpPharmacist;
+        private System.Windows.Forms.ComboBox cmBxAddress;
+        private System.Windows.Forms.Label lblMessage;
     }
 }

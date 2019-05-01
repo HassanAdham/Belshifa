@@ -21,7 +21,6 @@ namespace Belshifa2.dataClasses
         {
             return this.id;
         }
-
         public string get_name()
         {
             return this.name;

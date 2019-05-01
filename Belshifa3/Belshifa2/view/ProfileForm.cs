@@ -14,14 +14,20 @@ namespace Belshifa2.view
 {
     public partial class ProfileForm : Form
     {
-        CurrentPatient currentPatient = new CurrentPatient();
-        SystemDatabase dbObj = new SystemDatabase();
+        SystemDatabase dbObj;
         Patient patient;
+        CurrentPatient currentPatient;
+
         public ProfileForm()
         {
             InitializeComponent();
+            currentPatient = new CurrentPatient();
+            dbObj = new SystemDatabase();
+
             dtPickerBirthdate.Format = DateTimePickerFormat.Custom;
             dtPickerBirthdate.CustomFormat = "dd-MMM-yyyy";
+
+            //If there is a patient in the CurrentPatient class. then someone is signed in.
             patient = currentPatient.get_currentUser();
             if (patient != null)
             {
@@ -39,19 +45,21 @@ namespace Belshifa2.view
         private void ProfileForm_Load(object sender, EventArgs e)
         {
             displayCart();
-            displayUnapproved();
+            displayPending();
             displayHistory();
         }
+
+        /*Looping through lists*/
         private void displayCart()
         {
             flpCart.Controls.Clear();
-            Dictionary<int,QuantPrice> cart = currentPatient.get_cart();
-            foreach(KeyValuePair<int, QuantPrice> item in cart)
+            Dictionary<int,MedicineInfo> cart = currentPatient.get_cart();
+            foreach(KeyValuePair<int, MedicineInfo> item in cart)
             {
                 create_item_To_Cart(item);
             }
         }
-        private void displayUnapproved()
+        private void displayPending()
         {
             List<Order> pending = dbObj.getPatientPendingOrders(currentPatient.get_currentUser().get_email());
             flpUnapproved.Controls.Clear();
@@ -59,7 +67,7 @@ namespace Belshifa2.view
             {
                 create_item_To_Pending(order);
             }
-        }
+        } //it is pending list.
         private void displayHistory()
         {
             flpHistory.Controls.Clear();
@@ -70,6 +78,149 @@ namespace Belshifa2.view
             }
         }
 
+        /*Creating Controls*/
+        private void create_item_To_Cart(KeyValuePair<int, MedicineInfo> itm)
+        {
+            Panel item = new Panel();
+            PictureBox picBx = new PictureBox();
+            Label lblName = new Label();
+            Label lblPrice = new Label();
+            Button btnRemove = new Button();
+            NumericUpDown numericUpDown1 = new NumericUpDown();
+
+            // 
+            // item
+            // 
+            item.BackColor = Color.Gainsboro;
+            item.Controls.Add(numericUpDown1);
+            item.Controls.Add(btnRemove);
+            item.Controls.Add(lblPrice);
+            item.Controls.Add(lblName);
+            item.Controls.Add(picBx);
+            item.Location = new Point(5, 5);
+            item.Margin = new System.Windows.Forms.Padding(5);
+            item.Name = "item";
+            item.Size = new Size(541, 79);
+            item.TabIndex = 0;
+            // 
+            // picBx
+            // 
+            picBx.BackColor = Color.Gray;
+            picBx.Location = new Point(19, 9);
+            picBx.Name = "picBx";
+            picBx.Size = new Size(80, 60);
+            picBx.TabIndex = 0;
+            picBx.TabStop = false;
+            // 
+            // lblPrice
+            // 
+            lblPrice.AutoSize = true;
+            lblPrice.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            lblPrice.ForeColor = Color.Brown;
+            lblPrice.Location = new Point(410, 33);
+            lblPrice.Name = "lblPrice";
+            lblPrice.Size = new Size(42, 18);
+            lblPrice.TabIndex = 30;
+            lblPrice.Text = (itm.Value.get_quantity() * itm.Value.get_price()).ToString();
+            // 
+            // lblName
+            // 
+            lblName.AutoSize = true;
+            lblName.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            lblName.ForeColor = Color.Brown;
+            lblName.Location = new Point(125, 33);
+            lblName.Name = "lblName";
+            lblName.Size = new Size(48, 18);
+            lblName.TabIndex = 29;
+            lblName.Text = itm.Value.get_name();
+            // 
+            // btnRemove
+            // 
+            btnRemove.BackColor = Color.Brown;
+            btnRemove.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            btnRemove.ForeColor = Color.Snow;
+            btnRemove.Location = new Point(500, 3);
+            btnRemove.Name = "btnRemove";
+            btnRemove.Size = new Size(38, 24);
+            btnRemove.TabIndex = 66;
+            btnRemove.Text = "-";
+            btnRemove.UseVisualStyleBackColor = false;
+            btnRemove.Click += delegate
+            {
+                remove_item(itm.Key);
+                flpCart.Controls.Remove(item);
+            };
+            // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Location = new Point(264, 31);
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Value = itm.Value.get_quantity();
+            numericUpDown1.Size = new Size(63, 20);
+            numericUpDown1.TabIndex = 67;
+            numericUpDown1.Minimum = 1;
+            numericUpDown1.ValueChanged += delegate
+            {
+                lblPrice.Text = ((float)numericUpDown1.Value * itm.Value.get_price()).ToString();
+                itm.Value.set_quantity(int.Parse(numericUpDown1.Value.ToString()));
+            };
+            flpCart.Controls.Add(item);
+        }
+        private void create_item_To_Pending(Order order)
+        {
+            Panel item = new Panel();
+            Label lblId = new Label();
+            Label lblPrice = new Label();
+            Label lblOrderDate = new Label();
+            // 
+            // item
+            // 
+            item.BackColor = Color.Gainsboro;
+            item.Controls.Add(lblPrice);
+            item.Controls.Add(lblId);
+            item.Controls.Add(lblOrderDate);
+            item.Location = new Point(5, 5);
+            item.Margin = new System.Windows.Forms.Padding(5);
+            item.Name = "item";
+            item.Size = new Size(541, 33);
+            item.TabIndex = 0;
+
+            // 
+            // lblPrice
+            // 
+            lblPrice.AutoSize = true;
+            lblPrice.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            lblPrice.ForeColor = Color.Brown;
+            lblPrice.Location = new Point(281, 9);
+            lblPrice.Name = "lblPrice";
+            lblPrice.Size = new Size(42, 18);
+            lblPrice.TabIndex = 30;
+            lblPrice.Text = order.get_totalPrice().ToString();
+            // 
+            // lblName
+            // 
+            lblId.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            lblId.ForeColor = Color.Brown;
+            lblId.Location = new Point(22, 9);
+            lblId.Name = "lblId";
+            lblId.Size = new Size(48, 18);
+            lblId.TabIndex = 29;
+            lblId.Text = order.get_orderId().ToString();
+
+            // 
+            // lblOrderDate
+            // 
+            lblOrderDate.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            lblOrderDate.ForeColor = Color.Brown;
+            lblOrderDate.AutoSize = true;
+            lblOrderDate.Location = new Point(133, 9);
+            lblOrderDate.Name = "lblOrderDate";
+            lblOrderDate.TabIndex = 29;
+            lblOrderDate.Text = order.get_orderDate();
+
+
+            flpUnapproved.Controls.Add(item);
+        }
         private void create_item_to_history(Order order)
         {
             Label lblPharmacist = new Label();
@@ -166,154 +317,14 @@ namespace Belshifa2.view
 
             flpHistory.Controls.Add(orderPanel);
         }
-
-        private void create_item_To_Cart(KeyValuePair<int, QuantPrice> itm)
-        {
-            Panel item = new Panel();
-            PictureBox picBx = new PictureBox();
-            Label lblName = new Label();
-            Label lblPrice = new Label();
-            Button btnRemove = new Button();
-            NumericUpDown numericUpDown1 = new NumericUpDown();
-
-            // 
-            // item
-            // 
-            item.BackColor = Color.Gainsboro;
-            item.Controls.Add(numericUpDown1);
-            item.Controls.Add(btnRemove);
-            item.Controls.Add(lblPrice);
-            item.Controls.Add(lblName);
-            item.Controls.Add(picBx);
-            item.Location = new Point(5, 5);
-            item.Margin = new System.Windows.Forms.Padding(5);
-            item.Name = "item";
-            item.Size = new Size(541, 79);
-            item.TabIndex = 0;
-            // 
-            // picBx
-            // 
-            picBx.BackColor = Color.Gray;
-            picBx.Location = new Point(19, 9);
-            picBx.Name = "picBx";
-            picBx.Size = new Size(80, 60);
-            picBx.TabIndex = 0;
-            picBx.TabStop = false;
-            // 
-            // lblPrice
-            // 
-            lblPrice.AutoSize = true;
-            lblPrice.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
-            lblPrice.ForeColor = Color.Brown;
-            lblPrice.Location = new Point(410, 33);
-            lblPrice.Name = "lblPrice";
-            lblPrice.Size = new Size(42, 18);
-            lblPrice.TabIndex = 30;
-            lblPrice.Text = (itm.Value.get_quantity()*itm.Value.get_price()).ToString();
-            // 
-            // lblName
-            // 
-            lblName.AutoSize = true;
-            lblName.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
-            lblName.ForeColor = Color.Brown;
-            lblName.Location = new Point(125, 33);
-            lblName.Name = "lblName";
-            lblName.Size = new Size(48, 18);
-            lblName.TabIndex = 29;
-            lblName.Text = itm.Value.get_name();
-            // 
-            // btnRemove
-            // 
-            btnRemove.BackColor = Color.Brown;
-            btnRemove.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            btnRemove.ForeColor = Color.Snow;
-            btnRemove.Location = new Point(500, 3);
-            btnRemove.Name = "btnRemove";
-            btnRemove.Size = new Size(38, 24);
-            btnRemove.TabIndex = 66;
-            btnRemove.Text = "-";
-            btnRemove.UseVisualStyleBackColor = false;
-            btnRemove.Click += delegate
-            {
-                remove_item(itm.Key);
-                flpCart.Controls.Remove(item);
-            };
-            // 
-            // numericUpDown1
-            // 
-            numericUpDown1.Location = new Point(264, 31);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Value = itm.Value.get_quantity();
-            numericUpDown1.Size = new Size(63, 20);
-            numericUpDown1.TabIndex = 67;
-            numericUpDown1.Minimum = 1;
-            numericUpDown1.ValueChanged += delegate
-            {
-                lblPrice.Text = ((float)numericUpDown1.Value * itm.Value.get_price()).ToString();
-                itm.Value.set_quantity(int.Parse(numericUpDown1.Value.ToString()));
-            };
-            flpCart.Controls.Add(item);
-        }
-
-        private void create_item_To_Pending(Order order)
-        {
-            Panel item = new Panel();
-            Label lblId = new Label();
-            Label lblPrice = new Label();
-            Label lblOrderDate = new Label();
-            // 
-            // item
-            // 
-            item.BackColor = Color.Gainsboro;
-            item.Controls.Add(lblPrice);
-            item.Controls.Add(lblId);
-            item.Controls.Add(lblOrderDate);
-            item.Location = new Point(5, 5);
-            item.Margin = new System.Windows.Forms.Padding(5);
-            item.Name = "item";
-            item.Size = new Size(541, 33);
-            item.TabIndex = 0;
-
-            // 
-            // lblPrice
-            // 
-            lblPrice.AutoSize = true;
-            lblPrice.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
-            lblPrice.ForeColor = Color.Brown;
-            lblPrice.Location = new Point(281, 9);
-            lblPrice.Name = "lblPrice";
-            lblPrice.Size = new Size(42, 18);
-            lblPrice.TabIndex = 30;
-            lblPrice.Text = order.get_totalPrice().ToString();
-            // 
-            // lblName
-            // 
-            lblId.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
-            lblId.ForeColor = Color.Brown;
-            lblId.Location = new Point(22,9);
-            lblId.Name = "lblId";
-            lblId.Size = new Size(48, 18);
-            lblId.TabIndex = 29;
-            lblId.Text = order.get_orderId().ToString();
-
-            // 
-            // lblOrderDate
-            // 
-            lblOrderDate.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
-            lblOrderDate.ForeColor = Color.Brown;
-            lblOrderDate.AutoSize = true;
-            lblOrderDate.Location = new Point(133, 9);
-            lblOrderDate.Name = "lblOrderDate";
-            lblOrderDate.TabIndex = 29;
-            lblOrderDate.Text = order.get_orderDate();
-
-
-            flpUnapproved.Controls.Add(item);
-        }
+        
+        /*Remove from cart*/
         private void remove_item(int id)
         {
             currentPatient.removeFromCart(id);
         }
+
+        /*Update Profile*/
         private void btnEdit_Click(object sender, EventArgs e)
         {
             if(btnEdit.Text == "Edit")
@@ -347,12 +358,120 @@ namespace Belshifa2.view
                 lblReply.Visible = true;
             }
         }
-
+        /*Delete Account*/
         private void btnDelete_Click(object sender, EventArgs e)
         {
             dbObj.deleteAccount(patient.get_email());
             currentPatient.signOut();
             this.Close();
+        }
+
+
+        //-------------------------------------Form---------------------------------
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void btnOrder_Click(object sender, EventArgs e)
+        {
+            lblOrderReply.Visible = true;
+            if (currentPatient.get_cart().Count > 0)
+            {
+                bool is_recorded = dbObj.makeOrder(currentPatient.get_currentUser().get_email(),
+                                    currentPatient.get_currentUser().get_address(),
+                                    currentPatient.get_cart());
+                if (is_recorded == true)
+                {
+                    lblOrderReply.Text = "Order has been recorded!\nPlease wait for an approval!";
+                    flpCart.Controls.Clear();
+                    currentPatient.clearCart();
+                }
+                else
+                    lblOrderReply.Text = "Your order is not available\nin any pharmacy!";
+            }
+            else
+                lblOrderReply.Text = "Please add items to your cart!";
+        }
+        private void btnProfile_Click(object sender, EventArgs e)
+        {
+            btnProfile.BackColor = Color.Snow;
+            btnCart.BackColor = Color.Brown;
+            btnApproved.BackColor = Color.Brown;
+            btnPending.BackColor = Color.Brown;
+
+
+            btnProfile.ForeColor = Color.Brown;
+            btnCart.ForeColor = Color.Snow;
+            btnApproved.ForeColor = Color.Snow;
+            btnPending.ForeColor = Color.Snow;
+            tbControl.SelectTab(0);
+        }
+        private void btnPending_Click(object sender, EventArgs e)
+        {
+            btnProfile.BackColor = Color.Brown;
+            btnCart.BackColor = Color.Brown;
+            btnApproved.BackColor = Color.Brown;
+            btnPending.BackColor = Color.White;
+
+
+            btnProfile.ForeColor = Color.Snow;
+            btnCart.ForeColor = Color.Snow;
+            btnApproved.ForeColor = Color.Snow;
+            btnPending.ForeColor = Color.Brown;
+
+            tbControl.SelectTab(2);
+
+
+            //string PHName = dbObj.getpharmacistunamefromOrder();
+            //if(PHName != null)
+            //{ 
+            //   MessageBox.Show(PHName + "Has Approved Your Order Please Confirm The Approval To Continue The Process of Ordering");
+            //   // 
+            //   // button1
+            //   // 
+            //   Button Confirm = new Button();
+            //   Confirm.Location = new System.Drawing.Point(281, 17);
+            //   Confirm.Name = "button1";
+            //   Confirm.Size = new System.Drawing.Size(75, 23);
+            //   Confirm.TabIndex = 67;
+            //   Confirm.Text = "Confirm";
+            //   Confirm.UseVisualStyleBackColor = true;           
+            //   Confirm.Click += new EventHandler(button1_Click);
+            //   if (btnisclicked)
+            //   {
+            //       MessageBox.Show("You've Confirmed The Order, Thank You, You will Recieve Your Order in 3 Days");                  
+            //   }
+            //   displayHistory();
+            //}
+
+        }
+        private void btnCart_Click(object sender, EventArgs e)
+        {
+            btnProfile.BackColor = Color.Brown;
+            btnCart.BackColor = Color.Snow;
+            btnApproved.BackColor = Color.Brown;
+            btnPending.BackColor = Color.Brown;
+
+            btnProfile.ForeColor = Color.Snow;
+            btnCart.ForeColor = Color.Brown;
+            btnApproved.ForeColor = Color.Snow;
+            btnPending.ForeColor = Color.Snow;
+
+            tbControl.SelectTab(1);
+        }
+        private void btnApproved_Click(object sender, EventArgs e)
+        {
+            btnProfile.BackColor = Color.Brown;
+            btnCart.BackColor = Color.Brown;
+            btnApproved.BackColor = Color.White;
+            btnPending.BackColor = Color.Brown;
+
+
+            btnProfile.ForeColor = Color.Snow;
+            btnCart.ForeColor = Color.Snow;
+            btnApproved.ForeColor = Color.Brown;
+            btnPending.ForeColor = Color.Snow;
+            tbControl.SelectTab(3);
         }
 
         //---------------------------------Moving Form-------------------------------
@@ -375,129 +494,5 @@ namespace Belshifa2.view
                 this.Location = new Point(p.X - startPoint.X, p.Y - startPoint.Y);
             }
         }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void flpCart_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void btnOrder_Click(object sender, EventArgs e)
-        {
-            lblOrderReply.Visible = true;
-            if (currentPatient.get_cart().Count>0)
-            {
-                bool is_recorded = dbObj.makeOrder(currentPatient.get_currentUser().get_email(),
-                                    currentPatient.get_currentUser().get_address(),
-                                    currentPatient.get_cart());
-                if (is_recorded == true)
-                {
-                    lblOrderReply.Text = "Order has been recorded!\nPlease wait for an approval!";
-                    flpCart.Controls.Clear();
-                    currentPatient.clearCart();
-                }
-                else
-                    lblOrderReply.Text = "Your order is not available\nin any pharmacy!";
-            }
-            else
-                lblOrderReply.Text = "Please add items to your cart!";
-        }
-
-        private void btnProfile_Click(object sender, EventArgs e)
-        {
-            btnProfile.BackColor = Color.Snow;
-            btnCart.BackColor = Color.Brown;
-            btnApproved.BackColor = Color.Brown;
-            btnPending.BackColor = Color.Brown;
-
-
-            btnProfile.ForeColor = Color.Brown;
-            btnCart.ForeColor = Color.Snow;
-            btnApproved.ForeColor = Color.Snow;
-            btnPending.ForeColor = Color.Snow;
-            tbControl.SelectTab(0);
-        }
-
-        private bool btnisclicked = false;
-        private void button1_Click(object sender, EventArgs e)
-        {
-            btnisclicked = true;
-        }
-
-        private void btnPending_Click(object sender, EventArgs e)
-        {
-            btnProfile.BackColor = Color.Brown;
-            btnCart.BackColor = Color.Brown;
-            btnApproved.BackColor = Color.Brown;
-            btnPending.BackColor = Color.White;
-
-
-            btnProfile.ForeColor = Color.Snow;
-            btnCart.ForeColor = Color.Snow;
-            btnApproved.ForeColor = Color.Snow;
-            btnPending.ForeColor = Color.Brown;
-
-            tbControl.SelectTab(2);
-
-
-             //string PHName = dbObj.getpharmacistunamefromOrder();
-             //if(PHName != null)
-             //{ 
-             //   MessageBox.Show(PHName + "Has Approved Your Order Please Confirm The Approval To Continue The Process of Ordering");
-             //   // 
-             //   // button1
-             //   // 
-             //   Button Confirm = new Button();
-             //   Confirm.Location = new System.Drawing.Point(281, 17);
-             //   Confirm.Name = "button1";
-             //   Confirm.Size = new System.Drawing.Size(75, 23);
-             //   Confirm.TabIndex = 67;
-             //   Confirm.Text = "Confirm";
-             //   Confirm.UseVisualStyleBackColor = true;           
-             //   Confirm.Click += new EventHandler(button1_Click);
-             //   if (btnisclicked)
-             //   {
-             //       MessageBox.Show("You've Confirmed The Order, Thank You, You will Recieve Your Order in 3 Days");                  
-             //   }
-             //   displayHistory();
-             //}
-         
-        }
-
-        private void btnCart_Click(object sender, EventArgs e)
-        {
-            btnProfile.BackColor = Color.Brown;
-            btnCart.BackColor = Color.Snow;
-            btnApproved.BackColor = Color.Brown;
-            btnPending.BackColor = Color.Brown;
-
-            btnProfile.ForeColor = Color.Snow;
-            btnCart.ForeColor = Color.Brown;
-            btnApproved.ForeColor = Color.Snow;
-            btnPending.ForeColor = Color.Snow;
-
-            tbControl.SelectTab(1);
-        }
-
-        private void btnApproved_Click(object sender, EventArgs e)
-        {
-            btnProfile.BackColor = Color.Brown;
-            btnCart.BackColor = Color.Brown;
-            btnApproved.BackColor = Color.White;
-            btnPending.BackColor = Color.Brown;
-
-
-            btnProfile.ForeColor = Color.Snow;
-            btnCart.ForeColor = Color.Snow;
-            btnApproved.ForeColor = Color.Brown;
-            btnPending.ForeColor = Color.Snow;
-            tbControl.SelectTab(3);
-        }
-
-     
     }
 }

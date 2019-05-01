@@ -46,6 +46,7 @@
             this.btnSignUp = new System.Windows.Forms.Button();
             this.cmBxPharmacies = new System.Windows.Forms.ComboBox();
             this.lblGoToSignUpPatient = new System.Windows.Forms.Label();
+            this.lblMessage = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.pnlTop.SuspendLayout();
@@ -251,12 +252,25 @@
             this.lblGoToSignUpPatient.Text = "Sign Up As Patient";
             this.lblGoToSignUpPatient.Click += new System.EventHandler(this.lblGoToSignUpPatient_Click);
             // 
+            // lblMessage
+            // 
+            this.lblMessage.AutoSize = true;
+            this.lblMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMessage.ForeColor = System.Drawing.Color.Brown;
+            this.lblMessage.Location = new System.Drawing.Point(275, 425);
+            this.lblMessage.Name = "lblMessage";
+            this.lblMessage.Size = new System.Drawing.Size(58, 15);
+            this.lblMessage.TabIndex = 35;
+            this.lblMessage.Text = "Message";
+            this.lblMessage.Visible = false;
+            // 
             // Form4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Snow;
             this.ClientSize = new System.Drawing.Size(725, 473);
+            this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.lblGoToSignUpPatient);
             this.Controls.Add(this.cmBxPharmacies);
             this.Controls.Add(this.btnSignUp);
@@ -302,5 +316,6 @@
         private System.Windows.Forms.Button btnSignUp;
         private System.Windows.Forms.ComboBox cmBxPharmacies;
         private System.Windows.Forms.Label lblGoToSignUpPatient;
+        private System.Windows.Forms.Label lblMessage;
     }
 }

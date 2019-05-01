@@ -1,0 +1,108 @@
+insert into section values(1,'Baby_Care');
+insert into section values(2,'Hair_care');
+insert into section values(3,'Body_Care');
+insert into section values(4,'Pills');
+insert into section values(5,'Dental');
+insert into section values(6,'Nutrition');
+
+insert into Medicine
+values(1,'Pampers', 130, 'An Alergie', 'For kids from 1 year to 4 years', 'None', 'None', 'None', 1,'');
+
+insert into Medicine
+values(2, 'Moisturizer', 60, 'None', 'For all kids', 'Dont touch eyes', 'None', 'None', 1, '');
+
+insert into Medicine
+values(3, 'Johsnons', 70, 'None', 'For washing hair', 'None', 'None', 'None', 1,'');
+
+insert into Medicine
+values(4, 'Conditionar', 65, 'None', 'For washing hair', 'None', 'None', 'NOne',1,'');
+
+
+insert into Medicine
+values(5, 'SunSilk', 55, 'None', 'For washing hair', 'None', 'None', 'None', 2,'');
+
+insert into Medicine
+values(6, 'HeadnShoulders', 60, 'None', 'For washing hair', 'None', 'None', 'None', 2,'');
+
+insert into Medicine
+values(7, 'Clear', 62, 'None', 'For washing hair', 'None', 'None', 'None', 2, '');
+
+insert into Medicine
+values(8, 'Pantene', 60, 'None', 'For washing hair', 'None', 'None', 'None', 2, '');
+
+
+insert into Medicine
+values(9, 'Nivea', 34, 'An allergie', 'Hand Cream', 'Dont touch eyes', 'None', 'None', 3,'');
+
+insert into Medicine
+values(10, 'Vaseleine', 70, 'An allergie from coco', 'Body Lotion', 'None', 'None', 'None', 3,'');
+
+insert into Medicine
+values(11, 'Dove', 75, 'None', 'Body Lotion', 'None', 'None', 'None',3, '');
+
+insert into Medicine
+values(12, 'Tooth Brush', 34, 'None', 'For Teeth', 'Dont swallow', 'None', 'None', 4, '');
+
+insert into Medicine
+values(13, 'Colgate', 40, 'None', 'Tooth Paste', 'Dont swallow', 'None', 'None', 4, '');
+
+insert into Medicine
+values(14, 'Close Up', 42, 'None', 'Tooth Paste', 'Dont swallow', 'None', 'None', 4, '');
+
+
+
+insert into Medicine
+values(15, 'Omega 3', 150, 'Put on some Wait', 'Lack of vitamins in body', 'Dont overdose', 'With Omega 4', 'None', 6, '');
+
+insert into Medicine
+values(16, 'Vitamin F', 200, 'Put on some Wait', 'Lack of vitamins in body', 'Dont overdose', 'With Vitamin E ', 'None', 6, '');
+
+insert into Medicine
+values(17, 'Vitamin D', 120, 'None', 'Not having sunlight enough', 'Dont overdose', 'With Vitamin A ', 'None', 6, '');
+
+insert into Medicine
+values(18,'Panadol', 30, 'Quick blood flow', 'Headache', 'Exhausts the kidney', 'Medicines for headache', 'None', 5, '');
+
+insert into Medicine
+values(19, 'Abimol', 29, 'Sleeping', 'High temper', 'Exhausts the kidney', 'None', 'None', 5,'');
+
+insert into Medicine
+values(20,'Moove', 60,'Redness', 'Pain Killer', 'None', 'None', 'None', 5,'');
+
+
+insert into Pharmacy values(1,'MisrElGdida', 'Ezaby')
+insert into pharmacy values(2, 'Sheraton', 'Seif')
+insert into pharmacy values(3, 'Ramsis', 'Ramsis')
+insert into pharmacy values(4, 'Mohndseen', 'DrRasha')
+insert into pharmacy values(5, 'Mohndseen', 'Ahmed')
+
+
+insert into gets values
+(1,1,35);
+
+insert into gets values
+(2,1,40);
+
+insert into gets values
+(3,1,10);
+
+insert into gets values
+(4,1,10);
+
+insert into gets values
+(5,1,25);
+
+insert into gets values
+(1,11,7);
+
+insert into gets values
+(2,10,15);
+
+insert into gets values
+(3,10,10);
+
+insert into gets values
+(4,11,8);
+
+insert into gets values
+(5,14,2);

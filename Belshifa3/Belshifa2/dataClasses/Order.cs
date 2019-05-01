@@ -27,37 +27,30 @@ namespace Belshifa2.dataClasses
             this.ph_username = ph_username;
             this.pharmacy_id = pharmacy_id;
         }
-
         public int get_orderId()
         {
             return this.orderId;
         }
-
         public string get_deliveryDate()
         {
             return this.deliveryDate;
         }
-
         public string get_orderDate()
         {
             return this.orderDate;
         }
-
         public float get_totalPrice()
         {
             return this.totalPrice;
         }
-
         public string get_patient_email()
         {
             return this.patient_email;
         }
-
         public string get_ph_username()
         {
             return this.ph_username;
         }
-
         public int get_pharmacy_id()
         {
             return this.pharmacy_id;

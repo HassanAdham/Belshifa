@@ -49,7 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CurrentPatient.cs" />
+    <Compile Include="dataClasses\CurrentPatient.cs" />
     <Compile Include="dataClasses\Medicine.cs" />
     <Compile Include="dataClasses\Order.cs" />
     <Compile Include="dataClasses\Patient.cs" />
@@ -64,11 +64,11 @@
     <Compile Include="view\MedicineAttributes.Designer.cs">
       <DependentUpon>MedicineAttributes.cs</DependentUpon>
     </Compile>
-    <Compile Include="view\Pharm%27sForm.cs">
+    <Compile Include="view\Notify.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\Pharm%27sForm.Designer.cs">
-      <DependentUpon>Pharm%27sForm.cs</DependentUpon>
+    <Compile Include="view\Notify.Designer.cs">
+      <DependentUpon>Notify.cs</DependentUpon>
     </Compile>
     <Compile Include="view\PharmForm.cs">
       <SubType>Form</SubType>
@@ -111,8 +111,8 @@
     <EmbeddedResource Include="view\MedicineAttributes.resx">
       <DependentUpon>MedicineAttributes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="view\Pharm%27sForm.resx">
-      <DependentUpon>Pharm%27sForm.cs</DependentUpon>
+    <EmbeddedResource Include="view\Notify.resx">
+      <DependentUpon>Notify.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\PharmForm.resx">
       <DependentUpon>PharmForm.cs</DependentUpon>

@@ -34,7 +34,8 @@ namespace Belshifa2
             string[] arr = cmBxPharmacies.SelectedItem.ToString().Split(' ');
             int pharm_id = int.Parse(arr[0]);
             Pharmacist pharmacist = new Pharmacist(txtBxUsername.Text, txtbxPassword.Text, pharm_id);
-            dbObj.signUp(pharmacist, true);
+            lblMessage.Text = dbObj.signUp(pharmacist, true);
+            lblMessage.Visible = true;
         }
 
         //----------------------------Form--------------------------------

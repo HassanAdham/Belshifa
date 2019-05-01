@@ -40,6 +40,7 @@ namespace Belshifa2
             this.pnlTop = new System.Windows.Forms.Panel();
             this.btnMinimize = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnNotify = new System.Windows.Forms.Button();
             this.btnSignUp = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -150,6 +151,7 @@ namespace Belshifa2
             // 
             // txtBxSearch
             // 
+            this.txtBxSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBxSearch.Location = new System.Drawing.Point(64, 4);
             this.txtBxSearch.Multiline = true;
             this.txtBxSearch.Name = "txtBxSearch";
@@ -219,6 +221,7 @@ namespace Belshifa2
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Brown;
+            this.panel1.Controls.Add(this.btnNotify);
             this.panel1.Controls.Add(this.btnSignUp);
             this.panel1.Controls.Add(this.Loginregister);
             this.panel1.Controls.Add(this.txtBxSearch);
@@ -227,6 +230,22 @@ namespace Belshifa2
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1027, 35);
             this.panel1.TabIndex = 8;
+            // 
+            // btnNotify
+            // 
+            this.btnNotify.BackColor = System.Drawing.Color.Brown;
+            this.btnNotify.FlatAppearance.BorderSize = 0;
+            this.btnNotify.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNotify.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNotify.ForeColor = System.Drawing.Color.Snow;
+            this.btnNotify.Location = new System.Drawing.Point(745, 0);
+            this.btnNotify.Name = "btnNotify";
+            this.btnNotify.Size = new System.Drawing.Size(71, 36);
+            this.btnNotify.TabIndex = 4;
+            this.btnNotify.Text = "Notify";
+            this.btnNotify.UseVisualStyleBackColor = false;
+            this.btnNotify.Visible = false;
+            this.btnNotify.Click += new System.EventHandler(this.btnNotify_Click);
             // 
             // btnSignUp
             // 
@@ -391,6 +410,7 @@ namespace Belshifa2
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel6.Controls.Add(this.label1);
             this.panel6.Controls.Add(this.pictureBox2);
             this.panel6.Location = new System.Drawing.Point(10, 10);
@@ -880,6 +900,7 @@ namespace Belshifa2
             // 
             // timerCommercial
             // 
+            this.timerCommercial.Enabled = true;
             this.timerCommercial.Interval = 3000;
             this.timerCommercial.Tick += new System.EventHandler(this.timerCommercial_Tick);
             // 
@@ -1019,6 +1040,7 @@ namespace Belshifa2
         private PictureBox picBoxCommercial2;
         private PictureBox picBxCommercial1;
         private Timer timerCommercial;
+        private Button btnNotify;
     }
 }
 

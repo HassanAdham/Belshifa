@@ -23,12 +23,10 @@ namespace Belshifa2.dataClasses
         {
             return id;
         }
-
         public string get_name()
         {
             return name;
         }
-
         public string get_address()
         {
             return address;

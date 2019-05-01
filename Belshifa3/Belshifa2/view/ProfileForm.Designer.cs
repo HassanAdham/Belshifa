@@ -430,7 +430,6 @@
             this.flpCart.Name = "flpCart";
             this.flpCart.Size = new System.Drawing.Size(579, 252);
             this.flpCart.TabIndex = 55;
-            this.flpCart.Paint += new System.Windows.Forms.PaintEventHandler(this.flpCart_Paint);
             // 
             // item
             // 
@@ -727,6 +726,7 @@
             // 
             // flpHistory
             // 
+            this.flpHistory.AutoScroll = true;
             this.flpHistory.BackColor = System.Drawing.Color.White;
             this.flpHistory.Controls.Add(this.panel4);
             this.flpHistory.Location = new System.Drawing.Point(92, 112);

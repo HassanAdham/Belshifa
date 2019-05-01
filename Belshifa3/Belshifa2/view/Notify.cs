@@ -7,49 +7,53 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Belshifa2.dataClasses;
 using Belshifa2.model;
+using Belshifa2.dataClasses;
 
-namespace Belshifa2
+namespace Belshifa2.view
 {
-    public partial class Form3 : Form
+    public partial class Notify : Form
     {
-        //Patient Sign Up.
         SystemDatabase dbObj;
-        public Form3()
+        CurrentPatient currentPatient;
+        public Notify()
         {
             InitializeComponent();
             dbObj = new SystemDatabase();
+            currentPatient = new CurrentPatient();
         }
 
-        private void btnSignUp_Click(object sender, EventArgs e)
+        private void Notify_Load(object sender, EventArgs e)
         {
-            Patient patient = new Patient(txtBxFName.Text, txtBxLastName.Text, txtBxPassword.Text,
-                                cmBxAddress.Text, txtBxPhone.Text, txtBxEmail.Text, cmbBxPayment.Text, dtPickerBirthdate.Text);
-            lblMessage.Text = dbObj.signUp(patient, false);
-            lblMessage.Visible = true;
+            foreach (string s in currentPatient.get_notifications())
+            {
+                rchTxtBx.Text += "-" + s + "\n\n";
+            }
+        }
+        private void btnOkay_Click(object sender, EventArgs e)
+        {
+
+            string reply = dbObj.seenNofitifications(currentPatient.get_currentUser().get_email());
+            if (reply == "Seen")
+            {
+                this.Close();
+                currentPatient.clearNotificiationsList();
+            }
+            else
+            {
+                lblReply.Text = "Failed, please check your connection!";
+                lblReply.Visible = true;
+            }
         }
 
-        //---------------------------------Form-------------------------------------
-        private void Form3_Load(object sender, EventArgs e)
-        {
-            dtPickerBirthdate.Format = DateTimePickerFormat.Custom;
-            dtPickerBirthdate.CustomFormat = "dd-MMM-yyyy";
-        }
-        private void lblGoToSignUpPharmacist_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            Form4 signUpPharmacist = new Form4();
-            signUpPharmacist.ShowDialog();
-            this.Close();
-        }
+        //-----------------==--------------Form-------------------------------------
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
         //---------------------------------Moving Form-------------------------------
         bool mouseDown = false;
-        Point startPoint;
+        Point startPoint; //Where the mouse has
         private void pnlTop_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
