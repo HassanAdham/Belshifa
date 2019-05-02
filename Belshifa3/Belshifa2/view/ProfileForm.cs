@@ -32,7 +32,7 @@ namespace Belshifa2.view
             if (patient != null)
             {
                 lblEmail.Text = patient.get_email();
-                txtBxAddress.Text = patient.get_address();
+                cmBxAddress.Text = patient.get_address();
                 txtBxFName.Text = patient.get_f_name();
                 txtBxLastName.Text = patient.get_l_name();
                 txtBxPassword.Text = patient.get_password();
@@ -332,7 +332,7 @@ namespace Belshifa2.view
                 txtBxPhone.Enabled = true;
                 txtBxPassword.Enabled = true;
                 txtBxFName.Enabled = true;
-                txtBxAddress.Enabled = true;
+                cmBxAddress.Enabled = true;
                 txtBxLastName.Enabled = true;
                 cmbBxPayment.Enabled = true;
                 dtPickerBirthdate.Enabled = true;
@@ -344,14 +344,14 @@ namespace Belshifa2.view
                 txtBxPhone.Enabled = false;
                 txtBxPassword.Enabled = false;
                 txtBxFName.Enabled = false;
-                txtBxAddress.Enabled = false;
+                cmBxAddress.Enabled = false;
                 txtBxLastName.Enabled = false;
                 cmbBxPayment.Enabled = false;
                 dtPickerBirthdate.Enabled = false;
 
                 btnEdit.Text = "Edit";
                 Patient editedPatient = new Patient(txtBxFName.Text, txtBxLastName.Text,
-                                                    txtBxPassword.Text, txtBxAddress.Text,
+                                                    txtBxPassword.Text, cmBxAddress.Text,
                                                     txtBxPhone.Text, patient.get_email(),
                                                     cmbBxPayment.Text, dtPickerBirthdate.Text);
                 lblReply.Text = dbObj.updateProfile(editedPatient);

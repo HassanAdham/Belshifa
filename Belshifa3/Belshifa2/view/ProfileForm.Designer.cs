@@ -39,7 +39,6 @@
             this.cmbBxPayment = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.txtBxAddress = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtBxPhone = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -95,6 +94,7 @@
             this.btnCart = new System.Windows.Forms.Button();
             this.btnProfile = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.cmBxAddress = new System.Windows.Forms.ComboBox();
             this.pnlTop.SuspendLayout();
             this.tbControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -155,6 +155,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.cmBxAddress);
             this.tabPage1.Controls.Add(this.lblReply);
             this.tabPage1.Controls.Add(this.btnDelete);
             this.tabPage1.Controls.Add(this.btnEdit);
@@ -162,7 +163,6 @@
             this.tabPage1.Controls.Add(this.cmbBxPayment);
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.label7);
-            this.tabPage1.Controls.Add(this.txtBxAddress);
             this.tabPage1.Controls.Add(this.label11);
             this.tabPage1.Controls.Add(this.txtBxPhone);
             this.tabPage1.Controls.Add(this.label6);
@@ -266,22 +266,12 @@
             this.label7.TabIndex = 60;
             this.label7.Text = "Payment";
             // 
-            // txtBxAddress
-            // 
-            this.txtBxAddress.Enabled = false;
-            this.txtBxAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.txtBxAddress.Location = new System.Drawing.Point(102, 198);
-            this.txtBxAddress.Multiline = true;
-            this.txtBxAddress.Name = "txtBxAddress";
-            this.txtBxAddress.Size = new System.Drawing.Size(197, 30);
-            this.txtBxAddress.TabIndex = 59;
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Brown;
-            this.label11.Location = new System.Drawing.Point(99, 174);
+            this.label11.Location = new System.Drawing.Point(99, 173);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(66, 16);
             this.label11.TabIndex = 58;
@@ -907,6 +897,15 @@
             this.panel6.Size = new System.Drawing.Size(727, 2);
             this.panel6.TabIndex = 29;
             // 
+            // cmBxAddress
+            // 
+            this.cmBxAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.cmBxAddress.FormattingEnabled = true;
+            this.cmBxAddress.Location = new System.Drawing.Point(102, 205);
+            this.cmBxAddress.Name = "cmBxAddress";
+            this.cmBxAddress.Size = new System.Drawing.Size(197, 32);
+            this.cmBxAddress.TabIndex = 67;
+            // 
             // ProfileForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -962,7 +961,6 @@
         private System.Windows.Forms.ComboBox cmbBxPayment;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtBxAddress;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtBxPhone;
         private System.Windows.Forms.Label label6;
@@ -1019,5 +1017,6 @@
         private System.Windows.Forms.Button btnCart;
         private System.Windows.Forms.Button btnProfile;
         private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.ComboBox cmBxAddress;
     }
 }

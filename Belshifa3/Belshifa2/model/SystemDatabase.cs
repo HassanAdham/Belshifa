@@ -773,21 +773,20 @@ namespace Belshifa2.model
             }
         }
 
+
         //-----------------------------------------Pharmacist----------------------------------------
         /*Master-Detail*/
         DataSet dataset;
         OracleDataAdapter adapt2;
+        OracleDataAdapter adapt1;
         /*B.2 Select all rows from section table, B.4 Master-Detail*/
         public DataSet MasterDetails(int pharmacy_id)
         {
             dataset = new DataSet();
             string cmdtext1 = "select * from section";
-            string cmdtext2 = @"select medicine.*, gets.Pharmacy_id
-                                from medicine, gets
-                                where medicine.m_id = gets.m_id
-                                and gets.pharmacy_id = :id";
+            string cmdtext2 = @"select * from medicine";
 
-            OracleDataAdapter adapt1 = new OracleDataAdapter(cmdtext1, ordb);
+            adapt1 = new OracleDataAdapter(cmdtext1, ordb);
             adapt2 = new OracleDataAdapter(cmdtext2, ordb);
 
             adapt2.SelectCommand.Parameters.Add("id", pharmacy_id);
@@ -805,7 +804,10 @@ namespace Belshifa2.model
         /*B.3 Insert, update, delete using command builder*/
         public void disconnectedSave()
         {
-            OracleCommandBuilder builder = new OracleCommandBuilder(adapt2);
+            OracleCommandBuilder builder = new OracleCommandBuilder(adapt1);
+            adapt1.Update(dataset.Tables[0]);
+
+            OracleCommandBuilder builder2 = new OracleCommandBuilder(adapt2);
             adapt2.Update(dataset.Tables[1]);
         }
         //--------------------------------------------------------------------------------------------
