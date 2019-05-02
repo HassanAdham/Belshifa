@@ -24,7 +24,7 @@ namespace Belshifa2.model
             areas = new Dictionary<string, int>();
             pharmacyList = new List<Pharmacy>();
             //-----------------------------------
-            ordb = "Data source = orcl;user id=hr; password =hr";
+            ordb = "Data source = oracle;user id=scott; password =tiger";
             conn = new OracleConnection(ordb);
             conn.Open();
             //----------------------------------
