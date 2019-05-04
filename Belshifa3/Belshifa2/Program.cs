@@ -16,7 +16,7 @@ namespace Belshifa2
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CrystalReports());
+            Application.Run(new Form1());
         }
     }
 }

@@ -105,12 +105,13 @@ namespace Belshifa2.view
             // 
             // picBx
             // 
-            picBx.BackColor = Color.Gray;
             picBx.Location = new Point(19, 9);
             picBx.Name = "picBx";
             picBx.Size = new Size(80, 60);
             picBx.TabIndex = 0;
             picBx.TabStop = false;
+            picBx.BackgroundImage = new Bitmap(itm.Value.get_image());
+            picBx.BackgroundImageLayout = ImageLayout.Zoom;
             // 
             // lblPrice
             // 

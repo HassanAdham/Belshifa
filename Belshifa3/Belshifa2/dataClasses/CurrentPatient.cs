@@ -12,12 +12,14 @@ namespace Belshifa2
         int quantity;
         float price; //price per each item.
         string name;
+        string img;
 
-        public MedicineInfo(int quantity, float price, string name)
+        public MedicineInfo(int quantity, float price, string name, string img)
         {
             this.quantity = quantity;
             this.price = price;
             this.name = name;
+            this.img = img;
         }
 
         public void set_quantity(int quantity)
@@ -36,6 +38,10 @@ namespace Belshifa2
         public string get_name()
         {
             return this.name;
+        }
+        public string get_image()
+        {
+            return this.img;
         }
     }
 
@@ -67,9 +73,9 @@ namespace Belshifa2
         }
 
         //-----------------------------------------Cart------------------------------------
-        public void addToCart(int id, int quantity, float price, string name)
+        public void addToCart(int id, int quantity, float price, string name, string img)
         {
-            MedicineInfo qp = new MedicineInfo(quantity, price, name);
+            MedicineInfo qp = new MedicineInfo(quantity, price, name, img);
             cart[id] = qp;
         }
         /*Returning cart to be displayed in the cart list.*/

@@ -22,9 +22,10 @@ namespace Belshifa2.view
         private string usage;
         private int quantity;
         private string name;
+        private string img;
 
         public MedicineAttributes(int m_id, string name, string precautions, string ddInteraction,
-                                  string dfInteraction, string usage, string side_effects, float price)
+                                  string dfInteraction, string usage, string side_effects, float price, string img)
         {
             InitializeComponent();
 
@@ -35,6 +36,7 @@ namespace Belshifa2.view
             this.name = name;
             this.usage = usage;
             this.price = price;
+            this.img = img;
             lblName.Text = name;
             lblUsage.Text = usage;
             btnMedicinePage.Text = name;
@@ -206,7 +208,7 @@ namespace Belshifa2.view
             btnAddToCart.UseVisualStyleBackColor = false;
             btnAddToCart.Click += delegate
             {
-                add_To_Cart(medicine.get_id(), int.Parse(numericUD.Value.ToString()),medicine.get_price(), medicine.get_name());
+                add_To_Cart(medicine.get_id(), int.Parse(numericUD.Value.ToString()),medicine.get_price(), medicine.get_name(), medicine.get_image_src());
             };
             // 
             // numericUpDown
@@ -243,11 +245,11 @@ namespace Belshifa2.view
             flpSimilars.Controls.Add(pnlMedicineFloor);
         }
 
-        private void add_To_Cart(int id, int quantity, float price, string name)
+        private void add_To_Cart(int id, int quantity, float price, string name, string img)
         {
             if(currentPatient.get_currentUser() != null)
             {
-                currentPatient.addToCart(id, quantity, price, name);
+                currentPatient.addToCart(id, quantity, price, name, img);
             }
             else
             {
@@ -265,7 +267,7 @@ namespace Belshifa2.view
             }
             else
             {
-                currentPatinet.addToCart(this.m_id, this.quantity, this.price, this.name);
+                currentPatinet.addToCart(this.m_id, this.quantity, this.price, this.name, this.img);
             }
         }
 
@@ -290,6 +292,11 @@ namespace Belshifa2.view
             btnSimilarsPage.BackColor = Color.Snow;
             btnSimilarsPage.ForeColor = Color.Brown;
             tbControl.SelectTab(1);
+        }
+
+        private void pnlTop_MouseDown(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }

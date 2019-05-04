@@ -95,7 +95,6 @@ namespace Belshifa2
             PictureBox pictureBox = new PictureBox();
             Label label = new Label();
 
-            pictureBox.BackColor = Color.Gainsboro;
             pictureBox.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox.BorderStyle = BorderStyle.FixedSingle;
             pictureBox.ImageLocation = "";
@@ -103,6 +102,7 @@ namespace Belshifa2
             pictureBox.Name = medicine.get_id().ToString();
             pictureBox.Size = new Size(163, 133);
             pictureBox.TabStop = false;
+            pictureBox.BackgroundImage = new Bitmap(medicine.get_image_src());
             pictureBox.Click += delegate
             {
                 getAllAttributesOfMedicine(medicine);
@@ -139,7 +139,7 @@ namespace Belshifa2
             MedicineAttributes medicineAttributesForm = new MedicineAttributes(medicine.get_id(),
                 medicine.get_name(), medicine.get_precautions(), medicine.get_drug_drug_interaction(),
                 medicine.get_drug_food_interaction(), medicine.get_usage(), medicine.get_side_effects(),
-                medicine.get_price());
+                medicine.get_price(), medicine.get_image_src());
 
             medicineAttributesForm.ShowDialog();
         }
@@ -253,6 +253,12 @@ namespace Belshifa2
             {
                 ProfileForm pf = new ProfileForm();
                 pf.ShowDialog();
+                if(currentPatient.get_currentUser() == null)
+                {
+                    Loginregister.Text = "Sign In";
+                    btnSignUp.Text = "Sign Up";
+                    btnNotify.Visible = false;
+                }
             }
 
         }

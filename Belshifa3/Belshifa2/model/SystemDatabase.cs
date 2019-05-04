@@ -7,6 +7,7 @@ using System.Data;
 using Oracle.DataAccess.Client;
 using Oracle.DataAccess.Types;
 using Belshifa2.dataClasses;
+using System.Text.RegularExpressions;
 
 namespace Belshifa2.model
 {
@@ -24,7 +25,7 @@ namespace Belshifa2.model
             areas = new Dictionary<string, int>();
             pharmacyList = new List<Pharmacy>();
             //-----------------------------------
-            ordb = "Data source = oracle;user id=scott; password =tiger";
+            ordb = "Data source = orcl;user id=hr; password =hr";
             conn = new OracleConnection(ordb);
             conn.Open();
             //----------------------------------
@@ -72,13 +73,13 @@ namespace Belshifa2.model
         }
 
         //-------------------------------------User--------------------------------------
+        /*A.2 select one or more rows using bind variables*/
         public string signIn(string username, string password, bool type)
         {
             string message = "";
             //Patient
             if (type == false)
             {
-                //Step A.2
                 cmd = new OracleCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "select EMAIL , P_PASSWORD from PATIENT where EMAIL = :em and P_PASSWORD = :pass";
@@ -147,68 +148,125 @@ namespace Belshifa2.model
 
             return message;
         }
-        //A.3 Insert & A.6 Insert
+        //A.3 Insert using CommandType.Text and binding variables. & A.6 Insert using Parameterized Procedure.
         public string signUp(object person, bool type)
         {
             string message = "";
-            cmd = new OracleCommand();
-            cmd.Connection = conn;
-            //A.3 Insert using CommandType.Text and binding variables.
+            //A.3 
             //Patient
             if (!type)
             {
                 Patient patient = (Patient)person;
-                cmd.CommandText = @"Insert into Patient
-                                    values(:email, :p_fname, :p_lname, :address, :phone, :payment, :birthdate, :p_password)";
-                cmd.CommandType = System.Data.CommandType.Text;
-                cmd.Parameters.Add("email", patient.get_email().ToString().ToString());
-                cmd.Parameters.Add("p_fname", patient.get_f_name().ToString());
-                cmd.Parameters.Add("p_lname", patient.get_l_name().ToString());
-                cmd.Parameters.Add("address", patient.get_address().ToString());
-                cmd.Parameters.Add("phone", patient.get_phone().ToString());
-                cmd.Parameters.Add("payment", patient.get_payment().ToString());
-                cmd.Parameters.Add("birthdate", patient.get_birthdate().ToString());
-                cmd.Parameters.Add("p_password", patient.get_password().ToString());
-
-                try
+                if (patient.get_f_name() == "" || patient.get_l_name() == "" || patient.get_password() == "" ||
+                patient.get_phone() == "" || patient.get_payment() == "" || patient.get_address() == "")
                 {
-                    int numOfRowsAffected = cmd.ExecuteNonQuery();
-                    if (numOfRowsAffected == 1)
-                        message = "Account is created successfully!";
+                    message = "Please, don't leave empty fields!";
+                }
+                else
+                {
+                    string temp = EmailIsValid(patient.get_email());
+                    if ( temp == "Valid")
+                    {
+                        cmd = new OracleCommand();
+                        cmd.Connection = conn;
+                        cmd.CommandText = @"Insert into Patient
+                                values(:email, :p_fname, :p_lname, :address, :phone, :payment, :birthdate, :p_password)";
+                        cmd.CommandType = System.Data.CommandType.Text;
+                        cmd.Parameters.Add("email", patient.get_email().ToString().ToString());
+                        cmd.Parameters.Add("p_fname", patient.get_f_name().ToString());
+                        cmd.Parameters.Add("p_lname", patient.get_l_name().ToString());
+                        cmd.Parameters.Add("address", patient.get_address().ToString());
+                        cmd.Parameters.Add("phone", patient.get_phone().ToString());
+                        cmd.Parameters.Add("payment", patient.get_payment().ToString());
+                        cmd.Parameters.Add("birthdate", patient.get_birthdate().ToString());
+                        cmd.Parameters.Add("p_password", patient.get_password().ToString());
+                        int numOfRowsAffected = cmd.ExecuteNonQuery();
+                        try
+                        {
+                            if (numOfRowsAffected == 1)
+                                message = "Account is created successfully!";
+                            else
+                                message = "Please make sure of your input!";
+                        }
+                        catch
+                        {
+                            message = "Error connecting to the database";
+                        }
+                    }
                     else
-                        message = "Please make sure of your input!";
+                    {
+                        message = temp;
+                    }
                 }
-                catch
-                {
-                    message = "Error connecting to the database";
-                }
+
             }
-            //A.6 Insert using Parameterized Procedure.
+            //A.6
             //Pharmacist.
             else
             {
                 Pharmacist pharmacist = (Pharmacist)person;
-                cmd.CommandText = "addPharmacist";
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.Add("username", pharmacist.get_username());
-                cmd.Parameters.Add("password", pharmacist.get_password());
-                cmd.Parameters.Add("id", pharmacist.get_pharmacy_id().ToString());
-
-                try
+                if(pharmacist.get_password() == "" || pharmacist.get_username() == "")
                 {
-                    int numOfRowsAffected = cmd.ExecuteNonQuery();
-                    if (numOfRowsAffected == 1)
-                        message = "Account is created successfully!";
-                    else
-                        message = "Please make sure of your input!";
+                    message = "Please, don't leave empty fields!";
                 }
-                catch
+                else
                 {
-                    message = "Error connecting to the database";
+                    if (usernameIsValid(pharmacist.get_username()))
+                    {
+                        cmd = new OracleCommand();
+                        cmd.Connection = conn;
+                        cmd.CommandText = "addPharmacist";
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add("username", pharmacist.get_username());
+                        cmd.Parameters.Add("password", pharmacist.get_password());
+                        cmd.Parameters.Add("id", pharmacist.get_pharmacy_id().ToString());
+
+                        try
+                        {
+                            int numOfRowsAffected = cmd.ExecuteNonQuery();
+                            message = "Account is created successfully!";
+                        }
+                        catch
+                        {
+                            message = "Error connecting to the database";
+                        }
+                    }
+                    else
+                        message = "Username is already used";
                 }
             }
             return message;
         }
+
+        private string EmailIsValid(string email)
+        {
+            cmd = new OracleCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "select email from patient where email = :em";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("email", email);
+            OracleDataReader dr = cmd.ExecuteReader();
+            if(dr.Read())
+                return "Email is already used";
+
+            if(!Regex.IsMatch(email, @"^([\w-.]+)@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.)|(([\w-]+.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(]?)$"))
+                return "Email Is not on the Same Formate of \n(username@example.com)";
+            return "Valid";
+        }
+        private bool usernameIsValid(string username)
+        {
+            cmd = new OracleCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "select ph_username from pharmacist where ph_username = :em";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("username", username);
+            OracleDataReader dr = cmd.ExecuteReader();
+            if (dr.Read())
+                return false;
+            else
+                return true;
+        }
+
         //A.4 select one row using procedure using out parameters.
         public object getProfile(string key, bool type)
         {
@@ -342,7 +400,8 @@ namespace Belshifa2.model
 
             cmd = new OracleCommand();
             cmd.Connection = conn;
-            cmd.CommandText = @"Delete from Orderr where email = :paramEmail";
+            cmd.CommandText = "deleteOrder";
+            cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("paramEmail", email);
             int y = cmd.ExecuteNonQuery(); //Return number of rows affected.
             cmd.Dispose();
@@ -546,17 +605,16 @@ namespace Belshifa2.model
         /*B.1 Select a certain rows for a given value entered by the user on the form.*/
         public Medicine SearchForMedicine(string MedicineName)
         {
-            string cmdtext = "select * from MEDICINE where M_NAME = :medicinename";
+            string cmdtext = "select * from MEDICINE where Lower(M_NAME) = Lower(:medicinename)";
             OracleDataAdapter adapt = new OracleDataAdapter(cmdtext, ordb);
             adapt.SelectCommand.Parameters.Add("medicinename", MedicineName);
             DataSet ds = new DataSet();
             adapt.Fill(ds);
-
             if (ds.Tables[0].Rows.Count == 1)
             {
                 DataRow dr = ds.Tables[0].Rows[0];
                 Medicine m = new Medicine(int.Parse(dr[0].ToString()), dr[1].ToString(), float.Parse(dr[2].ToString()),
-                    dr[3].ToString(), dr[4].ToString(), dr[5].ToString(), dr[6].ToString(), dr[7].ToString(), int.Parse(dr[8].ToString()), dr[8].ToString());
+                    dr[3].ToString(), dr[4].ToString(), dr[5].ToString(), dr[6].ToString(), dr[7].ToString(), int.Parse(dr[8].ToString()), dr[9].ToString());
                 return m;
             }
             else
@@ -784,12 +842,10 @@ namespace Belshifa2.model
         {
             dataset = new DataSet();
             string cmdtext1 = "select * from section";
-            string cmdtext2 = @"select * from medicine";
+            string cmdtext2 = "select * from medicine";
 
             adapt1 = new OracleDataAdapter(cmdtext1, ordb);
             adapt2 = new OracleDataAdapter(cmdtext2, ordb);
-
-            adapt2.SelectCommand.Parameters.Add("id", pharmacy_id);
 
             adapt1.Fill(dataset, "Sections");
             adapt2.Fill(dataset, "Medicines");

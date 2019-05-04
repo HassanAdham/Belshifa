@@ -31,11 +31,19 @@ namespace Belshifa2
         }
         private void btnSignUp_Click(object sender, EventArgs e)
         {
-            string[] arr = cmBxPharmacies.SelectedItem.ToString().Split(' ');
-            int pharm_id = int.Parse(arr[0]);
-            Pharmacist pharmacist = new Pharmacist(txtBxUsername.Text, txtbxPassword.Text, pharm_id);
-            lblMessage.Text = dbObj.signUp(pharmacist, true);
-            lblMessage.Visible = true;
+            if(cmBxPharmacies.Text != "")
+            {
+                string[] arr = cmBxPharmacies.SelectedItem.ToString().Split(' ');
+                int pharm_id = int.Parse(arr[0]);
+                Pharmacist pharmacist = new Pharmacist(txtBxUsername.Text, txtbxPassword.Text, pharm_id);
+                lblMessage.Text = dbObj.signUp(pharmacist, true);
+                lblMessage.Visible = true;
+            }
+            else
+            {
+                lblMessage.Text = "Please, don't leave empty fields!";
+                lblMessage.Visible = true;
+            }
         }
 
         //----------------------------Form--------------------------------
